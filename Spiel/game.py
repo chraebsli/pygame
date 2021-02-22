@@ -66,6 +66,13 @@ skin2_skinscreen = pygame.image.load(path + "images/skinsscreen/skin2.png")
 skin3_skinscreen = pygame.image.load(path + "images/skinsscreen/skin3.png")
 skin4_skinscreen = pygame.image.load(path + "images/skinsscreen/skin4.png")
 skins_skinscreen = [skin1_skinscreen,skin2_skinscreen,skin3_skinscreen,skin4_skinscreen]
+message_skin_one = pygame.image.load(path + "images/skinsscreen/Message_One.png")
+skin_one = pygame.image.load(path + "images/gamescreen/skins/skin1.png")
+skin_two = pygame.image.load(path + "images/gamescreen/skins/skin2.png")
+skin_three = pygame.image.load(path + "images/gamescreen/skins/skin3.png")
+skin_four = pygame.image.load(path + "images/gamescreen/skins/skin4.png")
+skins = [skin_one,skin_two,skin_three,skin_four]
+start = pygame.image.load(path + "images/loginscreen/start.png")
 
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
@@ -73,7 +80,7 @@ screen=pygame.display.set_mode((display_xy))
 # Datenpakete für Parameter
 # data: universell, data_1: titlescreen, data_2: gamescreen,data_3: skinscreen
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,
-'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode,'main_path':main_path}
+'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode,'main_path':main_path,'skins':skins}
 data_1 = {'background_titlescreen':background_titlescreen,
 'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,
 'play_button_rect':play_button_rect,'quit_button':quit_button,'skin_button':skin_button,
@@ -82,7 +89,8 @@ data_2 = {'background_game':background_game,'start':start,
 'player': player,'start_xy':start_xy,'end_xy': end_xy,'player_xy': player_xy,
 'display_xy':display_xy,'end2': 0,'walls':walls,'block_xy': block_xy,'block':block,
 'block_coords':block_coords,'wall_coords_xy':wall_coords_xy,'walls_rect':walls_rect}
-data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_skinscreen}
+data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_skinscreen,
+'message_skin_one':message_skin_one}
 
 screen.fill(0) 
 # Spielablauf
@@ -116,7 +124,7 @@ while running == True:
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'
-        sm=gamescreens.skinscreen(data=data,data_3=data_3)
+        sm=gamescreens.skinscreen(data=data,data_3=data_3,data_2=data_2)
     
     # quit
     if screenmode =='quitscreen'or sm=='quitscreen':
