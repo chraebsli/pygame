@@ -1,5 +1,5 @@
 # import modules
-import os, pygame, random, sys, time, gamescreens,background
+import os, pygame, random, sys, time, gamescreens,gamefunctions
 from gamescreens import *
 from pygame.locals import *
 
@@ -9,14 +9,13 @@ path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
 # random Wände generieren (Koordinaten)
 wall_coords_x,wall_coords_y,wall_coords_xy=[],[],[]
 for x in range(12): 
-    x = random.randrange(1,34)*49
+    x = random.randrange(1,34)*49+6
     wall_coords_x.append(x)
 for y in range(12):
-    y = random.randrange(1,21)*49
+    y = random.randrange(1,21)*49+6
     wall_coords_y.append(y)
 len_walls=len(wall_coords_x)
 wall_coords_xy = [list(k) for k in zip(wall_coords_x, wall_coords_y)]
-
 wall1=pygame.image.load(path + "images/gamescreen/waende/Wand1x4.png")
 wall2=pygame.image.load(path + "images/gamescreen/waende/Wand1x5.png")
 wall3=pygame.image.load(path + "images/gamescreen/waende/Wand1x6.png")
@@ -26,11 +25,12 @@ wall6=pygame.image.load(path + "images/gamescreen/waende/Wand6x1.png")
 walls=[wall1,wall2,wall3,wall4,wall5,wall6]
 
 # load variables
-screenmode,sm ='titlescreen',''
+playername=''
+screenmode,sm ='loginscreen','loginscreen'
 keys = [False, False, False, False]
 display_xy = [1671, 1034] # bildschirmgrösse
-startx_rand = random.randrange(1,34)*49+6
-endx_rand = random.randrange(1,39)*49+6
+startx_rand = random.randrange(1,34)*49+5
+endx_rand = random.randrange(1,34)*49+5
 background_xy = [1,1]
 start_xy = [startx_rand,986]
 end_xy = [endx_rand, 6]
@@ -43,7 +43,7 @@ block_xy = [1,1]
 end2 = 0
 status=0
 block_coords=[]
-wall1_rect=[wall_coords_x[0],wall_coords_y[0],wall_coords_x[0]+55,wall_coords_y[0]+201]
+wall1_rect=[wall_coords_x[0],wall_coords_y[0],wall_coords_x[0]+55,wall_coords_y[0]+201] # x, y, -x, -y
 wall2_rect=[wall_coords_x[1],wall_coords_y[1],wall_coords_x[1]+55,wall_coords_y[1]+250]
 wall3_rect=[wall_coords_x[2],wall_coords_y[2],wall_coords_x[2]+55,wall_coords_y[2]+299]
 wall4_rect=[wall_coords_x[3],wall_coords_y[3],wall_coords_x[3]+201,wall_coords_y[3]+55]
@@ -72,15 +72,22 @@ skin_two = pygame.image.load(path + "images/gamescreen/skins/skin2.png")
 skin_three = pygame.image.load(path + "images/gamescreen/skins/skin3.png")
 skin_four = pygame.image.load(path + "images/gamescreen/skins/skin4.png")
 skins = [skin_one,skin_two,skin_three,skin_four]
-start = pygame.image.load(path + "images/loginscreen/start.png")
+start1 = pygame.image.load(path + "images/loginscreen/start.png")
+rand_unten = pygame.image.load(path + "images/loginscreen/rand_unten.png")
+rand_oben = pygame.image.load(path + "images/loginscreen/rand_oben.png")
+rand_links = pygame.image.load(path + "images/loginscreen/rand_links.png")
+rand_rechts = pygame.image.load(path + "images/loginscreen/rand_rechts.png")
+corners = pygame.image.load(path + "images/loginscreen/corners.png")
+logo = pygame.image.load(path + "images/loginscreen/logo.png")
 
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
 
 # Datenpakete für Parameter
 # data: universell, data_1: titlescreen, data_2: gamescreen,data_3: skinscreen
-data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,
-'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode,'main_path':main_path,'skins':skins}
+data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,
+'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
+'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername}
 data_1 = {'background_titlescreen':background_titlescreen,
 'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,
 'play_button_rect':play_button_rect,'quit_button':quit_button,'skin_button':skin_button,
@@ -96,11 +103,16 @@ screen.fill(0)
 # Spielablauf
 running = True
 while running == True:
-
+    
     # wenn das spiel erfolgreich beendet wird löscht es den screen
     if status==1:
         screen.fill(0) 
     
+    # loginscreen
+    if screenmode == 'loginscreen' or sm== 'loginscreen':
+        screenmode,sm == 'loginscreen', 'loginscreen'
+        sm=gamescreens.loginscreen(data)
+
     # titlescreen
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
@@ -111,15 +123,17 @@ while running == True:
         #screen.fill(0) # wenn funktion == True: keine Playerdots
         screenmode,sm='gamescreen','gamescreen'
         sm=gamescreens.gamescreen(data=data,data_2=data_2)
-        background.back(screen = screen, path =path)
-        a=open(main_path+'/output.txt', 'r')
-        t=a.read()
-        if t=="['titlescreen', '1']":
-            t=list(t)
-            status=t[1]
-            sm=t[0]
+        gamefunctions.background(screen, path)
+        with open(main_path+'/output.txt', 'r') as file:
+            output=file.read()
+            print(type(output))
+            print('readed output')
+        if output==['titlescreen', '1']:
+            print('saw output')
+            output=list(output)
+            status=output[1]
+            sm=output[0]
             print(status,sm)
-
 
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
