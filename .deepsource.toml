@@ -1,5 +1,13 @@
 version = 1
 
+test_patterns = ["Spiel/**"]
+
+exclude_patterns = [
+    "TODO.todo",
+    ".gitignore",
+    ".vscode/**"
+]
+
 [[analyzers]]
 name = "python"
 enabled = true
