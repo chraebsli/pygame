@@ -1,12 +1,6 @@
 version = 1
 
-test_patterns = ["Spiel/**"]
-
-exclude_patterns = [
-    "TODO.todo",
-    ".gitignore",
-    ".vscode/**"
-]
+test_patterns = ["Spiel/game.py"]
 
 [[analyzers]]
 name = "python"
