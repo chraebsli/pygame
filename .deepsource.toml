@@ -1,7 +1,5 @@
 version = 1
 
-test_patterns = ["Spiel/game.py"]
-
 [[analyzers]]
 name = "python"
 enabled = true
