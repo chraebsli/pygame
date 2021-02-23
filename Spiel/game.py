@@ -23,7 +23,7 @@ wall4=pygame.image.load(path + "images/gamescreen/waende/Wand4x1.png")
 wall5=pygame.image.load(path + "images/gamescreen/waende/Wand5x1.png")
 wall6=pygame.image.load(path + "images/gamescreen/waende/Wand6x1.png")
 walls=[wall1,wall2,wall3,wall4,wall5,wall6]
-
+#
 # load variables
 playername=''
 screenmode,sm ='loginscreen','loginscreen'
@@ -49,7 +49,7 @@ wall3_rect=[wall_coords_x[2],wall_coords_y[2],50,294]
 wall4_rect=[wall_coords_x[3],wall_coords_y[3],196,50]
 wall5_rect=[wall_coords_x[4],wall_coords_y[4],245,50]
 wall6_rect=[wall_coords_x[5],wall_coords_y[5],294,50]
-wall7_rect=[wall_coords_x[6],wall_coords_y[6],50,195] # x, y, -x, -y
+wall7_rect=[wall_coords_x[6],wall_coords_y[6],50,195]
 wall8_rect=[wall_coords_x[7],wall_coords_y[7],50,245]
 wall9_rect=[wall_coords_x[8],wall_coords_y[8],50,294]
 wall10_rect=[wall_coords_x[9],wall_coords_y[9],196,50]
@@ -132,14 +132,10 @@ while running == True:
         gamefunctions.background(screen, path)
         with open(main_path+'/output.txt', 'r') as file:
             output=file.read()
-            print(type(output))
-            print('readed output')
         if output==['titlescreen', '1']:
-            print('saw output')
             output=list(output)
             status=output[1]
             sm=output[0]
-            print(status,sm)
 
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
