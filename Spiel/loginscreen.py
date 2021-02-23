@@ -1,4 +1,4 @@
-import pygame, sys, time, figures, wall,collision_detct, functions,itertools,gamescreens
+import pygame, sys, time,collision_detct,itertools,gamescreens
 
 from pygame.locals import *
 

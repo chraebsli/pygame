@@ -1,5 +1,5 @@
 # import modules
-import os, pygame, random, sys, time, gamescreens,gamefunctions
+import os, pygame, random, sys, time, gamescreens,gamefunctions,collision_detct
 from gamescreens import *
 from pygame.locals import *
 
@@ -43,13 +43,19 @@ block_xy = [1,1]
 end2 = 0
 status=0
 block_coords=[]
-wall1_rect=[wall_coords_x[0],wall_coords_y[0],wall_coords_x[0]+55,wall_coords_y[0]+201] # x, y, -x, -y
-wall2_rect=[wall_coords_x[1],wall_coords_y[1],wall_coords_x[1]+55,wall_coords_y[1]+250]
-wall3_rect=[wall_coords_x[2],wall_coords_y[2],wall_coords_x[2]+55,wall_coords_y[2]+299]
-wall4_rect=[wall_coords_x[3],wall_coords_y[3],wall_coords_x[3]+201,wall_coords_y[3]+55]
-wall5_rect=[wall_coords_x[4],wall_coords_y[4],wall_coords_x[4]+250,wall_coords_y[4]+55]
-wall6_rect=[wall_coords_x[5],wall_coords_y[5],wall_coords_x[5]+299,wall_coords_y[5]+55]
-walls_rect=[wall1_rect,wall2_rect,wall3_rect,wall4_rect,wall5_rect,wall6_rect]
+wall1_rect=[wall_coords_x[0],wall_coords_y[0],50,195] # x, y, -x, -y
+wall2_rect=[wall_coords_x[1],wall_coords_y[1],50,245]
+wall3_rect=[wall_coords_x[2],wall_coords_y[2],50,294]
+wall4_rect=[wall_coords_x[3],wall_coords_y[3],196,50]
+wall5_rect=[wall_coords_x[4],wall_coords_y[4],245,50]
+wall6_rect=[wall_coords_x[5],wall_coords_y[5],294,50]
+wall7_rect=[wall_coords_x[6],wall_coords_y[6],50,195] # x, y, -x, -y
+wall8_rect=[wall_coords_x[7],wall_coords_y[7],50,245]
+wall9_rect=[wall_coords_x[8],wall_coords_y[8],50,294]
+wall10_rect=[wall_coords_x[9],wall_coords_y[9],196,50]
+wall11_rect=[wall_coords_x[10],wall_coords_y[10],245,50]
+wall12_rect=[wall_coords_x[11],wall_coords_y[11],294,50]
+walls_rect=[wall1_rect,wall2_rect,wall3_rect,wall4_rect,wall5_rect,wall6_rect,wall7_rect,wall8_rect,wall9_rect,wall10_rect,wall11_rect,wall12_rect]
 
 # load images
 background_titlescreen = pygame.image.load(path+"images/titlescreen/background_titlescreen.png")

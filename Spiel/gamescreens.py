@@ -56,6 +56,7 @@ def titlescreen(data, data_1):
 
 def skinscreen(data, data_3,data_2):
     global player
+    delay = False
     send_data=False
     screen = data['screen']
     background_xy = data['background_xy']
@@ -160,7 +161,8 @@ def gamescreen(data, data_2):
     #screen.blit(background_game, (background_xy[0],background_xy[1])) 
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
     screen.blit(endskin, (end_xy[0],end_xy[1]))
-    gamefunctions.wall_blit(screen,walls,wall_coords_xy)
+    #gamefunctions.wall_blit(screen,walls,wall_coords_xy)
+    collision_detct.drawing(screen,walls_rect)
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     
     try:
@@ -183,19 +185,24 @@ def gamescreen(data, data_2):
 
             if event.key==K_w or event.key==K_UP:
                 keys[0]=True
+                #collision_detct.wall_collision(walls_rect,player)
             elif event.key==K_a or event.key==K_LEFT:
+                
                 keys[1]=True
+                #collision_detct.wall_collision(walls_rect,player)
             elif event.key==K_s or event.key==K_DOWN:
+                
                 keys[2]=True 
+                #collision_detct.wall_collision(walls_rect,player)
             elif event.key==K_d or event.key==K_RIGHT:
+                
                 keys[3]=True
-            
+                #collision_detct.wall_collision(walls_rect,player)
             elif event.key == K_ESCAPE:
                 with open(main_path+'/output.txt', 'w') as file:
                     file.write('delete_gamescreen')
                 screenmode='titlescreen'
                 send_data=True
-
         elif event.type == pygame.KEYUP:
             if event.key==pygame.K_w or event.key==K_UP:
                 keys[0]=False
@@ -207,16 +214,22 @@ def gamescreen(data, data_2):
                 keys[3]=False
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
+        collision_detct.move(screen,player_xy)
+        collision_detct.wall_collision(walls_rect,player_xy)
         # Bewegt Player um 1 Feld
         if keys[0]:
+            #pygame.time.wait(290)
             player_xy[1]-=49
         elif keys[2]:
+            #pygame.time.wait(290)
             player_xy[1]+=49
         elif keys[1]:
+            #pygame.time.wait(290)
             player_xy[0]-=49
         elif keys[3]:
+            #pygame.time.wait(290)
             player_xy[0]+=49
-    print(player_xy,start_xy,end_xy)
+    #print(player_xy,start_xy,end_xy)
     
     if send_data==True:
         return screenmode
@@ -258,8 +271,7 @@ def gamescreen(data, data_2):
         player_xy[1] = display_xy[1]-(5+44)
 
     # collisiondetect für Wände
-    occupied = []
-    collision_detct.wall_collision(walls = walls,wall_coords_xy=wall_coords_xy,occupied=occupied,player_coords=player_xy)
+    
     
     # winscreen bzw Nachricht
     if player_xy == end_xy:
