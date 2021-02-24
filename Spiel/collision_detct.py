@@ -70,7 +70,6 @@ def collideplayer(player,list_coords,remo_list):
             pygame.quit()
         else:
             remo_list.append(x)
-            print('remo updated')
         return remo_list
 def drawing(screen,walls):
     blue = pygame.Color('blue')
