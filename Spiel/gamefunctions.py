@@ -11,7 +11,6 @@ def background(screen,path):
     x,y = 1,1
     senkrechte = pygame.image.load(path + "images/gamescreen/senkrechte.png")
     gerade = pygame.image.load(path + "images/gamescreen/gerade.png")
-
     for s in range(1,36):
         screen.blit(senkrechte,(x,1))
         x+=49

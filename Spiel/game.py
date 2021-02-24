@@ -24,7 +24,7 @@ wall4=pygame.image.load(path + "images/gamescreen/waende/Wand4x1.png")
 wall5=pygame.image.load(path + "images/gamescreen/waende/Wand5x1.png")
 wall6=pygame.image.load(path + "images/gamescreen/waende/Wand6x1.png")
 walls=[wall1,wall2,wall3,wall4,wall5,wall6]
-
+#
 # load variables
 playername=''
 screenmode,sm ='loginscreen','loginscreen'
@@ -44,6 +44,7 @@ block_xy = [1,1]
 end2 = 0
 status=0
 block_coords=[]
+<<<<<<< HEAD
 wall1_rect=[wall_coords_x[0],wall_coords_y[0],48,192] # x, y, -x, -y
 wall2_rect=[wall_coords_x[1],wall_coords_y[1],48,242]
 wall3_rect=[wall_coords_x[2],wall_coords_y[2],48,291]
@@ -56,6 +57,20 @@ wall9_rect=[wall_coords_x[8],wall_coords_y[8],48,291]
 wall10_rect=[wall_coords_x[9],wall_coords_y[9],193,48]
 wall11_rect=[wall_coords_x[10],wall_coords_y[10],242,48]
 wall12_rect=[wall_coords_x[11],wall_coords_y[11],291,48]
+=======
+wall1_rect=[wall_coords_x[0],wall_coords_y[0],50,195] # x, y, -x, -y
+wall2_rect=[wall_coords_x[1],wall_coords_y[1],50,245]
+wall3_rect=[wall_coords_x[2],wall_coords_y[2],50,294]
+wall4_rect=[wall_coords_x[3],wall_coords_y[3],196,50]
+wall5_rect=[wall_coords_x[4],wall_coords_y[4],245,50]
+wall6_rect=[wall_coords_x[5],wall_coords_y[5],294,50]
+wall7_rect=[wall_coords_x[6],wall_coords_y[6],50,195]
+wall8_rect=[wall_coords_x[7],wall_coords_y[7],50,245]
+wall9_rect=[wall_coords_x[8],wall_coords_y[8],50,294]
+wall10_rect=[wall_coords_x[9],wall_coords_y[9],196,50]
+wall11_rect=[wall_coords_x[10],wall_coords_y[10],245,50]
+wall12_rect=[wall_coords_x[11],wall_coords_y[11],294,50]
+>>>>>>> c8928eb768c39f0ea7739b01ae948897aceb8c7b
 walls_rect=[wall1_rect,wall2_rect,wall3_rect,wall4_rect,wall5_rect,wall6_rect,wall7_rect,wall8_rect,wall9_rect,wall10_rect,wall11_rect,wall12_rect]
 
 # load images
@@ -135,15 +150,16 @@ while running == True:
         '''
         with open(main_path+'/output.txt', 'r') as file:
             output=file.read()
-            print(type(output))
-            print('readed output')
         if output==['titlescreen', '1']:
-            print('saw output')
             output=list(output)
             status=output[1]
             sm=output[0]
+<<<<<<< HEAD
             print(status,sm)
         '''
+=======
+
+>>>>>>> c8928eb768c39f0ea7739b01ae948897aceb8c7b
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'

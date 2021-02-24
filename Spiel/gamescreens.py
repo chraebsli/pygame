@@ -56,7 +56,6 @@ def titlescreen(data, data_1):
 
 def skinscreen(data, data_3,data_2):
     global player
-    delay = False
     send_data=False
     screen = data['screen']
     background_xy = data['background_xy']
@@ -80,7 +79,6 @@ def skinscreen(data, data_3,data_2):
             z=1230
         screen.blit(skins_skinscreen[c], (z,w))
         c+=1
-    
     
     for event in pygame.event.get():
         if event.type==pygame.QUIT: # stoppt Script
@@ -117,12 +115,9 @@ def skinscreen(data, data_3,data_2):
                 player = skins[3]
                 screenmode='titlescreen'
                 send_data=True 
-              
         
     if send_data==True:
         return screenmode
-
-    
     time.sleep(0.02)
 
 
@@ -149,7 +144,6 @@ def gamescreen(data, data_2,remo_list):
 
     with open(main_path+'/output.txt', 'r') as file:
         output=file.read()
-    print(output)
     if output =='delete_gamescreen':
         print('output')
     
@@ -194,24 +188,19 @@ def gamescreen(data, data_2,remo_list):
 
             if event.key==K_w or event.key==K_UP:
                 keys[0]=True
-                #collision_detct.wall_collision(walls_rect,player)
             elif event.key==K_a or event.key==K_LEFT:
-                
                 keys[1]=True
-                #collision_detct.wall_collision(walls_rect,player)
             elif event.key==K_s or event.key==K_DOWN:
-                
                 keys[2]=True 
-                #collision_detct.wall_collision(walls_rect,player)
             elif event.key==K_d or event.key==K_RIGHT:
-                
                 keys[3]=True
-                #collision_detct.wall_collision(walls_rect,player)
+            
             elif event.key == K_ESCAPE:
                 with open(main_path+'/output.txt', 'w') as file:
                     file.write('delete_gamescreen')
                 screenmode='titlescreen'
                 send_data=True
+        
         elif event.type == pygame.KEYUP:
             if event.key==pygame.K_w or event.key==K_UP:
                 keys[0]=False
@@ -228,46 +217,16 @@ def gamescreen(data, data_2,remo_list):
         collision_detct.run(screen,player_xy)
         # Bewegt Player um 1 Feld
         if keys[0]:
-            #pygame.time.wait(290)
             player_xy[1]-=49
         elif keys[2]:
-            #pygame.time.wait(290)
             player_xy[1]+=49
         elif keys[1]:
-            #pygame.time.wait(290)
             player_xy[0]-=49
         elif keys[3]:
-            #pygame.time.wait(290)
             player_xy[0]+=49
-    #print(player_xy,start_xy,end_xy)
     
     if send_data==True:
         return screenmode
-
-    # detect für begangene Felder und Wände (funktioniert nicht)
-    '''
-        # erkennen ob ein Feld bereits begangen ist
-        player_coords.append(tuple(player_xy))
-        player_coords_c = tuple(player_xy)   
-    for e in player_coords:
-        try:
-            print('current pos:',player_coords_c)
-            if player_coords_c ==e and e != player_coords[-1] :
-                print('Duplicate found:',e)
-        except UnboundLocalError:
-            pass
-    # collisiondetect für Wände
-    c=0
-    for e in walls_rect:
-        try:
-            if walls_rect[c][0]==player_coords_c[0]:
-                if walls_rect[c][1]==player_coords_c[1]:
-                    print('Wall detected')
-        except UnboundLocalError:
-            pass
-        c+=1
-    print(player_coords)
-    #'''
 
     # Player wird an anderen Bildschirmrand gesetzt wenn überschritten
     if player_xy[0] > 1624:
@@ -280,9 +239,6 @@ def gamescreen(data, data_2,remo_list):
         player_xy[1] = 986
         player_xy[1] = display_xy[1]-(5+44)
 
-    # collisiondetect für Wände
-    
-    
     # winscreen bzw Nachricht
     if player_xy == end_xy:
         print('You ended this round')
@@ -318,7 +274,6 @@ def loginscreen(data):
     done = False
     #playername = data['playername']
 
-
     while not done:
         for event in pygame.event.get():
             if event.type==pygame.QUIT: # stoppt Script
@@ -348,21 +303,15 @@ def loginscreen(data):
                         playername = playername + event.unicode
         
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
-        
         width = max(475, text_surface.get_width()-400)
         input_box.w = width
-        screen.blit(text_surface, (input_box.x-350, input_box.y+5),)
         pygame.draw.rect(screen, color, input_box, 2)
-        screen.blit(play_button, (600,600))
-        screen.blit(rand_links,(0,0))
-        screen.blit(rand_rechts,(1613,0))
-        screen.blit(rand_unten,(0,985))  
-        screen.blit(rand_oben,(0,0))
-        screen.blit(corners,(1602,0))
-        screen.blit(corners,(0,0))
-        screen.blit(corners,(0,970))
-        screen.blit(corners,(1602,970))
-        screen.blit(logo,(435,150))
+        blit_list=[text_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,logo]
+        list2=[(input_box.x-350, input_box.y+5),(600,600),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
+        c=0
+        for img in blit_list:
+            screen.blit(img,list2[c])
+            c+=1
         pygame.display.flip()
         clock.tick(30)
         if send_data==True:
