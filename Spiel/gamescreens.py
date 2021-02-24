@@ -1,7 +1,7 @@
 import pygame, sys, time,collision_detct,gamefunctions,itertools
 from os import read, write
 from pygame.locals import *
-
+felder = []
 counter_felder=0
 gamescreen_delete=True
 player_coords,player_coords_c=[],[]
@@ -126,7 +126,7 @@ def skinscreen(data, data_3,data_2):
     time.sleep(0.02)
 
 
-def gamescreen(data, data_2):
+def gamescreen(data, data_2,remo_list):
     send_data=False
     global counter_felder,block_coords,gamescreen_delete,player_coords, player
     screenmode=data['screenmode']
@@ -158,13 +158,22 @@ def gamescreen(data, data_2):
         gamescreen_delete=False
 
     # Sprites hinzufügen
-    #screen.blit(background_game, (background_xy[0],background_xy[1])) 
+    #screen.blit(background_game, (background_xy[0],background_xy[1]))
+    counter = 0
+    
+    if counter == 0:
+        list_coords = collision_detct.move(screen,player_xy,False)
+        counter += 1
+    if counter != 0:
+        collision_detct.move(screen,player_xy,True)
+    collision_detct.drawing(screen,walls_rect)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
     screen.blit(endskin, (end_xy[0],end_xy[1]))
     #gamefunctions.wall_blit(screen,walls,wall_coords_xy)
-    collision_detct.drawing(screen,walls_rect)
+    #collision_detct.drawing(screen,walls_rect)
     screen.blit(start1, (start_xy[0],start_xy[1])) 
-    
+    gamefunctions.background(screen, path)
+    collision_detct.playerpath(remo_list,screen,player_xy)
     try:
         screen.blit(player, (player_xy[-2],player_xy[-1])) 
     except NameError:
@@ -214,8 +223,9 @@ def gamescreen(data, data_2):
                 keys[3]=False
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
-        collision_detct.move(screen,player_xy)
+        remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list)
         collision_detct.wall_collision(walls_rect,player_xy)
+        collision_detct.run(screen,player_xy)
         # Bewegt Player um 1 Feld
         if keys[0]:
             #pygame.time.wait(290)

@@ -3,6 +3,7 @@ import os, pygame, random, sys, time, gamescreens,gamefunctions,collision_detct
 from gamescreens import *
 from pygame.locals import *
 
+remo_list = []
 print('please select the game window, the game started')
 main_path = os.path.dirname(__file__) # Where your .py file is located
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
@@ -43,18 +44,18 @@ block_xy = [1,1]
 end2 = 0
 status=0
 block_coords=[]
-wall1_rect=[wall_coords_x[0],wall_coords_y[0],50,195] # x, y, -x, -y
-wall2_rect=[wall_coords_x[1],wall_coords_y[1],50,245]
-wall3_rect=[wall_coords_x[2],wall_coords_y[2],50,294]
-wall4_rect=[wall_coords_x[3],wall_coords_y[3],196,50]
-wall5_rect=[wall_coords_x[4],wall_coords_y[4],245,50]
-wall6_rect=[wall_coords_x[5],wall_coords_y[5],294,50]
-wall7_rect=[wall_coords_x[6],wall_coords_y[6],50,195] # x, y, -x, -y
-wall8_rect=[wall_coords_x[7],wall_coords_y[7],50,245]
-wall9_rect=[wall_coords_x[8],wall_coords_y[8],50,294]
-wall10_rect=[wall_coords_x[9],wall_coords_y[9],196,50]
-wall11_rect=[wall_coords_x[10],wall_coords_y[10],245,50]
-wall12_rect=[wall_coords_x[11],wall_coords_y[11],294,50]
+wall1_rect=[wall_coords_x[0],wall_coords_y[0],48,192] # x, y, -x, -y
+wall2_rect=[wall_coords_x[1],wall_coords_y[1],48,242]
+wall3_rect=[wall_coords_x[2],wall_coords_y[2],48,291]
+wall4_rect=[wall_coords_x[3],wall_coords_y[3],193,48]
+wall5_rect=[wall_coords_x[4],wall_coords_y[4],241,48]
+wall6_rect=[wall_coords_x[5],wall_coords_y[5],291,48]
+wall7_rect=[wall_coords_x[6],wall_coords_y[6],48,192] # x, y, -x, -y
+wall8_rect=[wall_coords_x[7],wall_coords_y[7],48,242]
+wall9_rect=[wall_coords_x[8],wall_coords_y[8],48,291]
+wall10_rect=[wall_coords_x[9],wall_coords_y[9],193,48]
+wall11_rect=[wall_coords_x[10],wall_coords_y[10],242,48]
+wall12_rect=[wall_coords_x[11],wall_coords_y[11],291,48]
 walls_rect=[wall1_rect,wall2_rect,wall3_rect,wall4_rect,wall5_rect,wall6_rect,wall7_rect,wall8_rect,wall9_rect,wall10_rect,wall11_rect,wall12_rect]
 
 # load images
@@ -128,8 +129,10 @@ while running == True:
     if screenmode =='gamescreen' or sm=='gamescreen':
         #screen.fill(0) # wenn funktion == True: keine Playerdots
         screenmode,sm='gamescreen','gamescreen'
-        sm=gamescreens.gamescreen(data=data,data_2=data_2)
-        gamefunctions.background(screen, path)
+        sm=gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
+        #collision_detct.move(screen,player_xy,False)
+        #gamefunctions.background(screen, path)
+        '''
         with open(main_path+'/output.txt', 'r') as file:
             output=file.read()
             print(type(output))
@@ -140,7 +143,7 @@ while running == True:
             status=output[1]
             sm=output[0]
             print(status,sm)
-
+        '''
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'
