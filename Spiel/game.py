@@ -136,7 +136,6 @@ while running == True:
 
     # gamescreen    
     if screenmode =='gamescreen' or sm=='gamescreen':
-        #screen.fill(0) # wenn funktion == True: keine Playerdots
         screenmode,sm='gamescreen','gamescreen'
         sm=gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
         try:

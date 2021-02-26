@@ -55,18 +55,15 @@ def titlescreen(data, data_1):
 
 def skinscreen(data, data_3,data_2):
     global player
-    delay = False
     send_data=False
     screen = data['screen']
     background_xy = data['background_xy']
     background_skinscreen=data_3['background_skinscreen']
     screenmode=data['screenmode']
     skins_skinscreen=data_3['skins_skinscreen']
-    message_skin_one=data_3['message_skin_one']
     skins = data['skins']
     screen.blit(background_skinscreen, (background_xy[0],background_xy[1]))
     c=0
-    one = None
     z,w=270,375
     for skin in skins_skinscreen:
         if c==0:
@@ -96,7 +93,7 @@ def skinscreen(data, data_3,data_2):
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
             if x > 112 and y > 375 and x < 392 and y < 655:
-                print('Skin picked')
+                print('Skin 1 picked')
                 player = skins[0]
                 screenmode='titlescreen'
                 send_data=True
@@ -147,11 +144,10 @@ def gamescreen(data, data_2,remo_list):
     collision_detct.drawing(screen,walls_rect)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
     screen.blit(endskin, (end_xy[0],end_xy[1]))
-    #gamefunctions.wall_blit(screen,walls,wall_coords_xy)
-    #collision_detct.drawing(screen,walls_rect)
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     gamefunctions.background(screen, path)
     collision_detct.playerpath(remo_list,screen,player_xy)
+    
     try:
         screen.blit(player, (player_xy[-2],player_xy[-1])) 
     except NameError:
@@ -297,18 +293,13 @@ def loginscreen(data):
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
         width = max(475, text_surface.get_width()-400)
         input_box.w = width
-        screen.blit(text_surface, (input_box.x-350, input_box.y+5),)
         pygame.draw.rect(screen, color, input_box, 2)
-        screen.blit(play_button, (600,600))
-        screen.blit(rand_links,(0,0))
-        screen.blit(rand_rechts,(1613,0))
-        screen.blit(rand_unten,(0,985))  
-        screen.blit(rand_oben,(0,0))
-        screen.blit(corners,(1602,0))
-        screen.blit(corners,(0,0))
-        screen.blit(corners,(0,970))
-        screen.blit(corners,(1602,970))
-        screen.blit(logo,(435,150))
+        blit_list=[text_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,logo]
+        list2=[(input_box.x-350, input_box.y+5),(600,600),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
+        c=0
+        for img in blit_list:
+            screen.blit(img,list2[c])
+            c+=1
         pygame.display.flip()
         clock.tick(30)
         if send_data==True:
