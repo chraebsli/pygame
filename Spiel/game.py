@@ -42,6 +42,7 @@ skin_button_rect = [320,553,770,777] # x, y, -x, -y
 quit_button_rect = [900,551,1350,775] # x, y, -x, -y
 block_xy = [1,1]
 end2 = 0
+coin2 = 0
 status=0
 block_coords=[]
 wall1_rect=[wall_coords_x[0],wall_coords_y[0],48,192] # x, y, -x, -y
@@ -101,7 +102,7 @@ data_1 = {'background_titlescreen':background_titlescreen,
 'skin_button_rect':skin_button_rect,'quit_button_rect':quit_button_rect}
 data_2 = {'background_game':background_game,'start':start,
 'player': player,'start_xy':start_xy,'end_xy': end_xy,'player_xy': player_xy,
-'display_xy':display_xy,'end2': 0,'walls':walls,'block_xy': block_xy,'block':block,
+'display_xy':display_xy,'end2': 0,'walls':walls,'block_xy': block_xy,'block':block,'coin2':0,
 'block_coords':block_coords,'wall_coords_xy':wall_coords_xy,'walls_rect':walls_rect}
 data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_skinscreen,
 'message_skin_one':message_skin_one}

@@ -146,6 +146,7 @@ def gamescreen(data, data_2,remo_list):
     walls_rect=data_2['walls_rect'] #[wallnr][wallcoord(x,y,-x-y)]
     skins = data['skins']
     main_path=data['main_path']
+    coin2=data_2['coin2']
 
     with open(main_path+'/output.txt', 'r') as file:
         output=file.read()
@@ -168,6 +169,8 @@ def gamescreen(data, data_2,remo_list):
         collision_detct.move(screen,player_xy,True)
     collision_detct.drawing(screen,walls_rect)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
+    coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
+    screen.blit(coinskin, (100,300))
     screen.blit(endskin, (end_xy[0],end_xy[1]))
     #gamefunctions.wall_blit(screen,walls,wall_coords_xy)
     #collision_detct.drawing(screen,walls_rect)

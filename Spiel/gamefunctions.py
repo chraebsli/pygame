@@ -21,6 +21,7 @@ def background(screen,path):
 
 # randomskin für das Ziel
 randskin = 1
+randcoin = 1
 def random_endskin(path1,end1):
     global randskin
     if randskin == 1:
@@ -39,3 +40,22 @@ def random_endskin(path1,end1):
     if randskin==7:
         randskin=1
     return end1
+
+def random_coinskin(path1,coin1):
+    global randcoin
+    if randcoin == 1:
+        coin1 = pygame.image.load(path1 + "images/gamescreen/coinsskins/green.png")
+    elif randcoin == 2:
+        coin1 = pygame.image.load(path1 + "images/gamescreen/coinsskins/lightblue.png")
+    elif randcoin == 3:
+        coin1 = pygame.image.load(path1 + "images/gamescreen/coinsskins/orange.png")
+    elif randcoin == 4:
+        coin1 = pygame.image.load(path1 + "images/gamescreen/coinsskins/red.png")
+    elif randcoin == 5:
+        coin1 = pygame.image.load(path1 + "images/gamescreen/coinsskins/violet.png")
+    elif randcoin == 6:
+        coin1 = pygame.image.load(path1 + "images/gamescreen/coinsskins/yellow.png")
+    randcoin+=1
+    if randcoin==7:
+        randcoin=1
+    return coin1
