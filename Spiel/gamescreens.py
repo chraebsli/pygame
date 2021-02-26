@@ -223,22 +223,32 @@ def gamescreen(data, data_2,remo_list):
                 keys[3]=False
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
-        remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list)
-        collision_detct.wall_collision(walls_rect,player_xy)
         collision_detct.run(screen,player_xy)
         # Bewegt Player um 1 Feld
         if keys[0]:
             #pygame.time.wait(290)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[1]-=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[2]:
             #pygame.time.wait(290)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[1]+=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[1]:
             #pygame.time.wait(290)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[0]-=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[3]:
             #pygame.time.wait(290)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[0]+=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
     #print(player_xy,start_xy,end_xy)
     
     if send_data==True:
