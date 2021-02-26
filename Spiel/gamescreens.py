@@ -196,22 +196,22 @@ def gamescreen(data, data_2,remo_list):
         if keys[0]:
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[1]-=49
-            collision_detct.wall_collision(walls_rect,player_xy)
+            collide=collision_detct.wall_collision(walls_rect,player_xy)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[2]:
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[1]+=49
-            collision_detct.wall_collision(walls_rect,player_xy)
+            collide=collision_detct.wall_collision(walls_rect,player_xy)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[1]:
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[0]-=49
-            collision_detct.wall_collision(walls_rect,player_xy)
+            collide=collision_detct.wall_collision(walls_rect,player_xy)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[3]:
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[0]+=49
-            collision_detct.wall_collision(walls_rect,player_xy)
+            collide=collision_detct.wall_collision(walls_rect,player_xy)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         
         try:
@@ -219,7 +219,8 @@ def gamescreen(data, data_2,remo_list):
             newgame,remo_list=bool(remo_list[1]),remo_list[0]
         except IndexError:
             pass
-
+        if collide=='titlescreen.True':
+            newgame=True
     
     # Player wird an anderen Bildschirmrand gesetzt wenn überschritten
     if player_xy[0] > 1624:
