@@ -13,17 +13,15 @@ def wall_collision(walls,player):
 
 def run(screen,player) :
     blue = pygame.Color('blue')
-    player_rect = pygame.Rect(player[0],player[1],44,44)
+    pygame.Rect(player[0],player[1],44,44)
     field = pygame.Rect(player[0],player[1],44,44)
-    moves = pygame.draw.rect(screen,blue,field)
+    pygame.draw.rect(screen,blue,field)
 
 
 def move(screen,player_coords,statement):
-    blue = pygame.Color('blue')
     green = pygame.Color(255, 255, 255, 128)
-    do = False
-    player_rect = pygame.Rect(player_coords[0],player_coords[1],44,44)
-    field = pygame.Rect(player_coords[0],player_coords[1],44,44)
+    pygame.Rect(player_coords[0],player_coords[1],44,44)
+    pygame.Rect(player_coords[0],player_coords[1],44,44)
     x = 0
     y = 0
     if statement == False:
@@ -48,9 +46,8 @@ def move(screen,player_coords,statement):
 
 
 def collideplayer(player,list_coords,remo_list,statement):
-    blue = pygame.Color('blue')
     player_rect = pygame.Rect(player[0],player[1],44,44)
-    field = pygame.Rect(player[0],player[1],44,44)
+    pygame.Rect(player[0],player[1],44,44)
     if statement == True:
         for blocks in list_coords:
             if player_rect.colliderect(blocks):
@@ -72,16 +69,16 @@ def collideplayer(player,list_coords,remo_list,statement):
 def drawing(screen,walls):
     red = pygame.Color('red')
     c=0
-    for wall in range(11):
+    for e in range(11):
         pygame.draw.rect(screen,red,walls[c])
         c+=1
 
 
 def playerpath(remo_list,screen,player):
     blue = pygame.Color('blue')
-    player_rect = pygame.Rect(player[0],player[1],44,44)
+    pygame.Rect(player[0],player[1],44,44)
     for element in remo_list:
-        path5 = pygame.draw.rect(screen,blue,element)
+        pygame.draw.rect(screen,blue,element)
 
 
 def check_reset(player_coords,coords):

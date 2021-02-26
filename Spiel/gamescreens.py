@@ -236,14 +236,11 @@ def gamescreen(data, data_2,remo_list):
     # winscreen bzw Nachricht
     if player_xy == end_xy:
         print('You ended this round')
-        screenmode='titlescreen'
+        send_data=True
     if screenmode=='titlescreen' or newgame==True:
         send_data=True
-        print('ok1')
     if send_data==True:
-        newgame='True'
         screenmode='titlescreen.True'
-        print(screenmode)
         return screenmode
 
 
