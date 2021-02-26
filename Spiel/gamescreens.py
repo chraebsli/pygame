@@ -188,6 +188,7 @@ def gamescreen(data, data_2,remo_list):
     if keys[0] or keys[1] or keys[2] or keys[3]:
         collision_detct.run(screen,player_xy)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
+        
         # Bewegt Player um 1 Feld
         if keys[0]:
             player_xy[1]-=49
