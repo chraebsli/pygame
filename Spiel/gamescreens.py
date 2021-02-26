@@ -196,15 +196,12 @@ def gamescreen(data, data_2,remo_list):
         if keys[0]:
             player_xy[1]-=49
             collision_detct.wall_collision(walls_rect,player_xy)
-            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[2]:
             player_xy[1]+=49
             collision_detct.wall_collision(walls_rect,player_xy)
-            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[1]:
             player_xy[0]-=49
             collision_detct.wall_collision(walls_rect,player_xy)
-            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[3]:
             player_xy[0]+=49
 
