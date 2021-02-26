@@ -23,7 +23,6 @@ def run(screen,player) :
 def move(screen,player_coords,statement):
     green = pygame.Color(255, 255, 255, 128)
     pygame.Rect(player_coords[0],player_coords[1],44,44)
-    pygame.Rect(player_coords[0],player_coords[1],44,44)
     x = 0
     y = 0
     if statement == False:

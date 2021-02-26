@@ -234,6 +234,9 @@ def gamescreen(data, data_2,remo_list):
     if screenmode=='titlescreen' or newgame==True:
         send_data=True
     if send_data==True:
+        with open(path+'output.txt','w') as out:
+            out.write('1')
+            print(1)
         screenmode='titlescreen.True'
         return screenmode
 
