@@ -26,6 +26,7 @@ wall6=pygame.image.load(path + "images/gamescreen/waende/Wand6x1.png")
 walls=[wall1,wall2,wall3,wall4,wall5,wall6]
 
 # load variables
+newgame=False
 playername=''
 screenmode,sm ='loginscreen','loginscreen'
 keys = [False, False, False, False]
@@ -93,7 +94,7 @@ screen=pygame.display.set_mode((display_xy))
 
 # Datenpakete für Parameter
 # data: universell, data_1: titlescreen, data_2: gamescreen,data_3: skinscreen
-data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,
+data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
 'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername}
 data_1 = {'background_titlescreen':background_titlescreen,
@@ -112,10 +113,18 @@ screen.fill(0)
 running = True
 while running == True:
     
-    # wenn das spiel erfolgreich beendet wird löscht es den screen
-    if status==1:
+    # wenn das spiel beendet wird setzt es das spiel zurück
+    if newgame==True:
         screen.fill(0) 
-    
+        pygame.display.flip()
+        player_xy.clear()
+        player_xy=start_xy.copy()
+        keys = [False, False, False, False]
+        newgame=False
+        data.update({'newgame':newgame})
+        data.update({'keys':keys})
+        data_2.update({'player_xy':player_xy})   
+
     # loginscreen
     if screenmode == 'loginscreen' or sm== 'loginscreen':
         screenmode,sm == 'loginscreen', 'loginscreen'
@@ -131,20 +140,12 @@ while running == True:
         #screen.fill(0) # wenn funktion == True: keine Playerdots
         screenmode,sm='gamescreen','gamescreen'
         sm=gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
-        #collision_detct.move(screen,player_xy,False)
-        #gamefunctions.background(screen, path)
-        '''
-        with open(main_path+'/output.txt', 'r') as file:
-            output=file.read()
-            print(type(output))
-            print('readed output')
-        if output==['titlescreen', '1']:
-            print('saw output')
-            output=list(output)
-            status=output[1]
-            sm=output[0]
-            print(status,sm)
-        '''
+        try:
+            sm = str(sm).split('.')
+            newgame,sm=bool(sm[1]),sm[0]
+        except IndexError:
+            pass
+
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'

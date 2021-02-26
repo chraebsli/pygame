@@ -3,7 +3,6 @@ from os import read, write
 from pygame.locals import *
 felder = []
 counter_felder=0
-gamescreen_delete=True
 player_coords,player_coords_c=[],[]
 moves = []
 
@@ -81,7 +80,6 @@ def skinscreen(data, data_3,data_2):
         screen.blit(skins_skinscreen[c], (z,w))
         c+=1
     
-    
     for event in pygame.event.get():
         if event.type==pygame.QUIT: # stoppt Script
             print('Quit game ...')
@@ -117,18 +115,14 @@ def skinscreen(data, data_3,data_2):
                 player = skins[3]
                 screenmode='titlescreen'
                 send_data=True 
-              
         
     if send_data==True:
         return screenmode
 
-    
-    time.sleep(0.02)
-
 
 def gamescreen(data, data_2,remo_list):
     send_data=False
-    global counter_felder,block_coords,gamescreen_delete,player_coords, player
+    global counter_felder,block_coords,player_coords, player
     screenmode=data['screenmode']
     keys = data['keys']
     path = data['path']
@@ -139,29 +133,13 @@ def gamescreen(data, data_2,remo_list):
     player_xy=data_2['player_xy']
     display_xy=data_2['display_xy']
     end2=data_2['end2']
-    wall_coords_xy=data_2['wall_coords_xy']
-    walls=data_2['walls']
-    block = data_2['block']
     block_coords = data_2['block_coords']
     walls_rect=data_2['walls_rect'] #[wallnr][wallcoord(x,y,-x-y)]
-    skins = data['skins']
-    main_path=data['main_path']
+    newgame=data['newgame']
     coin2=data_2['coin2']
 
-    with open(main_path+'/output.txt', 'r') as file:
-        output=file.read()
-    print(output)
-    if output =='delete_gamescreen':
-        print('output')
-    
-    if gamescreen_delete==True:
-        screen.fill(0)
-        gamescreen_delete=False
-
     # Sprites hinzufügen
-    #screen.blit(background_game, (background_xy[0],background_xy[1]))
     counter = 0
-    
     if counter == 0:
         list_coords = collision_detct.move(screen,player_xy,False)
         counter += 1
@@ -169,8 +147,8 @@ def gamescreen(data, data_2,remo_list):
         collision_detct.move(screen,player_xy,True)
     collision_detct.drawing(screen,walls_rect)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
-    coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
-    screen.blit(coinskin, (100,300))
+    #coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
+    #screen.blit(coinskin, (100,300))
     screen.blit(endskin, (end_xy[0],end_xy[1]))
     #gamefunctions.wall_blit(screen,walls,wall_coords_xy)
     #collision_detct.drawing(screen,walls_rect)
@@ -188,8 +166,6 @@ def gamescreen(data, data_2,remo_list):
         if event.type==pygame.QUIT: 
             # stoppt Script
             print('Quit game ...')
-            with open(main_path+'/output.txt', 'w') as file:
-                file.write('')
             pygame.quit() 
             exit(0) 
 
@@ -197,24 +173,15 @@ def gamescreen(data, data_2,remo_list):
 
             if event.key==K_w or event.key==K_UP:
                 keys[0]=True
-                #collision_detct.wall_collision(walls_rect,player)
             elif event.key==K_a or event.key==K_LEFT:
-                
                 keys[1]=True
-                #collision_detct.wall_collision(walls_rect,player)
             elif event.key==K_s or event.key==K_DOWN:
-                
                 keys[2]=True 
-                #collision_detct.wall_collision(walls_rect,player)
             elif event.key==K_d or event.key==K_RIGHT:
-                
                 keys[3]=True
-                #collision_detct.wall_collision(walls_rect,player)
             elif event.key == K_ESCAPE:
-                with open(main_path+'/output.txt', 'w') as file:
-                    file.write('delete_gamescreen')
-                screenmode='titlescreen'
-                send_data=True
+                screenmode=='titlescreen'
+
         elif event.type == pygame.KEYUP:
             if event.key==pygame.K_w or event.key==K_UP:
                 keys[0]=False
@@ -227,61 +194,36 @@ def gamescreen(data, data_2,remo_list):
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
         collision_detct.run(screen,player_xy)
+        
         # Bewegt Player um 1 Feld
         if keys[0]:
-            #pygame.time.wait(290)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[1]-=49
             collision_detct.wall_collision(walls_rect,player_xy)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[2]:
-            #pygame.time.wait(290)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[1]+=49
             collision_detct.wall_collision(walls_rect,player_xy)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[1]:
-            #pygame.time.wait(290)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[0]-=49
             collision_detct.wall_collision(walls_rect,player_xy)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[3]:
-            #pygame.time.wait(290)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
             player_xy[0]+=49
             collision_detct.wall_collision(walls_rect,player_xy)
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
-    #print(player_xy,start_xy,end_xy)
+        
+        try:
+            remo_list = str(remo_list).split('.')
+            newgame,remo_list=bool(remo_list[1]),remo_list[0]
+        except IndexError:
+            pass
+
     
-    if send_data==True:
-        return screenmode
-
-    # detect für begangene Felder und Wände (funktioniert nicht)
-    '''
-        # erkennen ob ein Feld bereits begangen ist
-        player_coords.append(tuple(player_xy))
-        player_coords_c = tuple(player_xy)   
-    for e in player_coords:
-        try:
-            print('current pos:',player_coords_c)
-            if player_coords_c ==e and e != player_coords[-1] :
-                print('Duplicate found:',e)
-        except UnboundLocalError:
-            pass
-    # collisiondetect für Wände
-    c=0
-    for e in walls_rect:
-        try:
-            if walls_rect[c][0]==player_coords_c[0]:
-                if walls_rect[c][1]==player_coords_c[1]:
-                    print('Wall detected')
-        except UnboundLocalError:
-            pass
-        c+=1
-    print(player_coords)
-    #'''
-
     # Player wird an anderen Bildschirmrand gesetzt wenn überschritten
     if player_xy[0] > 1624:
         player_xy[0] = 6
@@ -293,20 +235,19 @@ def gamescreen(data, data_2,remo_list):
         player_xy[1] = 986
         player_xy[1] = display_xy[1]-(5+44)
 
-    # collisiondetect für Wände
-    
-    
     # winscreen bzw Nachricht
     if player_xy == end_xy:
         print('You ended this round')
-        screenmode='titlescreen.1'.split('.')
+        screenmode='titlescreen'
+    if screenmode=='titlescreen' or newgame==True:
         send_data=True
-        with open(main_path+'/output.txt', 'w') as out:
-            print(screenmode, file=out)    
+        print('ok1')
     if send_data==True:
+        newgame='True'
+        screenmode='titlescreen.True'
+        print(screenmode)
         return screenmode
-    
-    time.sleep(0.02)
+
 
 def loginscreen(data):
     global playername
@@ -329,8 +270,6 @@ def loginscreen(data):
     logo = data['logo']
     screenmode=data['screenmode']
     done = False
-    #playername = data['playername']
-
 
     while not done:
         for event in pygame.event.get():
@@ -361,7 +300,6 @@ def loginscreen(data):
                         playername = playername + event.unicode
         
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
-        
         width = max(475, text_surface.get_width()-400)
         input_box.w = width
         screen.blit(text_surface, (input_box.x-350, input_box.y+5),)
