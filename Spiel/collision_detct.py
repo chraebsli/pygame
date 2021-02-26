@@ -11,6 +11,7 @@ def wall_collision(walls,player):
             return 'titlescreen.True'
 
 
+# zeigt path an
 def run(screen,player) :
     blue = pygame.Color('blue')
     pygame.Rect(player[0],player[1],44,44)
@@ -18,6 +19,7 @@ def run(screen,player) :
     pygame.draw.rect(screen,blue,field)
 
 
+# erstellt liste für alle felder (weisse quadrate)
 def move(screen,player_coords,statement):
     green = pygame.Color(255, 255, 255, 128)
     pygame.Rect(player_coords[0],player_coords[1],44,44)
@@ -45,6 +47,7 @@ def move(screen,player_coords,statement):
                 x=0
 
 
+# collisiondetect für begangene felder und speichert sie
 def collideplayer(player,list_coords,remo_list,statement):
     player_rect = pygame.Rect(player[0],player[1],44,44)
     pygame.Rect(player[0],player[1],44,44)
@@ -66,6 +69,7 @@ def collideplayer(player,list_coords,remo_list,statement):
             return remo_list
 
 
+# zeichnet wände
 def drawing(screen,walls):
     red = pygame.Color('red')
     c=0
@@ -74,14 +78,9 @@ def drawing(screen,walls):
         c+=1
 
 
+# playerpath 
 def playerpath(remo_list,screen,player):
     blue = pygame.Color('blue')
     pygame.Rect(player[0],player[1],44,44)
     for element in remo_list:
         pygame.draw.rect(screen,blue,element)
-
-
-def check_reset(player_coords,coords):
-    SavedList = [player_coords[-2],player_coords[-1]]
-    coords.append(SavedList)
-    coords.reverse()

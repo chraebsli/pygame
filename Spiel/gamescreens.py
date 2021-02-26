@@ -133,6 +133,7 @@ def gamescreen(data, data_2,remo_list):
     block_coords = data_2['block_coords']
     walls_rect=data_2['walls_rect'] #[wallnr][wallcoord(x,y,-x-y)]
     newgame=data['newgame']
+    coin2=data_2['coin2']
 
     # Sprites hinzufügen
     counter = 0
@@ -143,6 +144,8 @@ def gamescreen(data, data_2,remo_list):
         collision_detct.move(screen,player_xy,True)
     collision_detct.drawing(screen,walls_rect)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
+    #coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
+    #screen.blit(coinskin, (100,300))
     screen.blit(endskin, (end_xy[0],end_xy[1]))
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     gamefunctions.background(screen, path)
@@ -192,10 +195,16 @@ def gamescreen(data, data_2,remo_list):
         # Bewegt Player um 1 Feld
         if keys[0]:
             player_xy[1]-=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[2]:
             player_xy[1]+=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[1]:
             player_xy[0]-=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[3]:
             player_xy[0]+=49
 
