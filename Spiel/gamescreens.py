@@ -190,24 +190,36 @@ def gamescreen(data, data_2,remo_list):
                 keys[3]=False
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
-        remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list)
+        collision_detct.run(screen,player_xy)
+        
+        # Bewegt Player um 1 Feld
+        if keys[0]:
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
+            player_xy[1]-=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
+        elif keys[2]:
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
+            player_xy[1]+=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
+        elif keys[1]:
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
+            player_xy[0]-=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
+        elif keys[3]:
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
+            player_xy[0]+=49
+            collision_detct.wall_collision(walls_rect,player_xy)
+            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
+        
         try:
             remo_list = str(remo_list).split('.')
             newgame,remo_list=bool(remo_list[1]),remo_list[0]
         except IndexError:
             pass
 
-        collision_detct.wall_collision(walls_rect,player_xy)
-        collision_detct.run(screen,player_xy)
-        # Bewegt Player um 1 Feld
-        if keys[0]:
-            player_xy[1]-=49
-        elif keys[2]:
-            player_xy[1]+=49
-        elif keys[1]:
-            player_xy[0]-=49
-        elif keys[3]:
-            player_xy[0]+=49
     
     # Player wird an anderen Bildschirmrand gesetzt wenn überschritten
     if player_xy[0] > 1624:

@@ -62,21 +62,26 @@ def move(screen,player_coords,statement):
                 x=0
 
 
-def collideplayer(player,list_coords,remo_list):
+def collideplayer(player,list_coords,remo_list,statement):
     blue = pygame.Color('blue')
     player_rect = pygame.Rect(player[0],player[1],44,44)
     field = pygame.Rect(player[0],player[1],44,44)
-    for blocks in list_coords:
-        if player_rect.colliderect(blocks):
-            x = blocks
-    if x in list_coords:
-        if x in remo_list:
-            print('lost')
-            remo_list=str(remo_list)+'.True'
-
-        else:
-            remo_list.append(x)
+    if statement == True:
+        for blocks in list_coords:
+            if player_rect.colliderect(blocks):
+                x = blocks
+        if x in list_coords:
+            if x in remo_list:
+                print('lost')
+                remo_list=str(remo_list)+'.True'
         return remo_list
+    elif statement == False:
+        for blocks in list_coords:
+            if player_rect.colliderect(blocks):
+                x = blocks
+        if x in list_coords:
+            remo_list.append(x)
+            return remo_list
 
 
 def drawing(screen,walls):
