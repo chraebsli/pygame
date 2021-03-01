@@ -189,10 +189,10 @@ def gamescreen(data, data_2,remo_list):
             elif event.key==K_d or event.key==K_RIGHT:
                 keys[3]=True
             elif event.key==K_q:
-                if keys[4] == False:
-                    keys[4] = True
-                elif keys[4] == True:
-                    keys[4]=False
+                if keys[5] == False:
+                    keys[5] = True
+                elif keys[5] == True:
+                    keys[5]=False
             elif event.key == K_ESCAPE:
                 screenmode=='titlescreen'
 
@@ -205,11 +205,15 @@ def gamescreen(data, data_2,remo_list):
                 keys[2]=False
             elif event.key==pygame.K_d  or event.key==K_RIGHT:
                 keys[3]=False
+            elif event.key==pygame.K_q:
+                keys[5] = False
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
         collision_detct.run(screen,player_xy)
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
+    if keys[5]:
+        gamefunctions.show_points(points,remo_list,screen,coins_rect)
     if keys[4]:
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)  
         # Bewegt Player um 1 Feld
@@ -227,7 +231,7 @@ def gamescreen(data, data_2,remo_list):
             remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[3]:
             player_xy[0]+=49
-
+        points += 1
         collide=collision_detct.wall_collision(walls_rect,player_xy)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         points = collision_detct.point_counter(points,remo_list,coins_rect)

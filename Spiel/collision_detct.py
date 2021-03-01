@@ -25,7 +25,7 @@ def check_counter(screen,remo_list,coinskin,coins_rect): #Diese Funktion schaut 
 def point_counter(points,remo_list,coins_rect): # Diese Funktion zählt die Punkte die man von den Münzen bekommen kann zusammen
     for remove in remo_list:
         if remove.colliderect(coins_rect[0]) or remove.colliderect(coins_rect[1]) or remove.colliderect(coins_rect[2]) or remove.colliderect(coins_rect[3]) or remove.colliderect(coins_rect[4]) or remove.colliderect(coins_rect[5]) or remove.colliderect(coins_rect[6]) or remove.colliderect(coins_rect[7]) or remove.colliderect(coins_rect[8]) or remove.colliderect(coins_rect[9]):
-            points += 10
+            points += 100
     return points
 # erstellt liste für alle felder (weisse quadrate)
 def move(screen,player_coords,statement):
