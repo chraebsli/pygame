@@ -123,7 +123,8 @@ while running == True:
         newgame=False
         data.update({'newgame':newgame})
         data.update({'keys':keys})
-        data_2.update({'player_xy':player_xy})   
+        data_2.update({'player_xy':player_xy}) 
+        remo_list.clear()
 
     # loginscreen
     if screenmode == 'loginscreen' or sm== 'loginscreen':
