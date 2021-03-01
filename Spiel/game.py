@@ -7,6 +7,7 @@ remo_list = []
 print('please select the game window, the game started')
 main_path = os.path.dirname(__file__) # Where your .py file is located
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
+
 # random Wände generieren (Koordinaten)
 wall_coords_x,wall_coords_y,wall_coords_xy=[],[],[]
 for x in range(12): 
@@ -16,6 +17,8 @@ for y in range(12):
     y = random.randrange(1,21)*49+6
     wall_coords_y.append(y)
 len_walls=len(wall_coords_x)
+
+# zusammenführen der Koordinaten
 wall_coords_xy = [list(k) for k in zip(wall_coords_x, wall_coords_y)]
 wall1=pygame.image.load(path + "images/gamescreen/waende/Wand1x4.png")
 wall2=pygame.image.load(path + "images/gamescreen/waende/Wand1x5.png")
@@ -46,6 +49,8 @@ end2 = 0
 coin2 = 0
 status=0
 block_coords=[]
+
+# var für pygame.Rect
 wall1_rect=[wall_coords_x[0],wall_coords_y[0],48,192] # x, y, -x, -y
 wall2_rect=[wall_coords_x[1],wall_coords_y[1],48,242]
 wall3_rect=[wall_coords_x[2],wall_coords_y[2],48,291]

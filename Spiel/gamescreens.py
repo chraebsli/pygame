@@ -36,6 +36,7 @@ def titlescreen(data, data_1):
             pygame.quit() 
             exit(0) 
         
+        # erkennen von Mausposition 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
             if x > play_button_rect[0] and y > play_button_rect[1] and x < play_button_rect[2] and y < play_button_rect[3]:
@@ -88,6 +89,7 @@ def skinscreen(data, data_3,data_2):
                 screenmode='titlescreen'
                 send_data=True
         
+        # laden der skins
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
             if x > 112 and y > 375 and x < 392 and y < 655:
@@ -150,6 +152,7 @@ def gamescreen(data, data_2,remo_list):
     gamefunctions.background(screen, path)
     collision_detct.playerpath(remo_list,screen,player_xy)
     
+    # bei Feheler vom laden von Playersprite
     try:
         screen.blit(player, (player_xy[-2],player_xy[-1])) 
     except NameError:
@@ -193,6 +196,7 @@ def gamescreen(data, data_2,remo_list):
             counter_felder+=1
         counter_felder += 1
         print('counter:',counter_felder)
+        # Colissiondetect für Wände, begangene Felder
         collision_detct.run(screen,player_xy)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
         

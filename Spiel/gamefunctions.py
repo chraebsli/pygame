@@ -7,6 +7,7 @@ def wall_blit(screen,walls,wall_coords_xy):
         screen.blit(wall,wall_coords_xy[c])
         c+=1
 
+# Anzeigen von den Feldabgrenzungen
 def background(screen,path):
     x,y = 1,1
     senkrechte = pygame.image.load(path + "images/gamescreen/senkrechte.png")
@@ -41,7 +42,7 @@ def random_endskin(path1,end1):
         randskin=1
     return end1
 
-
+# farbenwechselndes Ende
 def random_coinskin(path1,coin1):
     global randcoin
     if randcoin == 1:
@@ -63,6 +64,7 @@ def random_coinskin(path1,coin1):
 
 
 def scores(counter_felder,name,path):
+    # old script
     '''
     score_file_lst=[]
     counter_coins=5

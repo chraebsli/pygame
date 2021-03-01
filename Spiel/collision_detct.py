@@ -1,6 +1,6 @@
 import pygame
 
-
+# pygame.Rect für die Wände
 def wall_collision(walls,player):
     c=0
     player_rect = pygame.Rect(player[0],player[1],44,44)
