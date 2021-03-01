@@ -1,4 +1,4 @@
-# import modules
+# import moduleswww
 import os, pygame, random, sys, time, gamescreens,gamefunctions,collision_detct
 from gamescreens import *
 from pygame.locals import *
@@ -144,7 +144,8 @@ while running == True:
         newgame=False
         data.update({'newgame':newgame})
         data.update({'keys':keys})
-        data_2.update({'player_xy':player_xy})   
+        data_2.update({'player_xy':player_xy}) 
+        remo_list.clear()
 
     # loginscreen
     if screenmode == 'loginscreen' or sm== 'loginscreen':

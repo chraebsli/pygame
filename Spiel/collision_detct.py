@@ -31,7 +31,6 @@ def point_counter(points,remo_list,coins_rect): # Diese Funktion zählt die Punk
 def move(screen,player_coords,statement):
     black = pygame.Color('black')
     pygame.Rect(player_coords[0],player_coords[1],44,44)
-    pygame.Rect(player_coords[0],player_coords[1],44,44)
     x = 0
     y = 0
     if statement == False: #Dieser Block erstellt eine Liste mit den Koordinaten von jedem Block

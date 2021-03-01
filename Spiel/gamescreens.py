@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import pygame, sys, time,collision_detct,gamefunctions,itertools,random
 from os import read, write
 from pygame.locals import *
 felder = []
 
 counter_felder=0
+=======
+import pygame, sys, time,collision_detct,gamefunctions,ast
+from os import read, write
+from pygame.locals import *
+felder = []
+list_scores=()
+>>>>>>> db712c56200ee5236efae7547276bacff477d9d8
 player_coords,player_coords_c=[],[]
 moves = []
 black = pygame.Color('black')
@@ -34,8 +42,6 @@ def titlescreen(data, data_1):
     for event in pygame.event.get():
         if event.type==pygame.QUIT: # stoppt Script
             print('Quit game ...')
-            with open(main_path+'/output.txt', 'w') as file:
-                file.write('')
             pygame.quit() 
             exit(0) 
         
@@ -120,9 +126,13 @@ def skinscreen(data, data_3,data_2):
 
 def gamescreen(data, data_2,remo_list):
     send_data=False
+<<<<<<< HEAD
     #Punkte die man In-Game mit Münzen erzielt
     points = 0
     global counter_felder,block_coords,player_coords, player
+=======
+    global block_coords,player_coords, player,list_scores
+>>>>>>> db712c56200ee5236efae7547276bacff477d9d8
     screenmode=data['screenmode']
     keys = data['keys']
     path = data['path']
@@ -137,6 +147,7 @@ def gamescreen(data, data_2,remo_list):
     walls_rect=data_2['walls_rect'] #[wallnr][wallcoord(x,y,-x-y)]
     newgame=data['newgame']
     coin2=data_2['coin2']
+<<<<<<< HEAD
     coin_coords_xy = data_2['coin_coords']
     coins_rect = data_2['coins_rect']
     wall_complete = []
@@ -146,6 +157,8 @@ def gamescreen(data, data_2,remo_list):
     stop = False
     
 
+=======
+>>>>>>> db712c56200ee5236efae7547276bacff477d9d8
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -209,6 +222,11 @@ def gamescreen(data, data_2,remo_list):
                 keys[5] = False
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
+        counter_felder=1
+        for e in remo_list:
+            counter_felder+=1
+        counter_felder += 1
+        print('counter:',counter_felder)
         collision_detct.run(screen,player_xy)
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
@@ -219,16 +237,10 @@ def gamescreen(data, data_2,remo_list):
         # Bewegt Player um 1 Feld
         if keys[0]:
             player_xy[1]-=49
-            collision_detct.wall_collision(walls_rect,player_xy)
-            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[2]:
             player_xy[1]+=49
-            collision_detct.wall_collision(walls_rect,player_xy)
-            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[1]:
             player_xy[0]-=49
-            collision_detct.wall_collision(walls_rect,player_xy)
-            remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         elif keys[3]:
             player_xy[0]+=49
         points += 1
@@ -262,6 +274,24 @@ def gamescreen(data, data_2,remo_list):
     if screenmode=='titlescreen' or newgame==True:
         send_data=True
     if send_data==True:
+        
+        score_file_lst=[]
+        with open('scores.txt','r+') as scores:
+            score_file = scores.read()
+            score_file_lst = list(ast.literal_eval(score_file))
+            print(score_file_lst)     
+            score_file_lst.append(counter_felder)
+        '''
+        with open('scores.txt','r+') as scores:
+            score_file = scores.read()
+            for item in score_file:
+                if item != '(' and item != ')' and item != ',' and item !=' ':
+                    score_file_lst.append(int(item))
+        '''
+        open('scores.txt','r+').close
+        with open('scores.txt','r+') as scores:
+            scores.write(str(tuple(score_file_lst)))
+            print('scores:',score_file_lst)
         screenmode='titlescreen.True'
         return screenmode
 
