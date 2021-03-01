@@ -1,9 +1,9 @@
-import pygame
+import pygame,random
 
-
+#Erkennt ob man eine Wand mit dem Spieler berührt
 def wall_collision(walls,player):
     c=0
-    player_rect = pygame.Rect(player[0],player[1],44,44)
+    player_rect = pygame.Rect(player[0],player[1],44,44) #Spieler
     for wall in range(11):
         wall=pygame.Rect(walls[c])
         c+=1
@@ -11,36 +11,44 @@ def wall_collision(walls,player):
             return 'titlescreen.True'
 
 
-# zeigt path an
+
+# zeigt die Position vom Spieler an
 def run(screen,player) :
-    blue = pygame.Color('blue')
-    pygame.Rect(player[0],player[1],44,44)
-    field = pygame.Rect(player[0],player[1],44,44)
-    pygame.draw.rect(screen,blue,field)
-
-
+    bronze = pygame.Color('red') #Farbe
+    pygame.Rect(player[0],player[1],44,44) #Spieler
+    field = pygame.Rect(player[0],player[1],44,44) # das Feld, wo sich der Spieler gerade befindet 
+    pygame.draw.rect(screen,bronze,field) #Zeichnet ein Rechteck auf der Position auf dem sich der Spieler befindet
+def check_counter(screen,remo_list,coinskin,coins_rect): #Diese Funktion schaut ob ein Spieler eine Münze berührt hat
+    for remove in remo_list:
+        if remove.colliderect(coins_rect[0]) or remove.colliderect(coins_rect[1]) or remove.colliderect(coins_rect[2]) or remove.colliderect(coins_rect[3]) or remove.colliderect(coins_rect[4]) or remove.colliderect(coins_rect[5]) or remove.colliderect(coins_rect[6]) or remove.colliderect(coins_rect[7]) or remove.colliderect(coins_rect[8]) or remove.colliderect(coins_rect[9]):
+            screen.blit(coinskin,(remove[0],remove[1])) #Es erscheint eine Münze auf dem Screen
+def point_counter(points,remo_list,coins_rect): # Diese Funktion zählt die Punkte die man von den Münzen bekommen kann zusammen
+    for remove in remo_list:
+        if remove.colliderect(coins_rect[0]) or remove.colliderect(coins_rect[1]) or remove.colliderect(coins_rect[2]) or remove.colliderect(coins_rect[3]) or remove.colliderect(coins_rect[4]) or remove.colliderect(coins_rect[5]) or remove.colliderect(coins_rect[6]) or remove.colliderect(coins_rect[7]) or remove.colliderect(coins_rect[8]) or remove.colliderect(coins_rect[9]):
+            points += 10
+    return points
 # erstellt liste für alle felder (weisse quadrate)
 def move(screen,player_coords,statement):
-    green = pygame.Color(255, 255, 255, 128)
+    black = pygame.Color('black')
     pygame.Rect(player_coords[0],player_coords[1],44,44)
     pygame.Rect(player_coords[0],player_coords[1],44,44)
     x = 0
     y = 0
-    if statement == False:
+    if statement == False: #Dieser Block erstellt eine Liste mit den Koordinaten von jedem Block
         list_coords = []
         while x != 34 and y != 21:
             buttons = pygame.Rect(0+((50-1)*x+7),0+((50-1)*y+7),44,44)
-            places = pygame.draw.rect(screen,green,buttons)
+            places = pygame.draw.rect(screen,black,buttons)
             list_coords.append(places)
             x += 1
             if x == 34:
                 y+=1
                 x=0
         return list_coords
-    if statement == True:   
+    if statement == True:   #Dieser Block zeichnet die Felder
         while x != 34 and y != 21:
             buttons = pygame.Rect(0+((50-1)*x+7),0+((50-1)*y+7),44,44)
-            places = pygame.draw.rect(screen,green,buttons)
+            places = pygame.draw.rect(screen,black,buttons)
             x += 1
             if x == 34:
                 y+=1
@@ -51,7 +59,7 @@ def move(screen,player_coords,statement):
 def collideplayer(player,list_coords,remo_list,statement):
     player_rect = pygame.Rect(player[0],player[1],44,44)
     pygame.Rect(player[0],player[1],44,44)
-    if statement == True:
+    if statement == True: # Dieser Block schaut ob der Spieler das Feld schon besucht hat
         for blocks in list_coords:
             if player_rect.colliderect(blocks):
                 x = blocks
@@ -60,7 +68,7 @@ def collideplayer(player,list_coords,remo_list,statement):
                 print('lost')
                 remo_list=str(remo_list)+'.True'
         return remo_list
-    elif statement == False:
+    elif statement == False: # Dieser Block fügt die Koordinaten vom Spieler in die Remove Liste
         for blocks in list_coords:
             if player_rect.colliderect(blocks):
                 x = blocks
@@ -72,15 +80,23 @@ def collideplayer(player,list_coords,remo_list,statement):
 # zeichnet wände
 def drawing(screen,walls):
     red = pygame.Color('red')
+    blue = pygame.Color('blue')
+    green = pygame.Color('green')
+    colors = [red,blue,green]
+    x = random.randint(0,2)
     c=0
     for e in range(11):
-        pygame.draw.rect(screen,red,walls[c])
+        pygame.draw.rect(screen,colors[x],walls[c])
         c+=1
 
 
-# playerpath 
+# playerpath: zeigt alle begangen Felder an
 def playerpath(remo_list,screen,player):
     blue = pygame.Color('blue')
+    green = pygame.Color('green')
+    red = pygame.Color('red')
+    colors = [blue,green,red]
+    x = random.randint(0,2)
     pygame.Rect(player[0],player[1],44,44)
     for element in remo_list:
-        pygame.draw.rect(screen,blue,element)
+        pygame.draw.rect(screen,colors[x],element)
