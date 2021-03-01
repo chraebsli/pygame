@@ -1,4 +1,4 @@
-import pygame
+import pygame,ast,datetime,json
 
 # Funktion für das setzen der Wände
 def wall_blit(screen,walls,wall_coords_xy):
@@ -41,6 +41,7 @@ def random_endskin(path1,end1):
         randskin=1
     return end1
 
+
 def random_coinskin(path1,coin1):
     global randcoin
     if randcoin == 1:
@@ -59,3 +60,47 @@ def random_coinskin(path1,coin1):
     if randcoin==7:
         randcoin=1
     return coin1
+
+
+def scores(counter_felder,name,path):
+    '''
+    score_file_lst=[]
+    counter_coins=5
+    
+    with open('scores.txt','r+') as scores:
+        score_file = scores.read()
+        score_file_lst = list(ast.literal_eval(score_file))
+        print(score_file_lst)     
+        score_file_lst.append(counter_felder)
+    open('scores.txt','r+').close
+    
+    with open('scores.txt','r+') as scores:
+        scores.write(str(tuple(score_file_lst)))
+        print('scores:',score_file_lst)
+
+    actual=datetime.datetime.now()
+    date=actual.strftime('%d.%m.%Y')
+    time=actual.strftime('%H:%M:%S')
+    now=date+' '+time
+
+    json_data={'id':1,'data':[now,name,counter_felder,counter_coins]}
+    with open('scores.json', 'r+') as scores:
+        json.dump(json_data, scores, ensure_ascii=False, indent=4)
+    '''
+    # placeholder
+    names=['name1','name2','name3','name2']
+    counter_felder,counter_coins=[43,32,12,12],[3,6,6,3]
+    dates = ['01.03.2021 13:05:59','01.03.2021 13:46:04','01.03.2021 14:05:59','01.03.2021 13:30:04']
+
+    # gives date and time dd.mm.yyyy hh:mm:ss
+    actual=datetime.datetime.now()
+    date=actual.strftime('%d.%m.%Y')
+    time=actual.strftime('%H:%M:%S')
+    now=date+' '+time
+
+    # get data in json 
+    with open('scores.json', 'r+') as scores:
+            result = {'items':[{'time':i[0],'name':i[1], 'felder':i[2], 'coins':i[3]} for i in zip(dates,names,counter_felder,counter_coins)]}
+            json.dump(result, scores, indent=4)
+
+    

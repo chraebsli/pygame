@@ -1,4 +1,4 @@
-import pygame, sys, time,collision_detct,gamefunctions,ast
+import pygame, sys, time,collision_detct,gamefunctions
 from os import read, write
 from pygame.locals import *
 felder = []
@@ -132,6 +132,8 @@ def gamescreen(data, data_2,remo_list):
     walls_rect=data_2['walls_rect'] #[wallnr][wallcoord(x,y,-x-y)]
     newgame=data['newgame']
     coin2=data_2['coin2']
+    playername=data['playername']
+
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -233,24 +235,7 @@ def gamescreen(data, data_2,remo_list):
     if screenmode=='titlescreen' or newgame==True:
         send_data=True
     if send_data==True:
-        
-        score_file_lst=[]
-        with open('scores.txt','r+') as scores:
-            score_file = scores.read()
-            score_file_lst = list(ast.literal_eval(score_file))
-            print(score_file_lst)     
-            score_file_lst.append(counter_felder)
-        '''
-        with open('scores.txt','r+') as scores:
-            score_file = scores.read()
-            for item in score_file:
-                if item != '(' and item != ')' and item != ',' and item !=' ':
-                    score_file_lst.append(int(item))
-        '''
-        open('scores.txt','r+').close
-        with open('scores.txt','r+') as scores:
-            scores.write(str(tuple(score_file_lst)))
-            print('scores:',score_file_lst)
+        #gamefunctions.scores(counter_felder,playername,path)
         screenmode='titlescreen.True'
         return screenmode
 
