@@ -195,13 +195,10 @@ def gamescreen(data, data_2,remo_list):
         # Bewegt Player um 1 Feld
         if keys[0]:
             player_xy[1]-=49
-            collision_detct.wall_collision(walls_rect,player_xy)
         elif keys[2]:
             player_xy[1]+=49
-            collision_detct.wall_collision(walls_rect,player_xy)
         elif keys[1]:
             player_xy[0]-=49
-            collision_detct.wall_collision(walls_rect,player_xy)
         elif keys[3]:
             player_xy[0]+=49
 
