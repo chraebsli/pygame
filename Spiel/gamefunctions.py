@@ -61,11 +61,16 @@ def random_coinskin(path1,coin1):
     return coin1
 
 def show_points(points,remo_list,screen,coins_rect):
-    color = pygame.Color('white')
-    black = pygame.Color('black')
-    base_font = pygame.font.SysFont(None, 160)
-    points = collision_detct.point_counter(points,remo_list,coins_rect)
-    final_punkte = points + int(len(remo_list))
-    text_surface = base_font.render(f'Punkte: {final_punkte}',False,black)
-    pygame.draw.rect(screen, color,(0,0,2000,100))
-    screen.blit(text_surface,(500, 5))
+        color = pygame.Color('white')
+        black = pygame.Color('black')
+        base_font = pygame.font.SysFont(None, 160)
+        points = collision_detct.point_counter(points,remo_list,coins_rect)
+        final_punkte = points + int(len(remo_list))
+        text_surface = base_font.render(f'Punkte: {final_punkte+1}',False,black)
+        pygame.draw.rect(screen, color,(0,0,2000,100))
+        screen.blit(text_surface,(500, 5))
+
+def calculate_points(points,remo_list,coins_rect):
+        points = collision_detct.point_counter(points,remo_list,coins_rect)
+        final_punkte = points + int(len(remo_list))
+        return final_punkte-1

@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 import pygame, sys, time,collision_detct,gamefunctions,itertools,random
 from os import read, write
 from pygame.locals import *
 felder = []
 
 counter_felder=0
-=======
-import pygame, sys, time,collision_detct,gamefunctions,ast
-from os import read, write
-from pygame.locals import *
-felder = []
-list_scores=()
->>>>>>> db712c56200ee5236efae7547276bacff477d9d8
 player_coords,player_coords_c=[],[]
 moves = []
 black = pygame.Color('black')
@@ -126,13 +118,9 @@ def skinscreen(data, data_3,data_2):
 
 def gamescreen(data, data_2,remo_list):
     send_data=False
-<<<<<<< HEAD
     #Punkte die man In-Game mit Münzen erzielt
     points = 0
     global counter_felder,block_coords,player_coords, player
-=======
-    global block_coords,player_coords, player,list_scores
->>>>>>> db712c56200ee5236efae7547276bacff477d9d8
     screenmode=data['screenmode']
     keys = data['keys']
     path = data['path']
@@ -147,7 +135,6 @@ def gamescreen(data, data_2,remo_list):
     walls_rect=data_2['walls_rect'] #[wallnr][wallcoord(x,y,-x-y)]
     newgame=data['newgame']
     coin2=data_2['coin2']
-<<<<<<< HEAD
     coin_coords_xy = data_2['coin_coords']
     coins_rect = data_2['coins_rect']
     wall_complete = []
@@ -157,8 +144,6 @@ def gamescreen(data, data_2,remo_list):
     stop = False
     
 
-=======
->>>>>>> db712c56200ee5236efae7547276bacff477d9d8
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -246,7 +231,7 @@ def gamescreen(data, data_2,remo_list):
         points += 1
         collide=collision_detct.wall_collision(walls_rect,player_xy)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
-        points = collision_detct.point_counter(points,remo_list,coins_rect)
+        points = gamefunctions.calculate_points(points,remo_list,coins_rect)
         print(points)
         try:
             remo_list = str(remo_list).split('.')
@@ -269,7 +254,10 @@ def gamescreen(data, data_2,remo_list):
 
     # winscreen bzw Nachricht
     if player_xy == end_xy:
+        global playername
         print('You ended this round')
+        print(playername)
+        print(points)
         send_data=True
     if screenmode=='titlescreen' or newgame==True:
         send_data=True
