@@ -186,3 +186,4 @@ while running == True:
     # grundlegende Funktionen
     pygame.display.flip() 
     time.sleep(0.05)
+
