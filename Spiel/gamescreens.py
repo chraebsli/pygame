@@ -1,4 +1,4 @@
-import pygame, sys, time,collision_detct,gamefunctions,itertools,random
+import pygame, sys, time,collision_detct,gamefunctions,itertools,random,json
 from os import read, write
 from pygame.locals import *
 felder = []
@@ -339,6 +339,7 @@ def loginscreen(data):
             return screenmode
 
 def highscorescreen(data):
+    base_font = pygame.font.SysFont(None, 80)
     screen = data['screen']
     banner = data['banner']
     return_banner = data['return_banner']
@@ -346,6 +347,7 @@ def highscorescreen(data):
     screen.fill(black)
     screen.blit(banner,(410,15))
     screen.blit(return_banner,(1225,900))
+    path = data['path']
     for event in pygame.event.get():
             if event.type==pygame.QUIT: # stoppt Script
                 print('Quit game ...')
@@ -358,3 +360,22 @@ def highscorescreen(data):
                     screenmode='titlescreen'
                     send_data=True
                     return screenmode
+    
+    header = base_font.render('Time \t Name \t Points',True,(255,255,255))
+    screen.blit(header,(200,200))
+
+    c=300
+    c1=1
+    with open(path+'scores.json') as file:
+        data_score = json.load(file)
+        for p in data_score['scores']:
+            if c1 == 8:
+                break
+            time = p['time']
+            name = p['name']
+            points = p['points']
+        
+            zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
+            screen.blit(zeile,(200,c))
+            c+=80
+            c1+=1
