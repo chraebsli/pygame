@@ -78,14 +78,16 @@ def scores(points,name,path):
         json.dump(data,file,indent=4)
     
     # read data:
-    '''
     with open(path+'scores.json') as file:
         data = json.load(file)
-        for p in data['people']:
-            print('Name: ' + p['name'])
-            print('Website: ' + p['website'])
-            print('From: ' + p['from'])
-    '''
+        for p in data['scores']:
+            time = p['time']
+            name = p['name']
+            points = p['points']
+            print('Time:\t',time)
+            print('Name:\t',name)
+            print('Points:\t',points)
+            print()
 
     
 def show_points(points,remo_list,screen,coins_rect):
