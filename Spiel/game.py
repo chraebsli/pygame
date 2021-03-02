@@ -114,7 +114,9 @@ rand_links = pygame.image.load(path + "images/loginscreen/rand_links.png")
 rand_rechts = pygame.image.load(path + "images/loginscreen/rand_rechts.png")
 corners = pygame.image.load(path + "images/loginscreen/corners.png")
 logo = pygame.image.load(path + "images/loginscreen/logo.png")
-
+banner = pygame.image.load(path + "images/highscore/banner.png")
+return_banner = pygame.image.load(path + "images/highscore/return_banner.png")
+button_highscore = pygame.image.load(path+"images/titlescreen/button_highscore.png")
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
 
@@ -122,11 +124,11 @@ screen=pygame.display.set_mode((display_xy))
 # data: universell, data_1: titlescreen, data_2: gamescreen,data_3: skinscreen
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
-'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername}
+'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,'banner':banner,'return_banner':return_banner}
 data_1 = {'background_titlescreen':background_titlescreen,
 'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,
 'play_button_rect':play_button_rect,'quit_button':quit_button,'skin_button':skin_button,
-'skin_button_rect':skin_button_rect,'quit_button_rect':quit_button_rect}
+'skin_button_rect':skin_button_rect,'quit_button_rect':quit_button_rect,'button_highscore':button_highscore}
 data_2 = {'background_game':background_game,'start':start,
 'player': player,'start_xy':start_xy,'end_xy': end_xy,'player_xy': player_xy,
 'display_xy':display_xy,'end2': 0,'walls':walls,'block_xy': block_xy,'block':block,'coin2':0,
@@ -161,7 +163,10 @@ while running == True:
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
         sm=gamescreens.titlescreen(data,data_1)
-
+    #highscores
+    if screenmode == 'highscore' or sm == 'highscore':
+        screenmode,sm = 'highscore','highscore'
+        sm=gamescreens.highscorescreen(data)
     # gamescreen    
     if screenmode =='gamescreen' or sm=='gamescreen':
         screenmode,sm='gamescreen','gamescreen'

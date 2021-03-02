@@ -19,6 +19,7 @@ def titlescreen(data, data_1):
     play_button_rect=data_1['play_button_rect']
     skin_button_rect=data_1['skin_button_rect']
     quit_button_rect=data_1['quit_button_rect']
+    button_highscore=data_1['button_highscore']
     screenmode=data['screenmode']
     main_path=data['main_path']
     upperplayername = playername.upper()
@@ -28,7 +29,8 @@ def titlescreen(data, data_1):
     screen.blit(play_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(skin_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(quit_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
-    screen.blit(text_surface,(50,20))
+    screen.blit(button_highscore,(1200,5))
+    screen.blit(text_surface,(50,5))
 
     for event in pygame.event.get():
         if event.type==pygame.QUIT: # stoppt Script
@@ -47,7 +49,10 @@ def titlescreen(data, data_1):
                 send_data=True           
             elif x > quit_button_rect[0] and y > quit_button_rect[1] and x < quit_button_rect[2] and y < quit_button_rect[3]:
                 screenmode='quitscreen'
-                send_data=True           
+                send_data=True 
+            elif x > 1200 and y > 5 and x < 1652 and y < 94:
+                screenmode='highscore'
+                send_data=True          
     if send_data==True:
         return screenmode
 
@@ -136,7 +141,6 @@ def gamescreen(data, data_2,remo_list):
     walls_rect=data_2['walls_rect'] #[wallnr][wallcoord(x,y,-x-y)]
     newgame=data['newgame']
     coin2=data_2['coin2']
-    playername=data['playername']
     coin_coords_xy = data_2['coin_coords']
     coins_rect = data_2['coins_rect']
     wall_complete = []
@@ -258,6 +262,7 @@ def gamescreen(data, data_2,remo_list):
 
     # winscreen bzw Nachricht
     if player_xy == end_xy:
+        global playername
         print('You ended this round')
         print(playername)
         print(points)
@@ -334,4 +339,24 @@ def loginscreen(data):
         clock.tick(30)
         if send_data==True:
             return screenmode
+
+def highscorescreen(data):
+    screen = data['screen']
+    banner = data['banner']
+    return_banner = data['return_banner']
+    black = pygame.Color('black')
+    screen.fill(black)
+    screen.blit(banner,(410,15))
+    screen.blit(return_banner,(1225,900))
+    for event in pygame.event.get():
+            if event.type==pygame.QUIT: # stoppt Script
+                print('Quit game ...')
+                pygame.quit() 
+                exit(0) 
             
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x,y = event.pos
+                if x > 1225 and y > 900 and x < 1630 and y < 1035:
+                    screenmode='titlescreen'
+                    send_data=True
+                    return screenmode
