@@ -35,7 +35,7 @@ def titlescreen(data, data_1):
             print('Quit game ...')
             pygame.quit() 
             exit(0) 
-        
+
         # erkennen von Mausposition 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
