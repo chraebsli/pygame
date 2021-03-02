@@ -143,7 +143,6 @@ running = True
 
 while running == True:
     # wenn das spiel beendet wird setzt es das spiel zurück
-    """
     if newgame==True:
         screen.fill(0) 
         pygame.display.flip()
@@ -155,7 +154,7 @@ while running == True:
         data.update({'keys':keys})
         data_2.update({'player_xy':player_xy}) 
         remo_list.clear()
-    """
+    
     # loginscreen
     if screenmode == 'loginscreen' or sm== 'loginscreen':
         screenmode,sm == 'loginscreen', 'loginscreen'

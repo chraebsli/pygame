@@ -357,19 +357,6 @@ def highscorescreen(data):
     c1=1
     with open(path+'scores.json') as file:
         data_score = json.load(file)
-<<<<<<< HEAD
-        for p in data_score['scores']:
-            if c1 == 8:
-                break
-            time = p['time']
-            name = p['name']
-            points = p['points']
-        
-            zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
-            screen.blit(zeile,(300,c))
-            c+=80
-            c1+=1
-=======
 
     # sortiert die liste nach höchstpunktzahl
     data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
@@ -382,7 +369,6 @@ def highscorescreen(data):
         points = p['points']
     
         zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
-        screen.blit(zeile,(200,c))
+        screen.blit(zeile,(300,c))
         c+=80
         c1+=1
->>>>>>> master

@@ -66,8 +66,8 @@ def random_coinskin(path1,coin1):
 def scores(points,name,path):
     # gives date and time dd.mm.yyyy hh:mm:ss
     actual=datetime.datetime.now()
-    date=actual.strftime('%d.%m.%Y')
-    time=actual.strftime('%H:%M:%S')
+    date=actual.strftime('%d.%m')
+    time=actual.strftime('%H:%M')
     now=date+' '+time
 
     # get data in json 
