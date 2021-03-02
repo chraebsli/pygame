@@ -11,22 +11,27 @@ def wall_collision(walls,player):
             return 'titlescreen.True'
 
 
-
 # zeigt die Position vom Spieler an
 def run(screen,player) :
     bronze = pygame.Color('red') #Farbe
     pygame.Rect(player[0],player[1],44,44) #Spieler
     field = pygame.Rect(player[0],player[1],44,44) # das Feld, wo sich der Spieler gerade befindet 
     pygame.draw.rect(screen,bronze,field) #Zeichnet ein Rechteck auf der Position auf dem sich der Spieler befindet
+
+
 def check_counter(screen,remo_list,coinskin,coins_rect): #Diese Funktion schaut ob ein Spieler eine Münze berührt hat
     for remove in remo_list:
         if remove.colliderect(coins_rect[0]) or remove.colliderect(coins_rect[1]) or remove.colliderect(coins_rect[2]) or remove.colliderect(coins_rect[3]) or remove.colliderect(coins_rect[4]) or remove.colliderect(coins_rect[5]) or remove.colliderect(coins_rect[6]) or remove.colliderect(coins_rect[7]) or remove.colliderect(coins_rect[8]) or remove.colliderect(coins_rect[9]):
             screen.blit(coinskin,(remove[0],remove[1])) #Es erscheint eine Münze auf dem Screen
+
+
 def point_counter(points,remo_list,coins_rect): # Diese Funktion zählt die Punkte die man von den Münzen bekommen kann zusammen
     for remove in remo_list:
         if remove.colliderect(coins_rect[0]) or remove.colliderect(coins_rect[1]) or remove.colliderect(coins_rect[2]) or remove.colliderect(coins_rect[3]) or remove.colliderect(coins_rect[4]) or remove.colliderect(coins_rect[5]) or remove.colliderect(coins_rect[6]) or remove.colliderect(coins_rect[7]) or remove.colliderect(coins_rect[8]) or remove.colliderect(coins_rect[9]):
             points += 100
     return points
+
+
 # erstellt liste für alle felder (weisse quadrate)
 def move(screen,player_coords,statement):
     black = pygame.Color('black')

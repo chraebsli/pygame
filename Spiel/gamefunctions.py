@@ -1,4 +1,4 @@
-import pygame,ast,datetime,json,collision_detct
+import pygame,datetime,json,collision_detct
 
 # Funktion für das setzen der Wände
 def wall_blit(screen,walls,wall_coords_xy):
@@ -78,6 +78,7 @@ def scores(points,name,path):
         json.dump(data,file,indent=4)
     
     # read data:
+    '''
     with open(path+'scores.json') as file:
         data = json.load(file)
         for p in data['scores']:
@@ -88,6 +89,7 @@ def scores(points,name,path):
             print('Name:\t',name)
             print('Points:\t',points)
             print()
+    '''
 
     
 def show_points(points,remo_list,screen,coins_rect):
