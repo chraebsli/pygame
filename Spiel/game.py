@@ -17,6 +17,7 @@ for x in range(12):
 for y in range(12):
     y = random.randrange(2,15)*49+6
     wall_coords_y.append(y)
+
 #random Coins generieren(Koordinaten)
 for x1 in range(10):
     x1 = random.randrange(1,34)*49+7
@@ -85,6 +86,7 @@ coin8_rect=pygame.Rect(coin_coords_x[7],coin_coords_y[7],44,44)
 coin9_rect=pygame.Rect(coin_coords_x[8],coin_coords_y[8],44,44)
 coin10_rect=pygame.Rect(coin_coords_x[9],coin_coords_y[9],44,44)
 coins_rect =[coin1_rect,coin2_rect,coin3_rect,coin4_rect,coin5_rect,coin6_rect,coin7_rect,coin8_rect,coin9_rect,coin10_rect]
+
 # load images
 background_titlescreen = pygame.image.load(path+"images/titlescreen/background_titlescreen.png")
 background_game = pygame.image.load(path+"images/gamescreen/background.png")
@@ -147,7 +149,7 @@ while running == True:
         pygame.display.flip()
         player_xy.clear()
         player_xy=start_xy.copy()
-        keys = [False, False, False, False]
+        keys = [False, False, False, False,True,False]
         newgame=False
         data.update({'newgame':newgame})
         data.update({'keys':keys})

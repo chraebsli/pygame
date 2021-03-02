@@ -1,5 +1,4 @@
-import pygame, sys, time,collision_detct,gamefunctions,itertools,random,json
-from os import read, write
+import pygame,collision_detct,gamefunctions,json
 from pygame.locals import *
 felder = []
 
@@ -68,17 +67,10 @@ def skinscreen(data, data_3,data_2):
     skins = data['skins']
     screen.blit(background_skinscreen, (background_xy[0],background_xy[1]))
     c=0
-    z,w=270,375
+    
     for skin in skins_skinscreen:
-        if c==0:
-            z=112
-        if c==1:
-            z=485
-        if c==2:
-            z=870
-        if c==3:
-            z=1230
-        screen.blit(skins_skinscreen[c], (z,w))
+        l=[112,485,870,1230]
+        screen.blit(skins_skinscreen[c], (l[c],375))
         c+=1
     
     for event in pygame.event.get():
@@ -141,14 +133,8 @@ def gamescreen(data, data_2,remo_list):
     walls_rect=data_2['walls_rect'] #[wallnr][wallcoord(x,y,-x-y)]
     newgame=data['newgame']
     coin2=data_2['coin2']
-    coin_coords_xy = data_2['coin_coords']
     coins_rect = data_2['coins_rect']
-    wall_complete = []
-    coin_complete = []
-    coin_coords_x = []
-    coin_coords_y = []
-    stop = False
-
+    
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -160,7 +146,6 @@ def gamescreen(data, data_2,remo_list):
     collision_detct.drawing(screen,walls_rect)
     coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
-    
     
     screen.blit(endskin, (end_xy[0],end_xy[1]))
     screen.blit(start1, (start_xy[0],start_xy[1])) 
@@ -183,7 +168,6 @@ def gamescreen(data, data_2,remo_list):
             exit(0) 
 
         elif event.type == pygame.KEYDOWN:
-
             if event.key==K_w or event.key==K_UP:
                 keys[0]=True
             elif event.key==K_a or event.key==K_LEFT:
@@ -222,6 +206,7 @@ def gamescreen(data, data_2,remo_list):
         collision_detct.run(screen,player_xy)
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
+    
     if keys[5]:
         gamefunctions.show_points(points,remo_list,screen,coins_rect)
     if keys[4]:
@@ -313,6 +298,7 @@ def loginscreen(data):
                 if x > 600 and y > 600 and x < 1005 and y < 735 and len(playername) > 0:
                     screenmode = 'titlescreen'
                     send_data = True
+            
             if event.type == pygame.KEYDOWN:
                 if active:
                     if event.key == pygame.K_RETURN:
@@ -326,10 +312,12 @@ def loginscreen(data):
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
         width = max(475, text_surface.get_width()-400)
         input_box.w = width
+        
         pygame.draw.rect(screen, color, input_box, 2)
         blit_list=[text_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,logo]
         list2=[(input_box.x-350, input_box.y+5),(600,600),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
         c=0
+        
         for img in blit_list:
             screen.blit(img,list2[c])
             c+=1
@@ -348,6 +336,7 @@ def highscorescreen(data):
     screen.blit(banner,(410,15))
     screen.blit(return_banner,(1225,900))
     path = data['path']
+    
     for event in pygame.event.get():
             if event.type==pygame.QUIT: # stoppt Script
                 print('Quit game ...')
@@ -368,6 +357,7 @@ def highscorescreen(data):
     c1=1
     with open(path+'scores.json') as file:
         data_score = json.load(file)
+<<<<<<< HEAD
         for p in data_score['scores']:
             if c1 == 8:
                 break
@@ -379,3 +369,20 @@ def highscorescreen(data):
             screen.blit(zeile,(300,c))
             c+=80
             c1+=1
+=======
+
+    # sortiert die liste nach höchstpunktzahl
+    data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
+    
+    for p in data_score['scores']:
+        if c1 == 8:
+            break
+        time = p['time']
+        name = p['name']
+        points = p['points']
+    
+        zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
+        screen.blit(zeile,(200,c))
+        c+=80
+        c1+=1
+>>>>>>> master
