@@ -9,7 +9,6 @@ moves = []
 black = pygame.Color('black')
 def titlescreen(data, data_1):
     send_data=False
-    global playername
     screen = data['screen']
     background_titlescreen = data_1['background_titlescreen']
     background_xy = data['background_xy']
@@ -259,7 +258,6 @@ def gamescreen(data, data_2,remo_list):
 
     # winscreen bzw Nachricht
     if player_xy == end_xy:
-        global playername
         print('You ended this round')
         print(playername)
         print(points)
