@@ -10,12 +10,22 @@ path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
 
 # random Wände generieren (Koordinaten)
 wall_coords_x,wall_coords_y,wall_coords_xy=[],[],[]
+coin_coords_x,coin_coords_y,coin_coords_xy=[],[],[]
 for x in range(12): 
     x = random.randrange(1,34)*49+6
     wall_coords_x.append(x)
 for y in range(12):
-    y = random.randrange(1,21)*49+6
+    y = random.randrange(2,15)*49+6
     wall_coords_y.append(y)
+#random Coins generieren(Koordinaten)
+for x1 in range(10):
+    x1 = random.randrange(1,34)*49+7
+    coin_coords_x.append(x1)
+for y1 in range(10):
+    y1 = random.randrange(1,21)*49+7
+    coin_coords_y.append(y1)
+len_coins=len(coin_coords_x)
+coin_coords_xy = [list(w) for w in zip(coin_coords_x, coin_coords_y)]
 len_walls=len(wall_coords_x)
 
 # zusammenführen der Koordinaten
@@ -32,7 +42,7 @@ walls=[wall1,wall2,wall3,wall4,wall5,wall6]
 newgame=False
 playername=''
 screenmode,sm ='loginscreen','loginscreen'
-keys = [False, False, False, False]
+keys = [False, False, False, False,True,False]
 display_xy = [1671, 1034] # bildschirmgrösse
 startx_rand = random.randrange(1,34)*49+5
 endx_rand = random.randrange(1,34)*49+5
@@ -65,6 +75,17 @@ wall11_rect=[wall_coords_x[10],wall_coords_y[10],242,48]
 wall12_rect=[wall_coords_x[11],wall_coords_y[11],291,48]
 walls_rect=[wall1_rect,wall2_rect,wall3_rect,wall4_rect,wall5_rect,wall6_rect,wall7_rect,wall8_rect,wall9_rect,wall10_rect,wall11_rect,wall12_rect]
 
+coin1_rect=pygame.Rect(coin_coords_x[0],coin_coords_y[0],44,44) # x, y, -x, -y
+coin2_rect=pygame.Rect(coin_coords_x[1],coin_coords_y[1],44,44)
+coin3_rect=pygame.Rect(coin_coords_x[2],coin_coords_y[2],44,44)
+coin4_rect=pygame.Rect(coin_coords_x[3],coin_coords_y[3],44,44)
+coin5_rect=pygame.Rect(coin_coords_x[4],coin_coords_y[4],44,44)
+coin6_rect=pygame.Rect(coin_coords_x[5],wall_coords_y[5],44,44)
+coin7_rect=pygame.Rect(coin_coords_x[6],coin_coords_y[6],44,44)
+coin8_rect=pygame.Rect(coin_coords_x[7],coin_coords_y[7],44,44)
+coin9_rect=pygame.Rect(coin_coords_x[8],coin_coords_y[8],44,44)
+coin10_rect=pygame.Rect(coin_coords_x[9],coin_coords_y[9],44,44)
+coins_rect =[coin1_rect,coin2_rect,coin3_rect,coin4_rect,coin5_rect,coin6_rect,coin7_rect,coin8_rect,coin9_rect,coin10_rect]
 # load images
 background_titlescreen = pygame.image.load(path+"images/titlescreen/background_titlescreen.png")
 background_game = pygame.image.load(path+"images/gamescreen/background.png")
@@ -109,7 +130,7 @@ data_1 = {'background_titlescreen':background_titlescreen,
 data_2 = {'background_game':background_game,'start':start,
 'player': player,'start_xy':start_xy,'end_xy': end_xy,'player_xy': player_xy,
 'display_xy':display_xy,'end2': 0,'walls':walls,'block_xy': block_xy,'block':block,'coin2':0,
-'block_coords':block_coords,'wall_coords_xy':wall_coords_xy,'walls_rect':walls_rect}
+'block_coords':block_coords,'wall_coords_xy':wall_coords_xy,'walls_rect':walls_rect,'coin_coords':coin_coords_xy,'coins_rect':coins_rect}
 data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_skinscreen,
 'message_skin_one':message_skin_one}
 

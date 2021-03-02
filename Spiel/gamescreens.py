@@ -1,11 +1,12 @@
-import pygame, sys, time,collision_detct,gamefunctions
+import pygame, sys, time,collision_detct,gamefunctions,itertools,random
 from os import read, write
 from pygame.locals import *
 felder = []
-list_scores=()
+
+counter_felder=0
 player_coords,player_coords_c=[],[]
 moves = []
-
+black = pygame.Color('black')
 def titlescreen(data, data_1):
     send_data=False
     global playername
@@ -119,7 +120,9 @@ def skinscreen(data, data_3,data_2):
 
 def gamescreen(data, data_2,remo_list):
     send_data=False
-    global block_coords,player_coords, player,list_scores
+    #Punkte die man In-Game mit Münzen erzielt
+    points = 0
+    global counter_felder,block_coords,player_coords, player
     screenmode=data['screenmode']
     keys = data['keys']
     path = data['path']
@@ -135,6 +138,14 @@ def gamescreen(data, data_2,remo_list):
     newgame=data['newgame']
     coin2=data_2['coin2']
     playername=data['playername']
+    coin_coords_xy = data_2['coin_coords']
+    coins_rect = data_2['coins_rect']
+    wall_complete = []
+    coin_complete = []
+    coin_coords_x = []
+    coin_coords_y = []
+    stop = False
+    
 
     # Sprites hinzufügen
     counter = 0
@@ -143,10 +154,12 @@ def gamescreen(data, data_2,remo_list):
         counter += 1
     if counter != 0:
         collision_detct.move(screen,player_xy,True)
+    
     collision_detct.drawing(screen,walls_rect)
-    endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
     coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
-    screen.blit(coinskin, (100,300))
+    endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
+    
+    
     screen.blit(endskin, (end_xy[0],end_xy[1]))
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     gamefunctions.background(screen, path)
@@ -177,6 +190,11 @@ def gamescreen(data, data_2,remo_list):
                 keys[2]=True 
             elif event.key==K_d or event.key==K_RIGHT:
                 keys[3]=True
+            elif event.key==K_q:
+                if keys[5] == False:
+                    keys[5] = True
+                elif keys[5] == True:
+                    keys[5]=False
             elif event.key == K_ESCAPE:
                 screenmode=='titlescreen'
 
@@ -189,6 +207,8 @@ def gamescreen(data, data_2,remo_list):
                 keys[2]=False
             elif event.key==pygame.K_d  or event.key==K_RIGHT:
                 keys[3]=False
+            elif event.key==pygame.K_q:
+                keys[5] = False
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
         counter_felder=1
@@ -198,8 +218,12 @@ def gamescreen(data, data_2,remo_list):
         print('counter:',counter_felder)
         # Colissiondetect für Wände, begangene Felder
         collision_detct.run(screen,player_xy)
+        collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
-        
+    if keys[5]:
+        gamefunctions.show_points(points,remo_list,screen,coins_rect)
+    if keys[4]:
+        collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)  
         # Bewegt Player um 1 Feld
         if keys[0]:
             player_xy[1]-=49
@@ -209,10 +233,11 @@ def gamescreen(data, data_2,remo_list):
             player_xy[0]-=49
         elif keys[3]:
             player_xy[0]+=49
-
+        points += 1
         collide=collision_detct.wall_collision(walls_rect,player_xy)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
-
+        points = gamefunctions.calculate_points(points,remo_list,coins_rect)
+        print(points)
         try:
             remo_list = str(remo_list).split('.')
             newgame,remo_list=bool(remo_list[1]),remo_list[0]
@@ -234,7 +259,10 @@ def gamescreen(data, data_2,remo_list):
 
     # winscreen bzw Nachricht
     if player_xy == end_xy:
+        global playername
         print('You ended this round')
+        print(playername)
+        print(points)
         send_data=True
     if screenmode=='titlescreen' or newgame==True:
         send_data=True
