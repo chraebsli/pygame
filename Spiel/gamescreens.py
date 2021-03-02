@@ -148,7 +148,6 @@ def gamescreen(data, data_2,remo_list):
     coin_coords_x = []
     coin_coords_y = []
     stop = False
-    
 
     # Sprites hinzufügen
     counter = 0
@@ -218,7 +217,7 @@ def gamescreen(data, data_2,remo_list):
         for e in remo_list:
             counter_felder+=1
         counter_felder += 1
-        print('counter:',counter_felder)
+        
         # Colissiondetect für Wände, begangene Felder
         collision_detct.run(screen,player_xy)
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)
@@ -240,7 +239,6 @@ def gamescreen(data, data_2,remo_list):
         collide=collision_detct.wall_collision(walls_rect,player_xy)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         points = gamefunctions.calculate_points(points,remo_list,coins_rect)
-        print(points)
         try:
             remo_list = str(remo_list).split('.')
             newgame,remo_list=bool(remo_list[1]),remo_list[0]
@@ -270,7 +268,7 @@ def gamescreen(data, data_2,remo_list):
     if screenmode=='titlescreen' or newgame==True:
         send_data=True
     if send_data==True:
-        #gamefunctions.scores(counter_felder,playername,path)
+        gamefunctions.scores(points,playername,path)
         screenmode='titlescreen.True'
         return screenmode
 
