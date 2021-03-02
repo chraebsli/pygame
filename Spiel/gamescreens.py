@@ -199,7 +199,7 @@ def gamescreen(data, data_2,remo_list):
                     keys[5]=False
             elif event.key == K_ESCAPE:
                 screenmode=='titlescreen'
-
+                send_data = True
         elif event.type == pygame.KEYUP:
             if event.key==pygame.K_w or event.key==K_UP:
                 keys[0]=False
@@ -246,7 +246,7 @@ def gamescreen(data, data_2,remo_list):
             pass
         if collide=='titlescreen.True':
             newgame=True
-    
+
     # Player wird an anderen Bildschirmrand gesetzt wenn überschritten
     if player_xy[0] > 1624:
         player_xy[0] = 6
@@ -361,8 +361,8 @@ def highscorescreen(data):
                     send_data=True
                     return screenmode
     
-    header = base_font.render('Time \t Name \t Points',True,(255,255,255))
-    screen.blit(header,(200,200))
+    header = base_font.render('Time      \t       Name     \t       Points',True,(255,255,255))
+    screen.blit(header,(350,200))
 
     c=300
     c1=1
@@ -376,6 +376,6 @@ def highscorescreen(data):
             points = p['points']
         
             zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
-            screen.blit(zeile,(200,c))
+            screen.blit(zeile,(300,c))
             c+=80
             c1+=1

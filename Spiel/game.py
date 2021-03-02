@@ -37,7 +37,6 @@ wall4=pygame.image.load(path + "images/gamescreen/waende/Wand4x1.png")
 wall5=pygame.image.load(path + "images/gamescreen/waende/Wand5x1.png")
 wall6=pygame.image.load(path + "images/gamescreen/waende/Wand6x1.png")
 walls=[wall1,wall2,wall3,wall4,wall5,wall6]
-
 # load variables
 newgame=False
 playername=''
@@ -139,9 +138,10 @@ data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_s
 screen.fill(0) 
 # Spielablauf
 running = True
+
 while running == True:
-    
     # wenn das spiel beendet wird setzt es das spiel zurück
+    """
     if newgame==True:
         screen.fill(0) 
         pygame.display.flip()
@@ -153,7 +153,7 @@ while running == True:
         data.update({'keys':keys})
         data_2.update({'player_xy':player_xy}) 
         remo_list.clear()
-
+    """
     # loginscreen
     if screenmode == 'loginscreen' or sm== 'loginscreen':
         screenmode,sm == 'loginscreen', 'loginscreen'
@@ -163,10 +163,12 @@ while running == True:
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
         sm=gamescreens.titlescreen(data,data_1)
+        
     #highscores
     if screenmode == 'highscore' or sm == 'highscore':
         screenmode,sm = 'highscore','highscore'
         sm=gamescreens.highscorescreen(data)
+    
     # gamescreen    
     if screenmode =='gamescreen' or sm=='gamescreen':
         screenmode,sm='gamescreen','gamescreen'
@@ -176,7 +178,7 @@ while running == True:
             newgame,sm=bool(sm[1]),sm[0]
         except IndexError:
             pass
-
+        
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'
