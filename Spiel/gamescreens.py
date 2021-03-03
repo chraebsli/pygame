@@ -369,6 +369,6 @@ def highscorescreen(data):
         points = p['points']
     
         zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
-        screen.blit(zeile,(200,c))
+        screen.blit(zeile,(300,c))
         c+=80
         c1+=1

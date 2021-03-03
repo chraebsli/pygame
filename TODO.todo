@@ -1,5 +1,7 @@
 TODO:
 
-    - Skins
-    - Collision detektion für begangene Felder
-    - bugfix wenn esc game neu laden
+    - optimieren
+    - highscorescreen schöner
+    - JSON fehler beheben: wenn datei leer
+    - JSON automatisches löschen von kleinen scores (oder nachfragen)
+    - 

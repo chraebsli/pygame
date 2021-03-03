@@ -1,21 +1,22 @@
 {
     "scores": [
         {
-            "time": "01.01.1971 00:00:01",
+            "time": "01.01 00:00",
             "name": "chraebsli",
             "points": 1080
         },
         {
-            "time": "02.03.2021 16:07:13",
-            "name": "awd",
-            "points": 30
+            "time": "02.03 17:05",
+            "name": "lol",
+            "points": 233
         },
         {
-            "time": "02.03.2021 16:09:39",
-            "name": "awd",
-            "points": 29
+            "time": "02.03 17:05",
+            "name": "lol",
+            "points": 133
         },
         {
+<<<<<<< HEAD
             "time": "02.03.2021 16:09:49",
             "name": "awd",
             "points": 29
@@ -169,6 +170,16 @@
             "time": "03.03.2021 13:19:33",
             "name": "d",
             "points": 71
+=======
+            "time": "02.03 17:05",
+            "name": "lol",
+            "points": 33
+        },
+        {
+            "time": "02.03 17:06",
+            "name": "lol",
+            "points": 307
+>>>>>>> master
         }
     ]
 }
