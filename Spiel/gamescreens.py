@@ -305,7 +305,9 @@ def loginscreen(data):
                 if active:
                     if event.key == pygame.K_RETURN:
                             print(playername)
-                            playername = ''
+                            if len(playername) > 0:
+                                screenmode = 'titlescreen'
+                                send_data = True
                     elif event.key == pygame.K_BACKSPACE:
                             playername = playername[:-1]
                     else:
@@ -378,14 +380,6 @@ def highscorescreen(data):
         time = p['time']
         name = p['name']
         points = p['points']
-<<<<<<< HEAD
-        if len(name) != 7:
-            diffrence = 7 - len(name)
-            name = name + (('   ')*diffrence)
-            
-        zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
-        screen.blit(zeile,(300,c))
-=======
     
         btime = base_font.render(time,True,(255,255,255))
         bname = base_font.render(name,True,(255,255,255))
@@ -395,6 +389,5 @@ def highscorescreen(data):
         screen.blit(bname,(pos[c2],c))
         c2+=1
         screen.blit(bpoints,(pos[c2],c))
->>>>>>> master
         c+=80
         c1+=1
