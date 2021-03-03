@@ -123,6 +123,7 @@ logo = pygame.image.load(path + "images/loginscreen/logo.png")
 banner = pygame.image.load(path + "images/highscore/banner.png")
 return_banner = pygame.image.load(path + "images/highscore/return_banner.png")
 button_highscore = pygame.image.load(path+"images/titlescreen/button_highscore.png")
+howto_img = pygame.image.load(path+"images/manuels/manuelscreen.png")
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
 
@@ -171,10 +172,15 @@ while running == True:
         screenmode,sm='titlescreen','titlescreen'
         sm=gamescreens.titlescreen(data,data_1)
 
-    #highscores
+    # highscores
     if screenmode == 'highscore' or sm == 'highscore':
         screenmode,sm = 'highscore','highscore'
         sm=gamescreens.highscorescreen(data)
+
+    # howto
+    if screenmode =='howto' or sm == 'howto':
+        screenmode,sm='howto','howto'
+        sm = gamescreens.howto(data,howto_img)
     
     # gamescreen    
     if screenmode =='gamescreen' or sm=='gamescreen':

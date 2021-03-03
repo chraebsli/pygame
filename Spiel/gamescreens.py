@@ -388,3 +388,9 @@ def highscorescreen(data):
             screen.blit(base_font.render(i,True,(255,255,255)),(j,c))
         c+=80
         c1+=1
+
+
+def howto(data,img):
+    screen = data['screen']
+
+    screen.blit(img,(1,1))
