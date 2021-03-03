@@ -351,25 +351,38 @@ def highscorescreen(data):
                     send_data=True
                     return screenmode
     
-    header = base_font.render('Time      \t       Name     \t       Points',True,(255,255,255))
-    screen.blit(header,(350,200))
+    # sortiert die liste nach höchstpunktzahl
+    with open(path+'scores.json') as file:
+        data_score = json.load(file)
+    data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
+
+    # blit categories
+    c=0
+    titles,pos = ['Time','Name','Points'],[300,700,1100]
+    for e in titles:
+        print(e)
+        header = base_font.render(e,True,(255,255,255))
+        screen.blit(header,(pos[c],200))
+        c+=1
 
     c=300
     c1=1
-    with open(path+'scores.json') as file:
-        data_score = json.load(file)
-
-    # sortiert die liste nach höchstpunktzahl
-    data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
-    
     for p in data_score['scores']:
+        c2=0
+
         if c1 == 8:
             break
         time = p['time']
         name = p['name']
         points = p['points']
     
-        zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
-        screen.blit(zeile,(300,c))
+        btime = base_font.render(time,True,(255,255,255))
+        bname = base_font.render(name,True,(255,255,255))
+        bpoints = base_font.render(str(points),True,(255,255,255))
+        screen.blit(btime,(pos[c2],c))
+        c2+=1
+        screen.blit(bname,(pos[c2],c))
+        c2+=1
+        screen.blit(bpoints,(pos[c2],c))
         c+=80
         c1+=1
