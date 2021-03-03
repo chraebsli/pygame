@@ -12,11 +12,16 @@ def wall_collision(walls,player):
 
 
 # zeigt die Position vom Spieler an
-def run(screen,player) :
-    bronze = pygame.Color('red') #Farbe
+def run(screen,player,player_skin) :
+    red = pygame.Color('red') #Farbe
+    blue = pygame.Color('blue')
+    green = pygame.Color('green')
+    colors = [red,blue,green]
+    listposition = random.randint(0,2) #wählt eine Position für die Liste Colors aus
     pygame.Rect(player[0],player[1],44,44) #Spieler
     field = pygame.Rect(player[0],player[1],44,44) # das Feld, wo sich der Spieler gerade befindet 
-    pygame.draw.rect(screen,bronze,field) #Zeichnet ein Rechteck auf der Position auf dem sich der Spieler befindet
+    pygame.draw.rect(screen,colors[listposition],field) #Zeichnet ein Rechteck auf der Position auf dem sich der Spieler befindet
+    screen.blit(player_skin,field)
 
 
 def check_counter(screen,remo_list,coinskin,coins_rect): #Diese Funktion schaut ob ein Spieler eine Münze berührt hat
