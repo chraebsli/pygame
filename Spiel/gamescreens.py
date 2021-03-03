@@ -357,32 +357,25 @@ def highscorescreen(data):
     data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
 
     # blit categories
-    c=0
     titles,pos = ['Time','Name','Points'],[300,700,1100]
-    for e in titles:
-        print(e)
-        header = base_font.render(e,True,(255,255,255))
-        screen.blit(header,(pos[c],200))
-        c+=1
+    for i,j in zip(titles,pos):
+        header = base_font.render(i,True,(255,255,255))
+        screen.blit(header,(j,200))
 
     c=300
     c1=1
     for p in data_score['scores']:
-        c2=0
-
         if c1 == 8:
             break
+        
+        # setzt var auf den inhalt der JSON Datei
         time = p['time']
         name = p['name']
-        points = p['points']
+        points = str(p['points'])
     
-        btime = base_font.render(time,True,(255,255,255))
-        bname = base_font.render(name,True,(255,255,255))
-        bpoints = base_font.render(str(points),True,(255,255,255))
-        screen.blit(btime,(pos[c2],c))
-        c2+=1
-        screen.blit(bname,(pos[c2],c))
-        c2+=1
-        screen.blit(bpoints,(pos[c2],c))
+        # zeigt die Inhalte an
+        blitlist = [time,name,points]
+        for i,j in zip(blitlist,pos):
+            screen.blit(base_font.render(i,True,(255,255,255)),(j,c))
         c+=80
         c1+=1
