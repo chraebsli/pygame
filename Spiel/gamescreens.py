@@ -14,11 +14,15 @@ def titlescreen(data, data_1):
     play_button=data_1['play_button']
     skin_button=data_1['skin_button']
     quit_button=data_1['quit_button']
+    howto_button=data_1['howto_button']
+    leaderboard_button=data_1['leaderboard_button']
     buttons_titlescreen_xy = data_1['buttons_titlescreen_xy']
     play_button_rect=data_1['play_button_rect']
     skin_button_rect=data_1['skin_button_rect']
     quit_button_rect=data_1['quit_button_rect']
     button_highscore=data_1['button_highscore']
+    leaderboard_button_rect=data_1['leaderboard_button_rect']
+    howto_button_rect=data_1['howto_button_rect']
     screenmode=data['screenmode']
     main_path=data['main_path']
     upperplayername = playername.upper()
@@ -28,7 +32,8 @@ def titlescreen(data, data_1):
     screen.blit(play_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(skin_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(quit_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
-    screen.blit(button_highscore,(1200,5))
+    screen.blit(howto_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
+    screen.blit(leaderboard_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(text_surface,(50,5))
 
     for event in pygame.event.get():
@@ -49,9 +54,12 @@ def titlescreen(data, data_1):
             elif x > quit_button_rect[0] and y > quit_button_rect[1] and x < quit_button_rect[2] and y < quit_button_rect[3]:
                 screenmode='quitscreen'
                 send_data=True 
-            elif x > 1200 and y > 5 and x < 1652 and y < 94:
+            elif x > howto_button_rect[0] and y > howto_button_rect[1] and x < howto_button_rect[2] and y < howto_button_rect[3]:
+                screenmode='howto'
+                send_data=True 
+            elif x > leaderboard_button_rect[0] and y > leaderboard_button_rect[1] and x < leaderboard_button_rect[2] and y < leaderboard_button_rect[3]:
                 screenmode='highscore'
-                send_data=True          
+                send_data=True 
     if send_data==True:
         return screenmode
 
