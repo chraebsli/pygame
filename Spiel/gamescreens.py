@@ -211,15 +211,27 @@ def gamescreen(data, data_2,remo_list):
         gamefunctions.show_points(points,remo_list,screen,coins_rect)
     if keys[4]:
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)  
+        
         # Bewegt Player um 1 Feld
         if keys[0]:
             player_xy[1]-=49
+            if player_xy[1] < 5:
+                player_xy[1] += 49
         elif keys[2]:
             player_xy[1]+=49
+            if player_xy[1] > 987:
+                player_xy[1] -= 49
         elif keys[1]:
             player_xy[0]-=49
+            if player_xy[0] < 5:
+                player_xy[0] += 49
         elif keys[3]:
             player_xy[0]+=49
+            if player_xy[0] > 1624:
+                player_xy[0] -= 49
+        print(player_xy)
+
+
         points += 1
         collide=collision_detct.wall_collision(walls_rect,player_xy)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
@@ -231,17 +243,6 @@ def gamescreen(data, data_2,remo_list):
             pass
         if collide=='titlescreen.True':
             newgame=True
-
-    # Player wird an anderen Bildschirmrand gesetzt wenn überschritten
-    if player_xy[0] > 1624:
-        player_xy[0] = 6
-    if player_xy[0] < 5:
-        player_xy[0] = 1623
-    if player_xy[1] > 987:
-        player_xy[1] = 6
-    if player_xy[1] < 5:
-        player_xy[1] = 986
-        player_xy[1] = display_xy[1]-(5+44)
 
     # winscreen bzw Nachricht
     if player_xy == end_xy:
@@ -352,29 +353,48 @@ def highscorescreen(data):
                     send_data=True
                     return screenmode
     
-    header = base_font.render('Time      \t       Name     \t       Points',True,(255,255,255))
-    screen.blit(header,(350,200))
+    # sortiert die liste nach höchstpunktzahl
+    with open(path+'scores.json') as file:
+        data_score = json.load(file)
+    data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
+
+    # blit categories
+    c=0
+    titles,pos = ['Time','Name','Points'],[300,700,1100]
+    for e in titles:
+        print(e)
+        header = base_font.render(e,True,(255,255,255))
+        screen.blit(header,(pos[c],200))
+        c+=1
 
     c=300
     c1=1
-    with open(path+'scores.json') as file:
-        data_score = json.load(file)
-
-    # sortiert die liste nach höchstpunktzahl
-    data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
-    
     for p in data_score['scores']:
+        c2=0
+
         if c1 == 8:
             break
         
         time = p['time']
         name = p['name']
         points = p['points']
+<<<<<<< HEAD
         if len(name) != 7:
             diffrence = 7 - len(name)
             name = name + (('   ')*diffrence)
             
         zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
         screen.blit(zeile,(300,c))
+=======
+    
+        btime = base_font.render(time,True,(255,255,255))
+        bname = base_font.render(name,True,(255,255,255))
+        bpoints = base_font.render(str(points),True,(255,255,255))
+        screen.blit(btime,(pos[c2],c))
+        c2+=1
+        screen.blit(bname,(pos[c2],c))
+        c2+=1
+        screen.blit(bpoints,(pos[c2],c))
+>>>>>>> master
         c+=80
         c1+=1
