@@ -229,7 +229,6 @@ def gamescreen(data, data_2,remo_list):
             player_xy[0]+=49
             if player_xy[0] > 1624:
                 player_xy[0] -= 49
-        print(player_xy)
 
 
         points += 1
@@ -269,6 +268,7 @@ def loginscreen(data):
     input_box = pygame.Rect(725, 400,50, 130)
     color_inactive = pygame.Color('white')
     color_active = pygame.Color('grey')
+    black = pygame.Color('black')
     color = color_inactive
     active = False
     play_button=data['start1']
@@ -308,8 +308,9 @@ def loginscreen(data):
                     elif event.key == pygame.K_BACKSPACE:
                             playername = playername[:-1]
                     else:
-                        playername = playername + event.unicode
-        
+                        if len(playername) < 7:
+                            playername = playername + event.unicode
+        screen.fill(black)
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
         width = max(475, text_surface.get_width()-400)
         input_box.w = width
