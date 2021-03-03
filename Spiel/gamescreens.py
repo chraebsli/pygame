@@ -177,13 +177,8 @@ def gamescreen(data, data_2,remo_list):
             elif event.key==K_d or event.key==K_RIGHT:
                 keys[3]=True
             elif event.key==K_q:
-                if keys[5] == False:
                     keys[5] = True
-                elif keys[5] == True:
-                    keys[5]=False
-            elif event.key == K_ESCAPE:
-                screenmode=='titlescreen'
-                send_data = True
+            
         elif event.type == pygame.KEYUP:
             if event.key==pygame.K_w or event.key==K_UP:
                 keys[0]=False
@@ -195,6 +190,10 @@ def gamescreen(data, data_2,remo_list):
                 keys[3]=False
             elif event.key==pygame.K_q:
                 keys[5] = False
+
+            elif event.key == K_ESCAPE:
+                screenmode=='titlescreen'
+                send_data = True
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
         counter_felder=1
@@ -229,7 +228,6 @@ def gamescreen(data, data_2,remo_list):
             player_xy[0]+=49
             if player_xy[0] > 1624:
                 player_xy[0] -= 49
-
 
         points += 1
         collide=collision_detct.wall_collision(walls_rect,player_xy)

@@ -164,7 +164,7 @@ while running == True:
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
         sm=gamescreens.titlescreen(data,data_1)
-        
+
     #highscores
     if screenmode == 'highscore' or sm == 'highscore':
         screenmode,sm = 'highscore','highscore'
@@ -194,4 +194,4 @@ while running == True:
     # grundlegende Funktionen
     pygame.display.flip() 
     time.sleep(0.05)
-
+#

@@ -1,6 +1,5 @@
 {
-    "scores": [
-        {
+    "scores": [{
             "time": "02.03 15:43",
             "name": "chraebsli",
             "points": 1080
@@ -39,11 +38,6 @@
             "time": "03.03 14:39",
             "name": "aw",
             "points": 11
-        },
-        {
-            "time": "03.03 14:39",
-            "name": "aw",
-            "points": 7
         }
     ]
 }
