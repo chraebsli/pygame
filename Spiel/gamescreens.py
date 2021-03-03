@@ -268,6 +268,7 @@ def loginscreen(data):
     input_box = pygame.Rect(725, 400,50, 130)
     color_inactive = pygame.Color('white')
     color_active = pygame.Color('grey')
+    black = pygame.Color('black')
     color = color_inactive
     active = False
     play_button=data['start1']
@@ -307,8 +308,9 @@ def loginscreen(data):
                     elif event.key == pygame.K_BACKSPACE:
                             playername = playername[:-1]
                     else:
-                        playername = playername + event.unicode
-        
+                        if len(playername) < 7:
+                            playername = playername + event.unicode
+        screen.fill(black)
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
         width = max(475, text_surface.get_width()-400)
         input_box.w = width
@@ -364,10 +366,14 @@ def highscorescreen(data):
     for p in data_score['scores']:
         if c1 == 8:
             break
+        
         time = p['time']
         name = p['name']
         points = p['points']
-    
+        if len(name) != 7:
+            diffrence = 7 - len(name)
+            name = name + (('   ')*diffrence)
+            
         zeile = base_font.render(f'{time} \t {name} \t {points} \n',True,(255,255,255))
         screen.blit(zeile,(300,c))
         c+=80
