@@ -211,15 +211,27 @@ def gamescreen(data, data_2,remo_list):
         gamefunctions.show_points(points,remo_list,screen,coins_rect)
     if keys[4]:
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)  
+        
         # Bewegt Player um 1 Feld
         if keys[0]:
             player_xy[1]-=49
+            if player_xy[1] < 5:
+                player_xy[1] += 49
         elif keys[2]:
             player_xy[1]+=49
+            if player_xy[1] > 987:
+                player_xy[1] -= 49
         elif keys[1]:
             player_xy[0]-=49
+            if player_xy[0] < 5:
+                player_xy[0] += 49
         elif keys[3]:
             player_xy[0]+=49
+            if player_xy[0] > 1624:
+                player_xy[0] -= 49
+        print(player_xy)
+
+
         points += 1
         collide=collision_detct.wall_collision(walls_rect,player_xy)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
@@ -231,17 +243,6 @@ def gamescreen(data, data_2,remo_list):
             pass
         if collide=='titlescreen.True':
             newgame=True
-
-    # Player wird an anderen Bildschirmrand gesetzt wenn überschritten
-    if player_xy[0] > 1624:
-        player_xy[0] = 6
-    if player_xy[0] < 5:
-        player_xy[0] = 1623
-    if player_xy[1] > 987:
-        player_xy[1] = 6
-    if player_xy[1] < 5:
-        player_xy[1] = 986
-        player_xy[1] = display_xy[1]-(5+44)
 
     # winscreen bzw Nachricht
     if player_xy == end_xy:
