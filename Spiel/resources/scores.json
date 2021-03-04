@@ -1,24 +1,18 @@
 {
-    "scores": [
-        {
+    "scores": [{
             "time": "02.03 15:43",
             "name": "chraebsli",
             "points": 1080
         },
         {
             "time": "02.03 17:05",
-            "name": "lol",
+            "name": "awd",
             "points": 233
         },
         {
             "time": "02.03 17:05",
             "name": "lol",
             "points": 133
-        },
-        {
-            "time": "02.03 17:05",
-            "name": "lol",
-            "points": 33
         },
         {
             "time": "02.03 17:06",
@@ -29,36 +23,6 @@
             "time": "03.03 14:06",
             "name": "d",
             "points": 30
-        },
-        {
-            "time": "03.03 14:26",
-            "name": "awd",
-            "points": 41
-        },
-        {
-            "time": "03.03 14:39",
-            "name": "aw",
-            "points": 11
-        },
-        {
-            "time": "03.03 15:44",
-            "name": "awd",
-            "points": 131
-        },
-        {
-            "time": "03.03 16:30",
-            "name": "awd",
-            "points": 116
-        },
-        {
-            "time": "03.03 16:43",
-            "name": "chraebs",
-            "points": 99
-        },
-        {
-            "time": "03.03 16:44",
-            "name": "awd",
-            "points": 36
         }
     ]
 }
