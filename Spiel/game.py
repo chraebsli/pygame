@@ -203,7 +203,7 @@ while running == True:
             sm = str(sm).split('.')
             newgame,sm=bool(sm[1]),sm[0]
         except IndexError:
-            passs
+            pass
         
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
