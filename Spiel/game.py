@@ -5,6 +5,7 @@ from pygame.locals import *
 from pygame import mixer
 remo_list = []
 play_music = True
+switch_music = False
 print('please select the game window, the game started')
 main_path = os.path.dirname(__file__) # Where your .py file is located
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
@@ -152,14 +153,15 @@ data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_s
 screen.fill(0) 
 # Spielablauf
 running = True
-backgroundindex = 1
+backgroundindex = 0
 while running == True:
     
     if play_music == True:
+        mixer.music.unload()
         mixer.music.load(bachgroundmusic[backgroundindex])
         mixer.music.play(-1)
         play_music = False
-    
+        
     # wenn das spiel beendet wird setzt es das spiel zurück
     if newgame==True:
         screen.fill(0) 
@@ -196,8 +198,11 @@ while running == True:
     # gamescreen   
     if screenmode =='gamescreen' or sm=='gamescreen':
         screenmode,sm='gamescreen','gamescreen'
-        change_music = True
-        backgroundindex = 1
+        if switch_music == False:
+            backgroundindex = 1
+            switch_music = True
+            play_music = True
+            
         sm=gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
         try:
             sm = str(sm).split('.')

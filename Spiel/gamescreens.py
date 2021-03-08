@@ -259,10 +259,11 @@ def gamescreen(data, data_2,remo_list):
         print(playername)
         print(points)
         send_data=True
+        gamefunctions.scores(points,playername,path)
     if screenmode=='titlescreen' or newgame==True:
         send_data=True
     if send_data==True:
-        gamefunctions.scores(points,playername,path)
+        
         screenmode='titlescreen.True'
         return screenmode
 
@@ -386,8 +387,8 @@ def highscorescreen(data):
         blitlist = [time,name,points]
         for i,j in zip(blitlist,pos):
             screen.blit(base_font.render(i,True,(255,255,255)),(j,c))
-        c+=80
-        c1+=1
+        c += 80
+        c1 += 1
 
 
 def howto(data,img,return_manuels):
