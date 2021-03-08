@@ -71,26 +71,19 @@ def scores(points,name,path):
     now=date+' '+time
 
     # get data in json 
-    with open(path+'scores.json') as file:
+    with open(path+'web/scores.json') as file:
         data = json.load(file)
     data['scores'].append({'time':now,'name':name,'points':points})
-    with open(path+'scores.json','w') as file:
+    with open(path+'web/scores.json','w') as file:
         json.dump(data,file,indent=4)
-    
-    # read data:
-    '''
-    with open(path+'scores.json') as file:
-        data = json.load(file)
-        for p in data['scores']:
-            time = p['time']
-            name = p['name']
-            points = p['points']
-            print('Time:\t',time)
-            print('Name:\t',name)
-            print('Points:\t',points)
-            print()
-    '''
 
+    # sortiert die liste nach höchstpunktzahl
+    with open(path+'web/scores.json') as file:
+        data_score = json.load(file)
+        data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
+    with open(path+'web/scores.json','w') as file:
+        json.dump(data_score,file,indent=4)
+    
     
 def show_points(points,remo_list,screen,coins_rect):
         color = pygame.Color('white')

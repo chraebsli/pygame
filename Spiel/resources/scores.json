@@ -7,18 +7,13 @@
         },
         {
             "time": "02.03 17:05",
-            "name": "lol",
+            "name": "awd",
             "points": 233
         },
         {
             "time": "02.03 17:05",
             "name": "lol",
             "points": 133
-        },
-        {
-            "time": "02.03 17:05",
-            "name": "lol",
-            "points": 33
         },
         {
             "time": "02.03 17:06",
@@ -31,22 +26,16 @@
             "points": 30
         },
         {
-            "time": "03.03 14:26",
+            "time": "02.03 17:05",
             "name": "awd",
-            "points": 41
+            "points": 233
         },
         {
-            "time": "03.03 14:39",
-            "name": "aw",
-            "points": 11
+            "time": "02.03 17:05",
+            "name": "lol",
+            "points": 133
         },
         {
-            "time": "03.03 15:44",
-            "name": "awd",
-            "points": 131
-        },
-        {
-<<<<<<< HEAD
             "time": "03.03 15:56",
             "name": "d",
             "points": 25
@@ -55,21 +44,16 @@
             "time": "03.03 15:57",
             "name": "d",
             "points": 237
-=======
-            "time": "03.03 16:30",
-            "name": "awd",
-            "points": 116
         },
         {
-            "time": "03.03 16:43",
-            "name": "chraebs",
-            "points": 99
+            "time": "03.03 14:06",
+            "name": "d",
+            "points": 30
         },
         {
-            "time": "03.03 16:44",
+            "time": "08.03 13:10",
             "name": "awd",
             "points": 36
->>>>>>> master
         }
     ]
 }

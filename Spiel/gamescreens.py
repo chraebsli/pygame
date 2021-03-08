@@ -364,16 +364,14 @@ def highscorescreen(data):
                     send_data=True
                     return screenmode
     
-    # sortiert die liste nach höchstpunktzahl
-    with open(path+'scores.json') as file:
-        data_score = json.load(file)
-    data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
-
     # blit categories
     titles,pos = ['Time','Name','Points'],[300,700,1100]
     for i,j in zip(titles,pos):
         header = base_font.render(i,True,(255,255,255))
         screen.blit(header,(j,200))
+
+    with open(path+'web/scores.json') as file:
+        data_score = json.load(file)
 
     c=300
     c1=1
