@@ -114,6 +114,8 @@ skin_one = pygame.image.load(path + "images/gamescreen/skins/skin1.png")
 skin_two = pygame.image.load(path + "images/gamescreen/skins/skin2.png")
 skin_three = pygame.image.load(path + "images/gamescreen/skins/skin3.png")
 skin_four = pygame.image.load(path + "images/gamescreen/skins/skin4.png")
+game_over = pygame.image.load(path + "images/gamescreen/game_over.png")
+win = pygame.image.load(path + "images/gamescreen/win_screen.png")
 skins = [skin_one,skin_two,skin_three,skin_four]
 start1 = pygame.image.load(path + "images/loginscreen/start.png")
 rand_unten = pygame.image.load(path + "images/loginscreen/rand_unten.png")
@@ -137,7 +139,7 @@ bachgroundmusic = [normal_background,game_background]
 # data: universell, data_1: titlescreen, data_2: gamescreen,data_3: skinscreen
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
-'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,'banner':banner,'return_banner':return_banner}
+'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win}
 data_1 = {'background_titlescreen':background_titlescreen,
 'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,'leaderboard_button':leaderboard_button,
 'play_button_rect':play_button_rect,'quit_button':quit_button,'skin_button':skin_button,
@@ -179,7 +181,15 @@ while running == True:
     if screenmode == 'loginscreen' or sm== 'loginscreen':
         screenmode,sm == 'loginscreen', 'loginscreen'
         sm=gamescreens.loginscreen(data)
-        
+    # game over screen
+    if screenmode =='game_over'or sm=='game_over':
+        screenmode,sm='game_over','game_over'
+        gamescreens.game_over(data=data)
+
+    # win
+    if screenmode =='win'or sm=='win':
+        screenmode,sm='win','win'
+        gamescreens.win(data)    
     # titlescreen
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
@@ -213,12 +223,14 @@ while running == True:
             newgame,sm=bool(sm[1]),sm[0]
         except IndexError:
             pass
-        
+        # win
+        if screenmode =='win'or sm=='win':
+            screenmode,sm='game_over','game_over'
+            gamescreens.win(data)
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'
         sm=gamescreens.skinscreen(data=data,data_3=data_3,data_2=data_2)
-    
     # quit
     if screenmode =='quitscreen'or sm=='quitscreen':
         print('Quit...')

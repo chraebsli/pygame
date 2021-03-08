@@ -263,7 +263,6 @@ def gamescreen(data, data_2,remo_list):
     if screenmode=='titlescreen' or newgame==True:
         send_data=True
     if send_data==True:
-        
         screenmode='titlescreen.True'
         return screenmode
 
@@ -355,7 +354,10 @@ def highscorescreen(data):
                 print('Quit game ...')
                 pygame.quit() 
                 exit(0) 
-            
+            if event.type == pygame.KEYDOWN:
+                    screenmode = 'titlescreen'
+                    send_data = True
+                    return screenmode
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x,y = event.pos
                 if x > 1225 and y > 900 and x < 1630 and y < 1035:
@@ -410,3 +412,11 @@ def howto(data,img,return_manuels):
                     screenmode='titlescreen'
                     send_data=True
                     return screenmode
+def game_over(data):
+    screen = data['screen']
+    game_over = data['game_over']
+    screen.blit(game_over,(1,1))
+def win(data):
+    screen = data['screen']
+    win = data['win']
+    screen.blit(win,(1,1))
