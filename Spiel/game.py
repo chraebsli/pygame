@@ -2,8 +2,9 @@
 import os, pygame, random, sys, time, gamescreens,gamefunctions,collision_detct
 from gamescreens import *
 from pygame.locals import *
-
+from pygame import mixer
 remo_list = []
+play_music = True
 print('please select the game window, the game started')
 main_path = os.path.dirname(__file__) # Where your .py file is located
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
@@ -124,9 +125,13 @@ banner = pygame.image.load(path + "images/highscore/banner.png")
 return_banner = pygame.image.load(path + "images/highscore/return_banner.png")
 button_highscore = pygame.image.load(path+"images/titlescreen/button_highscore.png")
 howto_img = pygame.image.load(path+"images/manuels/manuelscreen.png")
+return_manuels = pygame.image.load(path + "images/manuels/return_banner.png")
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
-
+#Musik und Sounds
+normal_background = path+"audio/background/music.mp3" #AdhesiveWombat - Night Shade
+game_background = path+"audio/background/new_music.mp3" #Eric Skiff - Unclocked
+bachgroundmusic = [normal_background,game_background]
 # Datenpakete für Parameter
 # data: universell, data_1: titlescreen, data_2: gamescreen,data_3: skinscreen
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
@@ -147,8 +152,14 @@ data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_s
 screen.fill(0) 
 # Spielablauf
 running = True
-
+backgroundindex = 1
 while running == True:
+    
+    if play_music == True:
+        mixer.music.load(bachgroundmusic[backgroundindex])
+        mixer.music.play(-1)
+        play_music = False
+    
     # wenn das spiel beendet wird setzt es das spiel zurück
     if newgame==True:
         screen.fill(0) 
@@ -166,12 +177,12 @@ while running == True:
     if screenmode == 'loginscreen' or sm== 'loginscreen':
         screenmode,sm == 'loginscreen', 'loginscreen'
         sm=gamescreens.loginscreen(data)
-
+        
     # titlescreen
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
+        backgroundindex = 0
         sm=gamescreens.titlescreen(data,data_1)
-
     # highscores
     if screenmode == 'highscore' or sm == 'highscore':
         screenmode,sm = 'highscore','highscore'
@@ -180,17 +191,19 @@ while running == True:
     # howto
     if screenmode =='howto' or sm == 'howto':
         screenmode,sm='howto','howto'
-        sm = gamescreens.howto(data,howto_img)
+        sm = gamescreens.howto(data,howto_img,return_manuels)
     
-    # gamescreen    
+    # gamescreen   
     if screenmode =='gamescreen' or sm=='gamescreen':
         screenmode,sm='gamescreen','gamescreen'
+        change_music = True
+        backgroundindex = 1
         sm=gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
         try:
             sm = str(sm).split('.')
             newgame,sm=bool(sm[1]),sm[0]
         except IndexError:
-            pass
+            passs
         
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':

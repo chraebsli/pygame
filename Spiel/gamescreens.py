@@ -1,5 +1,6 @@
 import pygame,collision_detct,gamefunctions,json
 from pygame.locals import *
+from pygame import mixer
 felder = []
 
 counter_felder=0
@@ -34,7 +35,7 @@ def titlescreen(data, data_1):
     screen.blit(quit_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(howto_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(leaderboard_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
-    screen.blit(text_surface,(50,5))
+    screen.blit(text_surface,(50,20))
 
     for event in pygame.event.get():
         if event.type==pygame.QUIT: # stoppt Script
@@ -142,7 +143,6 @@ def gamescreen(data, data_2,remo_list):
     newgame=data['newgame']
     coin2=data_2['coin2']
     coins_rect = data_2['coins_rect']
-    
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -159,7 +159,6 @@ def gamescreen(data, data_2,remo_list):
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     gamefunctions.background(screen, path)
     collision_detct.playerpath(remo_list,screen,player_xy)
-    
     # bei Feheler vom laden von Playersprite
     try:
         screen.blit(player, (player_xy[-2],player_xy[-1])) 
@@ -266,7 +265,6 @@ def gamescreen(data, data_2,remo_list):
         gamefunctions.scores(points,playername,path)
         screenmode='titlescreen.True'
         return screenmode
-
 
 def loginscreen(data):
     global playername
@@ -392,7 +390,22 @@ def highscorescreen(data):
         c1+=1
 
 
-def howto(data,img):
+def howto(data,img,return_manuels):
     screen = data['screen']
 
     screen.blit(img,(1,1))
+    screen.blit(return_manuels,(30,1))
+    for event in pygame.event.get():
+            if event.type==pygame.QUIT: # stoppt Script
+                print('Quit game ...')
+                pygame.quit() 
+                exit(0) 
+            if event.type == pygame.KEYDOWN:
+                   screenmode='titlescreen'
+                   return screenmode
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x,y = event.pos
+                if x > 30 and y > 1 and x < 77 and y < 136:
+                    screenmode='titlescreen'
+                    send_data=True
+                    return screenmode
