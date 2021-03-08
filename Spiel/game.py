@@ -183,6 +183,10 @@ while running == True:
     # titlescreen
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
+        if switch_music == True:
+            backgroundindex = 0
+            switch_music = False
+            play_music = True
         backgroundindex = 0
         sm=gamescreens.titlescreen(data,data_1)
     # highscores
