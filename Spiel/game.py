@@ -51,9 +51,12 @@ start_xy = [startx_rand,986]
 end_xy = [endx_rand, 6]
 player_xy = [start_xy[0],start_xy[1]]
 buttons_titlescreen_xy = [1,1]
-play_button_rect = [564,203,1114,477] # x, y, -x, -y
-skin_button_rect = [320,553,770,777] # x, y, -x, -y
-quit_button_rect = [900,551,1350,775] # x, y, -x, -y
+play_button_rect = [584,313,1068,563] # x, y, -x, -y
+skin_button_rect = [132,491,523,687] 
+quit_button_rect = [1152,494,1543,689] 
+leaderboard_button_rect = [546,596,1125,791]
+howto_button_rect = [1551,9,1653,106]
+
 block_xy = [1,1]
 end2 = 0
 coin2 = 0
@@ -96,6 +99,8 @@ player = pygame.image.load(path+"images/gamescreen/player.png")
 play_button = pygame.image.load(path+"images/titlescreen/button_play.png")
 skin_button= pygame.image.load(path+"images/titlescreen/button_skins.png")
 quit_button= pygame.image.load(path+"images/titlescreen/button_quit.png")
+leaderboard_button= pygame.image.load(path+"images/titlescreen/button_leaderboard.png")
+howto_button= pygame.image.load(path+"images/titlescreen/button_howto.png")
 block = pygame.image.load(path + "images/gamescreen/block.png")
 skin1_skinscreen = pygame.image.load(path + "images/skinsscreen/skin1.png")
 skin2_skinscreen = pygame.image.load(path + "images/skinsscreen/skin2.png")
@@ -118,6 +123,7 @@ logo = pygame.image.load(path + "images/loginscreen/logo.png")
 banner = pygame.image.load(path + "images/highscore/banner.png")
 return_banner = pygame.image.load(path + "images/highscore/return_banner.png")
 button_highscore = pygame.image.load(path+"images/titlescreen/button_highscore.png")
+howto_img = pygame.image.load(path+"images/manuels/manuelscreen.png")
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
 
@@ -127,9 +133,10 @@ data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys'
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
 'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,'banner':banner,'return_banner':return_banner}
 data_1 = {'background_titlescreen':background_titlescreen,
-'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,
+'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,'leaderboard_button':leaderboard_button,
 'play_button_rect':play_button_rect,'quit_button':quit_button,'skin_button':skin_button,
-'skin_button_rect':skin_button_rect,'quit_button_rect':quit_button_rect,'button_highscore':button_highscore}
+'skin_button_rect':skin_button_rect,'quit_button_rect':quit_button_rect,'button_highscore':button_highscore,
+'leaderboard_button_rect':leaderboard_button_rect,'howto_button_rect':howto_button_rect,'howto_button':howto_button}
 data_2 = {'background_game':background_game,'start':start,
 'player': player,'start_xy':start_xy,'end_xy': end_xy,'player_xy': player_xy,
 'display_xy':display_xy,'end2': 0,'walls':walls,'block_xy': block_xy,'block':block,'coin2':0,
@@ -165,10 +172,15 @@ while running == True:
         screenmode,sm='titlescreen','titlescreen'
         sm=gamescreens.titlescreen(data,data_1)
 
-    #highscores
+    # highscores
     if screenmode == 'highscore' or sm == 'highscore':
         screenmode,sm = 'highscore','highscore'
         sm=gamescreens.highscorescreen(data)
+
+    # howto
+    if screenmode =='howto' or sm == 'howto':
+        screenmode,sm='howto','howto'
+        sm = gamescreens.howto(data,howto_img)
     
     # gamescreen    
     if screenmode =='gamescreen' or sm=='gamescreen':

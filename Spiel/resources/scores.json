@@ -46,6 +46,7 @@
             "points": 131
         },
         {
+<<<<<<< HEAD
             "time": "03.03 15:56",
             "name": "d",
             "points": 25
@@ -54,6 +55,21 @@
             "time": "03.03 15:57",
             "name": "d",
             "points": 237
+=======
+            "time": "03.03 16:30",
+            "name": "awd",
+            "points": 116
+        },
+        {
+            "time": "03.03 16:43",
+            "name": "chraebs",
+            "points": 99
+        },
+        {
+            "time": "03.03 16:44",
+            "name": "awd",
+            "points": 36
+>>>>>>> master
         }
     ]
 }
