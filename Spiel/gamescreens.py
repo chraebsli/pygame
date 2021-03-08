@@ -216,18 +216,22 @@ def gamescreen(data, data_2,remo_list):
             player_xy[1]-=49
             if player_xy[1] < 5:
                 player_xy[1] += 49
+                remo_list.pop(-1)
         elif keys[2]:
             player_xy[1]+=49
             if player_xy[1] > 987:
                 player_xy[1] -= 49
+                remo_list.pop(-1)
         elif keys[1]:
             player_xy[0]-=49
             if player_xy[0] < 5:
                 player_xy[0] += 49
+                remo_list.pop(-1)
         elif keys[3]:
             player_xy[0]+=49
             if player_xy[0] > 1624:
                 player_xy[0] -= 49
+                remo_list.pop(-1)
 
         points += 1
         collide=collision_detct.wall_collision(walls_rect,player_xy)
