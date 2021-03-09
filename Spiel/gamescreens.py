@@ -125,6 +125,7 @@ def skinscreen(data, data_3,data_2):
 
 def gamescreen(data, data_2,remo_list):
     send_data=False
+    global points
     #Punkte die man In-Game mit Münzen erzielt
     points = 0
     global counter_felder,block_coords,player_coords, player
@@ -143,6 +144,8 @@ def gamescreen(data, data_2,remo_list):
     newgame=data['newgame']
     coin2=data_2['coin2']
     coins_rect = data_2['coins_rect']
+    game_over = data['game_over']
+    player_rect = pygame.Rect(player_xy[0],player_xy[1],44,44)
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -242,13 +245,19 @@ def gamescreen(data, data_2,remo_list):
 
         points += 1
         collide=collision_detct.wall_collision(walls_rect,player_xy)
+        screenmode = collision_detct.collideplayer(player_xy,list_coords,remo_list,5)
+        if screenmode == 'game_over.True':
+            return screenmode
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         points = gamefunctions.calculate_points(points,remo_list,coins_rect)
+        
+        '''
         try:
             remo_list = str(remo_list).split('.')
             newgame,remo_list=bool(remo_list[1]),remo_list[0]
         except IndexError:
             pass
+        '''
         if collide=='titlescreen.True':
             newgame=True
 
@@ -260,10 +269,15 @@ def gamescreen(data, data_2,remo_list):
         print(points)
         send_data=True
         gamefunctions.scores(points,playername,path)
-    if screenmode=='titlescreen' or newgame==True:
+    if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
         send_data=True
     if send_data==True:
-        screenmode='titlescreen.True'
+        if player_xy == end_xy:
+            screenmode='win.True'
+        elif screenmode == 'game_over.True':
+            screenmode='game_over.True'
+        else:
+            screenmode='titlescreen.True'
         return screenmode
 
 def loginscreen(data):
