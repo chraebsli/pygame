@@ -4,6 +4,7 @@ from gamescreens import *
 from pygame.locals import *
 from pygame import mixer
 remo_list = []
+random_number = random.randint(0,2) #Random Hintergrundfarbe für Loginscreen
 play_music = True
 switch_music = False
 print('please select the game window, the game started')
@@ -180,14 +181,16 @@ while running == True:
     # loginscreen
     if screenmode == 'loginscreen' or sm== 'loginscreen':
         screenmode,sm == 'loginscreen', 'loginscreen'
-        sm=gamescreens.loginscreen(data)
+        sm=gamescreens.loginscreen(data,random_number)
     # game over screen
     if screenmode =='game_over'or sm=='game_over':
+        mixer.music.unload()
         screenmode,sm='game_over','game_over'
         sm = gamescreens.game_over(data=data)
 
     # win
     if screenmode =='win'or sm=='win':
+        mixer.music.unload()
         screenmode,sm='win','win'
         sm =gamescreens.win(data)    
     # titlescreen

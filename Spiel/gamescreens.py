@@ -146,6 +146,12 @@ def gamescreen(data, data_2,remo_list):
     coins_rect = data_2['coins_rect']
     game_over = data['game_over']
     player_rect = pygame.Rect(player_xy[0],player_xy[1],44,44)
+    #Sounds
+    movesound = pygame.mixer.Sound(path + "audio/Sounds/move.wav")
+    movesound.set_volume(0.25)
+    lose_sound = pygame.mixer.Sound(path + "audio/Sounds/lose.wav")
+    lose_sound.set_volume(0.5)
+    win_sound = pygame.mixer.Sound(path + "audio/Sounds/win.wav")
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -210,7 +216,7 @@ def gamescreen(data, data_2,remo_list):
         for e in remo_list:
             counter_felder+=1
         counter_felder += 1
-        
+        movesound.play()
         # Colissiondetect für Wände, begangene Felder
         collision_detct.run(screen,player_xy,player)
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)
@@ -247,6 +253,7 @@ def gamescreen(data, data_2,remo_list):
         collide=collision_detct.wall_collision(walls_rect,player_xy)
         screenmode = collision_detct.collideplayer(player_xy,list_coords,remo_list,5)
         if screenmode == 'game_over.True':
+            lose_sound.play()
             return screenmode
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         points = gamefunctions.calculate_points(points,remo_list,coins_rect)
@@ -274,13 +281,15 @@ def gamescreen(data, data_2,remo_list):
     if send_data==True:
         if player_xy == end_xy:
             screenmode='win.True'
+            win_sound.play()
         elif screenmode == 'game_over.True':
             screenmode='game_over.True'
+            lose_sound.play()
         else:
             screenmode='titlescreen.True'
         return screenmode
 
-def loginscreen(data):
+def loginscreen(data,number):
     global playername
     playername = ""
     send_data=False
@@ -290,7 +299,10 @@ def loginscreen(data):
     input_box = pygame.Rect(725, 400,50, 130)
     color_inactive = pygame.Color('white')
     color_active = pygame.Color('grey')
-    black = pygame.Color('black')
+    red = pygame.Color('red')
+    blue = pygame.Color('blue')
+    green = pygame.Color('darkgreen')
+    colors = [red,blue,green]
     color = color_inactive
     active = False
     play_button=data['start1']
@@ -334,7 +346,7 @@ def loginscreen(data):
                     else:
                         if len(playername) < 7:
                             playername = playername + event.unicode
-        screen.fill(black)
+        screen.fill(colors[number])
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
         width = max(475, text_surface.get_width()-400)
         input_box.w = width
@@ -456,6 +468,7 @@ def win(data):
     global points
     global playername
     screen = data['screen']
+    path = data['path']
     win = data['win']
     screen.blit(win,(1,1))
     points_blit = str(points) #Variable um Punkteanzahl auf Screen zu bekommen
