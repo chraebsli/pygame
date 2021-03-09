@@ -258,17 +258,17 @@ def gamescreen(data, data_2,remo_list):
         except IndexError:
             pass
         '''
-        if collide=='titlescreen.True':
+        if collide=='game_over.True':
             newgame=True
-
+            screenmode = 'game_over.True'
     # winscreen bzw Nachricht
     if player_xy == end_xy:
         global playername
         print('You ended this round')
         print(playername)
         print(points)
-        send_data=True
         gamefunctions.scores(points,playername,path)
+        send_data=True
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
         send_data=True
     if send_data==True:
@@ -427,10 +427,54 @@ def howto(data,img,return_manuels):
                     send_data=True
                     return screenmode
 def game_over(data):
+    global points
+    global playername
     screen = data['screen']
     game_over = data['game_over']
     screen.blit(game_over,(1,1))
+    points_blit = str('NONE') #Variable um Punkteanzahl auf Screen zu bekommen
+    name_blit = str(playername) #Variable um Spielernamen auf Screen zu bekommen
+    message_blit = 'PRESS ANY KEY TO CONTINUE'
+    base_font = pygame.font.SysFont(None, 180)
+    message_font = pygame.font.SysFont(None, 65)
+    points_surface = base_font.render(points_blit,False,(255,255,255))
+    name_surface = base_font.render(name_blit,False,(255,255,255))
+    message_surface = message_font.render(message_blit,False,(255,255,255))
+    screen.blit(points_surface, (850,750))
+    screen.blit(name_surface, (850,560))
+    screen.blit(message_surface,(500,950))
+    for event in pygame.event.get():
+            if event.type==pygame.QUIT: # stoppt Script
+                print('Quit game ...')
+                pygame.quit() 
+                exit(0) 
+            if event.type == pygame.KEYDOWN:
+                screenmode='titlescreen'
+                return screenmode
+            
 def win(data):
+    global points
+    global playername
     screen = data['screen']
     win = data['win']
     screen.blit(win,(1,1))
+    points_blit = str(points) #Variable um Punkteanzahl auf Screen zu bekommen
+    name_blit = str(playername) #Variable um Spielernamen auf Screen zu bekommen
+    message_blit = 'PRESS ANY KEY TO CONTINUE'
+    base_font = pygame.font.SysFont(None, 180)
+    message_font = pygame.font.SysFont(None, 65)
+    points_surface = base_font.render(points_blit,False,(255,255,255))
+    name_surface = base_font.render(name_blit,False,(255,255,255))
+    message_surface = message_font.render(message_blit,False,(255,255,255))
+    screen.blit(name_surface, (850,520))
+    screen.blit(points_surface, (850,700))
+    screen.blit(message_surface,(500,950))
+    for event in pygame.event.get():
+            if event.type==pygame.QUIT: # stoppt Script
+                print('Quit game ...')
+                pygame.quit() 
+                exit(0) 
+            if event.type == pygame.KEYDOWN:
+                screenmode='titlescreen'
+                return screenmode
+            

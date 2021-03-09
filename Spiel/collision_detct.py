@@ -8,7 +8,7 @@ def wall_collision(walls,player):
         wall=pygame.Rect(walls[c])
         c+=1
         if wall.colliderect(player_rect):
-            return 'titlescreen.True' #titlescreen.True
+            return 'game_over.True' #titlescreen.True
 
 
 # zeigt die Position vom Spieler an

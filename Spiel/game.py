@@ -184,12 +184,12 @@ while running == True:
     # game over screen
     if screenmode =='game_over'or sm=='game_over':
         screenmode,sm='game_over','game_over'
-        gamescreens.game_over(data=data)
+        sm = gamescreens.game_over(data=data)
 
     # win
     if screenmode =='win'or sm=='win':
         screenmode,sm='win','win'
-        gamescreens.win(data)    
+        sm =gamescreens.win(data)    
     # titlescreen
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
@@ -223,10 +223,6 @@ while running == True:
             newgame,sm=bool(sm[1]),sm[0]
         except IndexError:
             pass
-        # win
-        if screenmode =='win'or sm=='win':
-            screenmode,sm='win','win'
-            gamescreens.win(data)
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'

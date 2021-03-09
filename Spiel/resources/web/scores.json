@@ -1,25 +1,6 @@
 {
-<<<<<<< HEAD
     "scores": [
         {
-            "time": "08.03 16:44",
-            "name": "Ziyam",
-            "points": 1233
-        },
-        {
-            "time": "09.03 11:40",
-            "name": "d",
-            "points": 1207
-        },
-        {
-            "time": "09.03 12:56",
-            "name": "d",
-            "points": 1164
-        },
-        {
-=======
-    "scores": [{
->>>>>>> master
             "time": "02.03 15:43",
             "name": "chraebsli",
             "points": 1080
@@ -45,6 +26,16 @@
             "points": 638
         },
         {
+            "time": "09.03 14:57",
+            "name": "se",
+            "points": 597
+        },
+        {
+            "time": "09.03 15:11",
+            "name": "ZIYAM",
+            "points": 591
+        },
+        {
             "time": "09.03 11:34",
             "name": "dwwa",
             "points": 544
@@ -63,6 +54,11 @@
             "time": "09.03 12:35",
             "name": "d",
             "points": 384
+        },
+        {
+            "time": "09.03 15:09",
+            "name": "wad",
+            "points": 342
         },
         {
             "time": "08.03 13:20",
@@ -125,8 +121,23 @@
             "points": 157
         },
         {
+            "time": "09.03 15:02",
+            "name": "WDA",
+            "points": 150
+        },
+        {
+            "time": "09.03 15:01",
+            "name": "AW",
+            "points": 146
+        },
+        {
             "time": "08.03 14:22",
             "name": "b",
+            "points": 145
+        },
+        {
+            "time": "09.03 14:52",
+            "name": "wda",
             "points": 145
         },
         {
@@ -150,6 +161,16 @@
             "points": 133
         },
         {
+            "time": "09.03 15:05",
+            "name": "es",
+            "points": 133
+        },
+        {
+            "time": "09.03 15:02",
+            "name": "S",
+            "points": 130
+        },
+        {
             "time": "08.03 15:26",
             "name": "d",
             "points": 129
@@ -170,6 +191,11 @@
             "points": 125
         },
         {
+            "time": "09.03 15:04",
+            "name": "wda",
+            "points": 124
+        },
+        {
             "time": "08.03 16:14",
             "name": "w",
             "points": 88
@@ -178,629 +204,61 @@
             "time": "08.03 15:50",
             "name": "Ziyam",
             "points": 59
-<<<<<<< HEAD
         },
         {
-            "time": "08.03 15:01",
-            "name": "s",
-            "points": 44
+            "time": "09.03 15:13",
+            "name": "AW",
+            "points": 59
         },
         {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
+            "time": "09.03 15:08",
+            "name": "wd",
+            "points": 49
         },
         {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
+            "time": "09.03 15:01",
+            "name": "AW",
+            "points": 46
         },
         {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
+            "time": "09.03 14:58",
+            "name": "w",
+            "points": 41
         },
         {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
+            "time": "09.03 15:01",
+            "name": "WA",
+            "points": 40
         },
         {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 15:41",
-            "name": "d",
-            "points": 44
-        },
-        {
-            "time": "08.03 16:12",
-            "name": "d",
-            "points": 42
-        },
-        {
-            "time": "08.03 16:13",
-            "name": "d",
-            "points": 42
-        },
-        {
-            "time": "09.03 12:33",
-            "name": "f",
-            "points": 37
-        },
-        {
-            "time": "09.03 12:11",
-            "name": "d",
+            "time": "09.03 15:04",
+            "name": "wda",
             "points": 36
         },
         {
-            "time": "08.03 15:56",
-            "name": "d",
-            "points": 32
+            "time": "09.03 14:59",
+            "name": "wad",
+            "points": 34
         },
         {
-            "time": "09.03 12:16",
-            "name": "s",
-            "points": 31
-        },
-        {
-            "time": "03.03 14:06",
-            "name": "d",
+            "time": "09.03 15:03",
+            "name": "wa",
             "points": 30
         },
         {
-            "time": "03.03 14:06",
-            "name": "d",
-            "points": 30
+            "time": "09.03 15:00",
+            "name": "AW",
+            "points": 29
         },
         {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
+            "time": "09.03 15:04",
+            "name": "wda",
+            "points": 26
         },
         {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "09.03 12:10",
-            "name": "d",
-            "points": 28
-        },
-        {
-            "time": "08.03 15:51",
-            "name": "Ziyam",
-            "points": 27
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:38",
-            "name": "jn",
-            "points": 25
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 15:40",
-            "name": "d",
-            "points": 24
-        },
-        {
-            "time": "08.03 16:14",
-            "name": "w",
+            "time": "09.03 15:08",
+            "name": "wad",
             "points": 22
-=======
->>>>>>> master
         }
     ]
 }
