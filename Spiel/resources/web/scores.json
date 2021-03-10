@@ -1,5 +1,6 @@
 {
-    "scores": [{
+    "scores": [
+        {
             "time": "02.03 15:43",
             "name": "chraebsli",
             "points": 1080
@@ -63,6 +64,11 @@
             "time": "08.03 14:22",
             "name": "b",
             "points": 145
+        },
+        {
+            "time": "10.03 11:06",
+            "name": "awd",
+            "points": 144
         },
         {
             "time": "08.03 15:52",

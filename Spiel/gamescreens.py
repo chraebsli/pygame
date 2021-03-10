@@ -124,6 +124,7 @@ def skinscreen(data, data_3,data_2):
 
 
 def gamescreen(data, data_2,remo_list):
+    #t1 = gamefunctions.start_timer() #to start timer
     send_data=False
     #Punkte die man In-Game mit Münzen erzielt
     points = 0
@@ -265,6 +266,8 @@ def gamescreen(data, data_2,remo_list):
     if send_data==True:
         screenmode='titlescreen.True'
         return screenmode
+    #gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
+
 
 def loginscreen(data):
     global playername
@@ -410,12 +413,15 @@ def howto(data,img,return_manuels):
                 x,y = event.pos
                 if x > 30 and y > 1 and x < 77 and y < 136:
                     screenmode='titlescreen'
-                    send_data=True
+
+
                     return screenmode
 def game_over(data):
     screen = data['screen']
     game_over = data['game_over']
     screen.blit(game_over,(1,1))
+
+    
 def win(data):
     screen = data['screen']
     win = data['win']

@@ -100,3 +100,13 @@ def calculate_points(points,remo_list,coins_rect):
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
         return final_punkte-1
+
+def start_timer():
+    t1 = datetime.datetime.now()
+    return t1
+
+
+def end_timer(t1,msg):
+    t2 = datetime.datetime.now()
+    print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
+

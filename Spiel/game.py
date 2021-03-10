@@ -1,15 +1,15 @@
 # import moduleswww
-import os, pygame, random, sys, time, gamescreens,gamefunctions,collision_detct
+import os, pygame, random, sys, datetime, time, gamescreens,gamefunctions,collision_detct
 from gamescreens import *
 from pygame.locals import *
 from pygame import mixer
+t1 = gamefunctions.start_timer()
 remo_list = []
 play_music = True
 switch_music = False
 print('please select the game window, the game started')
 main_path = os.path.dirname(__file__) # Where your .py file is located
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
-
 # random Wände generieren (Koordinaten)
 wall_coords_x,wall_coords_y,wall_coords_xy=[],[],[]
 coin_coords_x,coin_coords_y,coin_coords_xy=[],[],[]
@@ -156,6 +156,7 @@ screen.fill(0)
 # Spielablauf
 running = True
 backgroundindex = 0
+gamefunctions.end_timer(t1,' to load game')
 while running == True:
     
     if play_music == True:
