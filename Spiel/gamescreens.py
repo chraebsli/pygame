@@ -9,6 +9,8 @@ moves = []
 black = pygame.Color('black')
 def titlescreen(data, data_1):
     send_data=False
+    global field_blit
+    global sounds
     screen = data['screen']
     background_titlescreen = data_1['background_titlescreen']
     background_xy = data['background_xy']
@@ -36,7 +38,22 @@ def titlescreen(data, data_1):
     screen.blit(howto_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(leaderboard_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(text_surface,(50,20))
-
+    grey = pygame.Color('darkgrey')
+    if field_blit == True:
+            if sounds == 'on':
+                sounds = 'off'
+            elif sounds == 'off':
+                sounds = 'on'
+                mixer.music.play(-1)
+            print(sounds)
+            pygame.draw.rect(screen,grey,(1500,900,110,50))
+            field_blit = False
+            print(sounds)
+    second_font = pygame.font.SysFont(None, 90)
+    sound_surface = second_font.render(f'SOUNDS: {sounds.upper()}',False,(255,255,255))
+    screen.blit(sound_surface,(1200,900))
+    if sounds == 'off':
+            mixer.music.pause()
     for event in pygame.event.get():
         if event.type==pygame.QUIT: # stoppt Script
             print('Quit game ...')
@@ -60,7 +77,10 @@ def titlescreen(data, data_1):
                 send_data=True 
             elif x > leaderboard_button_rect[0] and y > leaderboard_button_rect[1] and x < leaderboard_button_rect[2] and y < leaderboard_button_rect[3]:
                 screenmode='highscore'
-                send_data=True 
+                send_data=True
+            if x > 1500 and y > 900 and x < 1590 and y < 950:
+                    print('clicked')
+                    field_blit = True 
     if send_data==True:
         return screenmode
 
@@ -125,7 +145,7 @@ def skinscreen(data, data_3,data_2):
 
 def gamescreen(data, data_2,remo_list):
     send_data=False
-    global points
+    global points,sounds
     #Punkte die man In-Game mit Münzen erzielt
     points = 0
     global counter_felder,block_coords,player_coords, player
@@ -152,6 +172,9 @@ def gamescreen(data, data_2,remo_list):
     lose_sound = pygame.mixer.Sound(path + "audio/Sounds/lose.wav")
     lose_sound.set_volume(0.5)
     win_sound = pygame.mixer.Sound(path + "audio/Sounds/win.wav")
+    #Schauen ob Audio aktiviert ist
+    if sounds == 'off':
+            mixer.music.pause()
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -216,7 +239,8 @@ def gamescreen(data, data_2,remo_list):
         for e in remo_list:
             counter_felder+=1
         counter_felder += 1
-        movesound.play()
+        if sounds == 'on':
+            movesound.play()
         # Colissiondetect für Wände, begangene Felder
         collision_detct.run(screen,player_xy,player)
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)
@@ -253,7 +277,8 @@ def gamescreen(data, data_2,remo_list):
         collide=collision_detct.wall_collision(walls_rect,player_xy)
         screenmode = collision_detct.collideplayer(player_xy,list_coords,remo_list,5)
         if screenmode == 'game_over.True':
-            lose_sound.play()
+            if sounds == 'on':
+                lose_sound.play()
             return screenmode
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         points = gamefunctions.calculate_points(points,remo_list,coins_rect)
@@ -281,16 +306,22 @@ def gamescreen(data, data_2,remo_list):
     if send_data==True:
         if player_xy == end_xy:
             screenmode='win.True'
-            win_sound.play()
+            if sounds == 'on':
+                win_sound.play()
         elif screenmode == 'game_over.True':
             screenmode='game_over.True'
-            lose_sound.play()
+            if sounds == 'on':
+                lose_sound.play()
         else:
             screenmode='titlescreen.True'
         return screenmode
 
 def loginscreen(data,number):
     global playername
+    global sounds
+    global field_blit
+    field_blit = False
+    sounds = 'on'
     playername = ""
     send_data=False
     screen = data['screen']
@@ -314,7 +345,7 @@ def loginscreen(data,number):
     logo = data['logo']
     screenmode=data['screenmode']
     done = False
-
+    
     while not done:
         for event in pygame.event.get():
             if event.type==pygame.QUIT: # stoppt Script
@@ -333,7 +364,9 @@ def loginscreen(data,number):
                 if x > 600 and y > 600 and x < 1005 and y < 735 and len(playername) > 0:
                     screenmode = 'titlescreen'
                     send_data = True
-            
+                if x > 1500 and y > 900 and x < 1590 and y < 950:
+                    print('clicked')
+                    field_blit = True
             if event.type == pygame.KEYDOWN:
                 if active:
                     if event.key == pygame.K_RETURN:
@@ -359,6 +392,22 @@ def loginscreen(data,number):
         for img in blit_list:
             screen.blit(img,list2[c])
             c+=1
+        if field_blit == True:
+            if sounds == 'on':
+                sounds = 'off'
+            elif sounds == 'off':
+                sounds = 'on'
+                mixer.music.play(-1)
+            print(sounds)
+            pygame.draw.rect(screen,colors[number],(1500,900,110,50))
+            field_blit = False
+            print(sounds)
+        second_font = pygame.font.SysFont(None, 90)
+        sound_surface = second_font.render(f'SOUNDS: {sounds.upper()}',False,(255,255,255))
+        screen.blit(sound_surface,(1200,900))
+        if sounds == 'off':
+            mixer.music.pause()
+        
         pygame.display.flip()
         clock.tick(30)
         if send_data==True:
