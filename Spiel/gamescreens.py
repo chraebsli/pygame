@@ -38,7 +38,7 @@ def titlescreen(data, data_1):
     screen.blit(howto_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(leaderboard_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(text_surface,(50,20))
-    grey = pygame.Color('darkgrey')
+    grey = pygame.Color('black')
     if field_blit == True:
             if sounds == 'on':
                 sounds = 'off'
