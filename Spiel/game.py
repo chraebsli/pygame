@@ -5,6 +5,8 @@ from pygame.locals import *
 from pygame import mixer
 t1 = gamefunctions.start_timer()
 remo_list = []
+sound = 'on' #Variable, welche bestimmt ob Musik oder Sounds abgespielt wird
+random_number = random.randint(0,2) #Random Hintergrundfarbe für Loginscreen
 play_music = True
 switch_music = False
 print('please select the game window, the game started')
@@ -158,12 +160,12 @@ running = True
 backgroundindex = 0
 gamefunctions.end_timer(t1,' to load game')
 while running == True:
-    
-    if play_music == True:
-        mixer.music.unload()
-        mixer.music.load(bachgroundmusic[backgroundindex])
-        mixer.music.play(-1)
-        play_music = False
+    if sound == 'on':
+        if play_music == True:
+            mixer.music.unload()
+            mixer.music.load(bachgroundmusic[backgroundindex])
+            mixer.music.play(-1)
+            play_music = False
         
     # wenn das spiel beendet wird setzt es das spiel zurück
     if newgame==True:
@@ -177,28 +179,30 @@ while running == True:
         data.update({'keys':keys})
         data_2.update({'player_xy':player_xy}) 
         remo_list.clear()
-    
-    # loginscreen
     if screenmode == 'loginscreen' or sm== 'loginscreen':
         screenmode,sm == 'loginscreen', 'loginscreen'
-        sm=gamescreens.loginscreen(data)
+        sm=gamescreens.loginscreen(data,random_number)
+    
     # game over screen
     if screenmode =='game_over'or sm=='game_over':
+        mixer.music.unload()
         screenmode,sm='game_over','game_over'
-        gamescreens.game_over(data=data)
+        sm = gamescreens.game_over(data=data)
 
     # win
     if screenmode =='win'or sm=='win':
+        mixer.music.unload()
         screenmode,sm='win','win'
-        gamescreens.win(data)    
+        sm =gamescreens.win(data)    
     # titlescreen
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
-        if switch_music == True:
+        if sound == 'on':
+            if switch_music == True:
+                backgroundindex = 0
+                switch_music = False
+                play_music = True
             backgroundindex = 0
-            switch_music = False
-            play_music = True
-        backgroundindex = 0
         sm=gamescreens.titlescreen(data,data_1)
     # highscores
     if screenmode == 'highscore' or sm == 'highscore':
@@ -224,10 +228,6 @@ while running == True:
             newgame,sm=bool(sm[1]),sm[0]
         except IndexError:
             pass
-        # win
-        if screenmode =='win'or sm=='win':
-            screenmode,sm='win','win'
-            gamescreens.win(data)
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'

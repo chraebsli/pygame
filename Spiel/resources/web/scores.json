@@ -1,5 +1,6 @@
 {
-    "scores": [{
+    "scores": [
+        {
             "time": "02.03 15:43",
             "name": "chraebsli",
             "points": 1080
@@ -20,14 +21,34 @@
             "points": 771
         },
         {
+            "time": "10.03 16:39",
+            "name": "<ax",
+            "points": 743
+        },
+        {
             "time": "08.03 16:48",
             "name": "d",
             "points": 638
         },
         {
+            "time": "09.03 14:57",
+            "name": "se",
+            "points": 597
+        },
+        {
+            "time": "09.03 15:11",
+            "name": "ZIYAM",
+            "points": 591
+        },
+        {
             "time": "09.03 11:34",
             "name": "dwwa",
             "points": 544
+        },
+        {
+            "time": "10.03 11:05",
+            "name": "Ziyam",
+            "points": 460
         },
         {
             "time": "08.03 14:16",
@@ -45,6 +66,16 @@
             "points": 384
         },
         {
+            "time": "09.03 15:09",
+            "name": "wad",
+            "points": 342
+        },
+        {
+            "time": "10.03 14:01",
+            "name": "w",
+            "points": 340
+        },
+        {
             "time": "08.03 13:20",
             "name": "test",
             "points": 337
@@ -53,6 +84,11 @@
             "time": "09.03 12:20",
             "name": "d",
             "points": 331
+        },
+        {
+            "time": "09.03 15:20",
+            "name": "Ziyam",
+            "points": 309
         },
         {
             "time": "02.03 17:06",
@@ -85,6 +121,11 @@
             "points": 263
         },
         {
+            "time": "10.03 11:02",
+            "name": "Ziyam",
+            "points": 260
+        },
+        {
             "time": "09.03 12:34",
             "name": "d",
             "points": 242
@@ -105,9 +146,39 @@
             "points": 231
         },
         {
+            "time": "09.03 16:16",
+            "name": "w",
+            "points": 228
+        },
+        {
+            "time": "10.03 14:16",
+            "name": "w",
+            "points": 224
+        },
+        {
+            "time": "08.03 15:52",
+            "name": "Ziyam",
+            "points": 162
+        },
+        {
             "time": "08.03 15:50",
             "name": "Ziyam",
             "points": 157
+        },
+        {
+            "time": "09.03 15:02",
+            "name": "WDA",
+            "points": 150
+        },
+        {
+            "time": "09.03 16:12",
+            "name": "wa",
+            "points": 147
+        },
+        {
+            "time": "09.03 15:01",
+            "name": "AW",
+            "points": 146
         },
         {
             "time": "08.03 14:22",
@@ -120,44 +191,9 @@
             "points": 144
         },
         {
-            "time": "08.03 15:52",
-            "name": "Ziyam",
-            "points": 139
-        },
-        {
-            "time": "08.03 16:15",
-            "name": "d",
-            "points": 137
-        },
-        {
-            "time": "02.03 17:05",
-            "name": "lol",
-            "points": 133
-        },
-        {
-            "time": "02.03 17:05",
-            "name": "lol",
-            "points": 133
-        },
-        {
-            "time": "08.03 15:26",
-            "name": "d",
-            "points": 129
-        },
-        {
-            "time": "08.03 15:26",
-            "name": "d",
-            "points": 129
-        },
-        {
-            "time": "08.03 13:18",
-            "name": "awd",
-            "points": 128
-        },
-        {
-            "time": "09.03 12:11",
-            "name": "d",
-            "points": 125
+            "time": "10.03 16:38",
+            "name": "<ax",
+            "points": 97
         },
         {
             "time": "08.03 16:14",
