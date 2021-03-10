@@ -86,7 +86,16 @@ def collideplayer(player,list_coords,remo_list,statement):
         if x in list_coords:
             remo_list.append(x)
             return remo_list
-
+    if statement == 5: # Dieser Block blendet den Game Over Screen ein bei Collision Detection
+        s = None
+        for blocks in list_coords:
+            if player_rect.colliderect(blocks):
+                x = blocks
+        if x in list_coords:
+            if x in remo_list:
+                print('lost')
+                s = 'game_over.True'#remo_list=str(remo_list)+'.True'
+        return s
 
 # zeichnet wände
 def drawing(screen,walls):

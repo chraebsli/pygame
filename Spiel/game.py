@@ -226,7 +226,7 @@ while running == True:
             pass
         # win
         if screenmode =='win'or sm=='win':
-            screenmode,sm='game_over','game_over'
+            screenmode,sm='win','win'
             gamescreens.win(data)
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
