@@ -1,12 +1,14 @@
 import pygame,collision_detct,gamefunctions,json
 from pygame.locals import *
 from pygame import mixer
-felder = []
 
+felder = []
 counter_felder=0
 player_coords,player_coords_c=[],[]
 moves = []
 black = pygame.Color('black')
+
+
 def titlescreen(data, data_1):
     send_data=False
     global field_blit
@@ -167,6 +169,10 @@ def gamescreen(data, data_2,remo_list):
     coins_rect = data_2['coins_rect']
     game_over = data['game_over']
     player_rect = pygame.Rect(player_xy[0],player_xy[1],44,44)
+    repo = data['repo']
+    remote = data['remote']
+    prepo = data['prepo']
+
     #Sounds
     movesound = pygame.mixer.Sound(path + "audio/Sounds/move.wav")
     movesound.set_volume(0.25)
@@ -315,6 +321,7 @@ def gamescreen(data, data_2,remo_list):
                 lose_sound.play()
         else:
             screenmode='titlescreen.True'
+        gamefunctions.push_repo(remote,prepo)
         return screenmode
     #gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
 
@@ -449,7 +456,7 @@ def highscorescreen(data):
         header = base_font.render(i,True,(255,255,255))
         screen.blit(header,(j,200))
 
-    with open(path+'web/scores.json') as file:
+    with open(path+'scores/web/scores.json') as file:
         data_score = json.load(file)
 
     c=300

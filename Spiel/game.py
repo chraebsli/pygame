@@ -12,6 +12,17 @@ switch_music = False
 print('please select the game window, the game started')
 main_path = os.path.dirname(__file__) # Where your .py file is located
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
+
+
+# clone scores
+repo = 'coinchasergame.github.io'
+prepo = path + 'scores'
+username = "coinchasergame"
+token = "7b8917e30712096093d5c6dc8fd9a7246bc8b6ca"
+remote = f"https://{username}:{token}@github.com/{username}/{repo}"
+cloned = gamefunctions.clone_repo(prepo,remote)
+gamefunctions.pull_repo(prepo)
+
 # random Wände generieren (Koordinaten)
 wall_coords_x,wall_coords_y,wall_coords_xy=[],[],[]
 coin_coords_x,coin_coords_y,coin_coords_xy=[],[],[]
@@ -141,7 +152,8 @@ bachgroundmusic = [normal_background,game_background]
 # data: universell, data_1: titlescreen, data_2: gamescreen,data_3: skinscreen
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
-'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win}
+'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,
+'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win,'repo':repo,'remote':remote,'prepo':prepo}
 data_1 = {'background_titlescreen':background_titlescreen,
 'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,'leaderboard_button':leaderboard_button,
 'play_button_rect':play_button_rect,'quit_button':quit_button,'skin_button':skin_button,
