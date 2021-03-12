@@ -8,11 +8,10 @@ player_coords,player_coords_c=[],[]
 moves = []
 black = pygame.Color('black')
 
-
 def titlescreen(data, data_1):
+    global field_blit,sounds
+    # load var from parameters 
     send_data=False
-    global field_blit
-    global sounds
     screen = data['screen']
     background_titlescreen = data_1['background_titlescreen']
     background_xy = data['background_xy']
@@ -41,6 +40,7 @@ def titlescreen(data, data_1):
     screen.blit(leaderboard_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(text_surface,(50,20))
     grey = pygame.Color('black')
+
     if field_blit == True:
         if sounds == 'on':
             sounds = 'off'
@@ -51,18 +51,20 @@ def titlescreen(data, data_1):
         pygame.draw.rect(screen,grey,(1500,900,110,50))
         field_blit = False
         print(sounds)
+
     second_font = pygame.font.SysFont(None, 90)
     sound_surface = second_font.render(f'SOUNDS: {sounds.upper()}',False,(255,255,255))
     screen.blit(sound_surface,(1200,900))
+
     if sounds == 'off':
         mixer.music.pause()
     for event in pygame.event.get():
-        if event.type==pygame.QUIT: # stoppt Script
+        if event.type==pygame.QUIT:
             print('Quit game ...')
             pygame.quit() 
             exit(0) 
 
-        # erkennen von Mausposition 
+        # detect mouseposition for screen
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
             if x > play_button_rect[0] and y > play_button_rect[1] and x < play_button_rect[2] and y < play_button_rect[3]:
@@ -98,12 +100,12 @@ def skinscreen(data, data_3,data_2):
     skins = data['skins']
     screen.blit(background_skinscreen, (background_xy[0],background_xy[1]))
     c=0
-    
+
     for skin in skins_skinscreen:
         l=[112,485,870,1230]
         screen.blit(skins_skinscreen[c], (l[c],375))
         c+=1
-    
+
     for event in pygame.event.get():
         if event.type==pygame.QUIT: # stoppt Script
             print('Quit game ...')
@@ -116,8 +118,8 @@ def skinscreen(data, data_3,data_2):
                 player = data_2['player']
                 screenmode='titlescreen'
                 send_data=True
-        
-        # laden der skins
+
+        # load skins
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
             if x > 112 and y > 375 and x < 392 and y < 655:
@@ -140,18 +142,16 @@ def skinscreen(data, data_3,data_2):
                 player = skins[3]
                 screenmode='titlescreen'
                 send_data=True 
-        
+
     if send_data==True:
         return screenmode
 
 
 def gamescreen(data, data_2,remo_list):
-    #t1 = gamefunctions.start_timer() #to start timer
+    #t1 = gamefunctions.start_timer() #to start timer # how long to load a frame
+    global counter_felder,block_coords,player_coords, player, points,sounds
     send_data=False
-    global points,sounds
-    #Punkte die man In-Game mit Münzen erzielt
     points = 0
-    global counter_felder,block_coords,player_coords, player
     screenmode=data['screenmode']
     keys = data['keys']
     path = data['path']
@@ -173,42 +173,38 @@ def gamescreen(data, data_2,remo_list):
     remote = data['remote']
     prepo = data['prepo']
 
-    #Sounds
+    # Sounds
     movesound = pygame.mixer.Sound(path + "audio/Sounds/move.wav")
     movesound.set_volume(0.25)
     lose_sound = pygame.mixer.Sound(path + "audio/Sounds/lose.wav")
     lose_sound.set_volume(0.5)
     win_sound = pygame.mixer.Sound(path + "audio/Sounds/win.wav")
-    #Schauen ob Audio aktiviert ist
+
     if sounds == 'off':
             mixer.music.pause()
-    # Sprites hinzufügen
     counter = 0
     if counter == 0:
         list_coords = collision_detct.move(screen,player_xy,False)
         counter += 1
     if counter != 0:
         collision_detct.move(screen,player_xy,True)
-    
+
     collision_detct.drawing(screen,walls_rect)
     coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
-    
     screen.blit(endskin, (end_xy[0],end_xy[1]))
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     gamefunctions.background(screen, path)
     collision_detct.playerpath(remo_list,screen,player_xy)
-    # bei Feheler vom laden von Playersprite
+
+    # if player can't load
     try:
         screen.blit(player, (player_xy[-2],player_xy[-1])) 
     except NameError:
         player = pygame.image.load(path+"images/gamescreen/player.png")
-    
-    # überprüft ob eine Taste gedrückt ist
+
     for event in pygame.event.get(): 
-        # überprüft ob das Fenster geschlossen wurde
         if event.type==pygame.QUIT: 
-            # stoppt Script
             print('Quit game ...')
             pygame.quit() 
             exit(0) 
@@ -224,7 +220,7 @@ def gamescreen(data, data_2,remo_list):
                 keys[3]=True
             elif event.key==K_q:
                     keys[5] = True
-            
+
         elif event.type == pygame.KEYUP:
             if event.key==pygame.K_w or event.key==K_UP:
                 keys[0]=False
@@ -252,7 +248,7 @@ def gamescreen(data, data_2,remo_list):
         collision_detct.run(screen,player_xy,player)
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
-    
+
     if keys[5]:
         gamefunctions.show_points(points,remo_list,screen,coins_rect)
     if keys[4]:
@@ -289,23 +285,14 @@ def gamescreen(data, data_2,remo_list):
             return screenmode
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,True)
         points = gamefunctions.calculate_points(points,remo_list,coins_rect)
-        
-        '''
-        try:
-            remo_list = str(remo_list).split('.')
-            newgame,remo_list=bool(remo_list[1]),remo_list[0]
-        except IndexError:
-            pass
-        '''
+
         if collide=='game_over.True':
             newgame=True
             screenmode = 'game_over.True'
-    # winscreen bzw Nachricht
-    if player_xy == end_xy:
-        global playername
-        print('You ended this round')
-        print(playername)
-        print(points)
+    
+    # end game
+    if player_xy == end_xy: 
+        print('You ended this round\n'+playername+'\n'+points)
         gamefunctions.scores(points,playername,path)
         send_data=True
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
@@ -327,9 +314,7 @@ def gamescreen(data, data_2,remo_list):
 
 
 def loginscreen(data,number):
-    global playername
-    global sounds
-    global field_blit
+    global playername,field_blit,sounds
     field_blit = False
     sounds = 'on'
     playername = ""
@@ -355,7 +340,7 @@ def loginscreen(data,number):
     logo = data['logo']
     screenmode=data['screenmode']
     done = False
-    
+
     while not done:
         for event in pygame.event.get():
             if event.type==pygame.QUIT: # stoppt Script
@@ -393,12 +378,12 @@ def loginscreen(data,number):
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
         width = max(475, text_surface.get_width()-400)
         input_box.w = width
-        
+
         pygame.draw.rect(screen, color, input_box, 2)
         blit_list=[text_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,logo]
         list2=[(input_box.x-350, input_box.y+5),(600,600),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
         c=0
-        
+
         for img in blit_list:
             screen.blit(img,list2[c])
             c+=1
@@ -417,11 +402,9 @@ def loginscreen(data,number):
         screen.blit(sound_surface,(1200,900))
         if sounds == 'off':
             mixer.music.pause()
-        
-        pygame.display.flip()
-        clock.tick(30)
         if send_data==True:
             return screenmode
+
 
 def highscorescreen(data):
     base_font = pygame.font.SysFont(None, 80)
@@ -433,9 +416,9 @@ def highscorescreen(data):
     screen.blit(banner,(410,15))
     screen.blit(return_banner,(1225,900))
     path = data['path']
-    
+
     for event in pygame.event.get():
-            if event.type==pygame.QUIT: # stoppt Script
+            if event.type==pygame.QUIT:
                 print('Quit game ...')
                 pygame.quit() 
                 exit(0) 
@@ -449,29 +432,22 @@ def highscorescreen(data):
                     screenmode='titlescreen'
                     send_data=True
                     return screenmode
-    
+
     # blit categories
     titles,pos = ['Time','Name','Points'],[300,700,1100]
     for i,j in zip(titles,pos):
         header = base_font.render(i,True,(255,255,255))
         screen.blit(header,(j,200))
-
     with open(path+'scores/web/scores.json') as file:
         data_score = json.load(file)
 
     c=300
     c1=1
+    # blit content
     for p in data_score['scores']:
         if c1 == 8:
             break
-        
-        # setzt var auf den inhalt der JSON Datei
-        time = p['time']
-        name = p['name']
-        points = str(p['points'])
-    
-        # zeigt die Inhalte an
-        blitlist = [time,name,points]
+        blitlist = [p['time'],p['name'],str(p['points'])]
         for i,j in zip(blitlist,pos):
             screen.blit(base_font.render(i,True,(255,255,255)),(j,c))
         c += 80
@@ -480,11 +456,11 @@ def highscorescreen(data):
 
 def howto(data,img,return_manuels):
     screen = data['screen']
-
     screen.blit(img,(1,1))
     screen.blit(return_manuels,(30,1))
+
     for event in pygame.event.get():
-            if event.type==pygame.QUIT: # stoppt Script
+            if event.type==pygame.QUIT:
                 print('Quit game ...')
                 pygame.quit() 
                 exit(0) 
@@ -495,59 +471,55 @@ def howto(data,img,return_manuels):
                 x,y = event.pos
                 if x > 30 and y > 1 and x < 77 and y < 136:
                     screenmode='titlescreen'
-
-
                     return screenmode
+
+
 def game_over(data):
-    global points
-    global playername
+    # load var from parameters
+    global points, playername
     screen = data['screen']
     game_over = data['game_over']
     screen.blit(game_over,(1,1))
-    points_blit = str('NONE') #Variable um Punkteanzahl auf Screen zu bekommen
-    name_blit = str(playername) #Variable um Spielernamen auf Screen zu bekommen
-    message_blit = 'PRESS ANY KEY TO CONTINUE'
     base_font = pygame.font.SysFont(None, 180)
     message_font = pygame.font.SysFont(None, 65)
-    points_surface = base_font.render(points_blit,False,(255,255,255))
-    name_surface = base_font.render(name_blit,False,(255,255,255))
-    message_surface = message_font.render(message_blit,False,(255,255,255))
+    points_surface = base_font.render('NONE',False,(255,255,255))
+    name_surface = base_font.render(str(playername),False,(255,255,255))
+    message_surface = message_font.render('PRESS ANY KEY TO CONTINUE',False,(255,255,255))
     screen.blit(points_surface, (850,750))
     screen.blit(name_surface, (850,560))
     screen.blit(message_surface,(500,950))
+
     for event in pygame.event.get():
-            if event.type==pygame.QUIT: # stoppt Script
+            if event.type==pygame.QUIT:
                 print('Quit game ...')
                 pygame.quit() 
                 exit(0) 
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
                 screenmode='titlescreen'
                 return screenmode
-            
+
+
 def win(data):
-    global points
-    global playername
+    global points, playername
+    # load var from parameters
     screen = data['screen']
     path = data['path']
     win = data['win']
     screen.blit(win,(1,1))
-    points_blit = str(points) #Variable um Punkteanzahl auf Screen zu bekommen
-    name_blit = str(playername) #Variable um Spielernamen auf Screen zu bekommen
-    message_blit = 'PRESS ANY KEY TO CONTINUE'
     base_font = pygame.font.SysFont(None, 180)
     message_font = pygame.font.SysFont(None, 65)
-    points_surface = base_font.render(points_blit,False,(255,255,255))
-    name_surface = base_font.render(name_blit,False,(255,255,255))
-    message_surface = message_font.render(message_blit,False,(255,255,255))
+    points_surface = base_font.render(str(points),False,(255,255,255))
+    name_surface = base_font.render(str(playername),False,(255,255,255))
+    message_surface = message_font.render('PRESS ANY KEY TO CONTINUE',False,(255,255,255))
     screen.blit(name_surface, (850,520))
     screen.blit(points_surface, (850,700))
     screen.blit(message_surface,(500,950))
+
     for event in pygame.event.get():
-            if event.type==pygame.QUIT: # stoppt Script
+            if event.type==pygame.QUIT:
                 print('Quit game ...')
                 pygame.quit() 
                 exit(0) 
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
                 screenmode='titlescreen'
                 return screenmode
-            

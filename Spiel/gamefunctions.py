@@ -1,20 +1,19 @@
-import git
-import pygame,datetime,json,collision_detct
-from git import Repo
+import pygame,datetime,json,collision_detct,git
+randskin = 1
+randcoin = 1
 
-# Funktion für das setzen der Wände
+# display walls
 def wall_blit(screen,walls,wall_coords_xy):
     c=1
     for wall in walls:
         screen.blit(wall,wall_coords_xy[c])
         c+=1
 
-# Anzeigen von den Feldabgrenzungen
+# display background
 def background(screen,path):
     x,y = 1,1
     senkrechte = pygame.image.load(path + "images/gamescreen/senkrechte.png")
     gerade = pygame.image.load(path + "images/gamescreen/gerade.png")
-
     for s in range(1,36):
         screen.blit(senkrechte,(x,1))
         x+=49
@@ -22,9 +21,8 @@ def background(screen,path):
         screen.blit(gerade,(1,y))
         y+=49
 
-# randomskin für das Ziel
-randskin = 1
-randcoin = 1
+
+# randomcolor for end
 def random_endskin(path1,end1):
     global randskin
     if randskin == 1:
@@ -44,7 +42,8 @@ def random_endskin(path1,end1):
         randskin=1
     return end1
 
-# farbenwechselndes Ende
+
+# random coincolor
 def random_coinskin(path1,coin1):
     global randcoin
     if randcoin == 1:
@@ -65,6 +64,7 @@ def random_coinskin(path1,coin1):
     return coin1
 
 
+# calculate scores.json for push
 def scores(points,name,path):
     # gives date and time dd.mm.yyyy hh:mm:ss
     actual=datetime.datetime.now()
@@ -79,14 +79,15 @@ def scores(points,name,path):
     with open(path+'scores/web/scores.json','w') as file:
         json.dump(data,file,indent=4)
 
-    # sortiert die liste nach höchstpunktzahl
+    # sort for highest score
     with open(path+'scores/web/scores.json') as file:
         data_score = json.load(file)
         data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
     with open(path+'scores/web/scores.json','w') as file:
         json.dump(data_score,file,indent=4)
-    
-    
+
+
+# show points on <q>
 def show_points(points,remo_list,screen,coins_rect):
         color = pygame.Color('white')
         black = pygame.Color('black')
@@ -98,21 +99,26 @@ def show_points(points,remo_list,screen,coins_rect):
         screen.blit(text_surface,(500, 5))
 
 
+# calculate points
 def calculate_points(points,remo_list,coins_rect):
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
         return final_punkte-1
 
+
+# start a timer 
 def start_timer():
     t1 = datetime.datetime.now()
     return t1
 
 
+# stop and print timer
 def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
 
 
+# clone repo from github for leaderboard
 def clone_repo(path,remote):
     global repo
     try:
@@ -123,6 +129,7 @@ def clone_repo(path,remote):
         return False
 
 
+# pull repo for leaderboard
 def pull_repo(prepo):
     global repo
     try:
@@ -137,10 +144,10 @@ def pull_repo(prepo):
             print('Error while pulling repo')
 
 
+# push repo for leaderboard
 def push_repo(remote,prepo):
     global repo
     repo.git.add(prepo+"/web/scores.json")
     repo.index.commit("Update JSON for Leaderboard")
     repo.remotes.origin.push(refspec='master:master')
     print('Pushed Succesful')
-

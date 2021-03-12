@@ -1,11 +1,13 @@
 TODO:
 
-    - optimieren
+    - spiel optimieren
     - JSON fehler beheben: wenn datei leer
     - JSON automatisches löschen von kleinen scores (oder nachfragen)
-    - audio
-    - howto esc
-    - winscreen,game-over screen
     - timer
     - bessere skins
     - evtl bessrer background
+    - collisiondetect.py update und optimieren
+    - alte files löschen
+    - github clone, push and pull für scores
+    - löschen für kleinere scores
+    - 
