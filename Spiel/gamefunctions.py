@@ -1,4 +1,6 @@
 import pygame,datetime,json,collision_detct
+from git import Repo
+
 
 # Funktion für das setzen der Wände
 def wall_blit(screen,walls,wall_coords_xy):
@@ -110,3 +112,30 @@ def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
 
+
+def clone_repo(path,remote):
+    path = path + 'scores'
+    try:
+        Repo.clone_from(remote, path)
+        print('Cloned a repo for scores to',path)
+    except:
+        print('Mistake while cloneing repo')
+        return False
+
+
+def pull_repo(repo):
+    try:
+        repo.pull()
+    except:
+        print('Mistake while pulling repo')
+
+
+def push_repo(repo,remote):
+    try:
+        repo.git.add("web/scores.json")
+        repo.index.commit("Update JSON for Leaderboard")
+        origin = repo.remote(name="origin")
+        origin.push()
+        print('Pushed Succesful')
+    except:
+        print('Mistake while pushing repo')

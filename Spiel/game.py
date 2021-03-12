@@ -10,6 +10,18 @@ switch_music = False
 print('please select the game window, the game started')
 main_path = os.path.dirname(__file__) # Where your .py file is located
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
+print(path)
+
+# clone scores
+repo = 'coinchasergame.github.io'
+username = "coinchasergame"
+token = "7b8917e30712096093d5c6dc8fd9a7246bc8b6ca"
+remote = f"https://{username}:{token}@github.com/{username}/{repo}"
+cloned = gamefunctions.clone_repo(path,remote)
+if cloned == False:
+    gamefunctions.pull_repo(repo)
+
+
 # random Wände generieren (Koordinaten)
 wall_coords_x,wall_coords_y,wall_coords_xy=[],[],[]
 coin_coords_x,coin_coords_y,coin_coords_xy=[],[],[]
