@@ -97,6 +97,8 @@ end2 = 0
 coin2 = 0
 status=0
 block_coords=[]
+screen=pygame.display.set_mode((display_xy))
+pygame.init()
 
 # load images
 background_titlescreen = pygame.image.load(path + "images/titlescreen/background_titlescreen.png")
@@ -169,8 +171,6 @@ data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_s
     'message_skin_one':message_skin_one}
 
 # game
-pygame.init()
-screen=pygame.display.set_mode((display_xy))
 screen.fill(0) 
 running = True
 backgroundindex = 0
