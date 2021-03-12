@@ -1,6 +1,6 @@
+import git
 import pygame,datetime,json,collision_detct
 from git import Repo
-
 
 # Funktion für das setzen der Wände
 def wall_blit(screen,walls,wall_coords_xy):
@@ -73,17 +73,17 @@ def scores(points,name,path):
     now=date+' '+time
 
     # get data in json 
-    with open(path+'web/scores.json') as file:
+    with open(path+'scores/web/scores.json') as file:
         data = json.load(file)
     data['scores'].append({'time':now,'name':name,'points':points})
-    with open(path+'web/scores.json','w') as file:
+    with open(path+'scores/web/scores.json','w') as file:
         json.dump(data,file,indent=4)
 
     # sortiert die liste nach höchstpunktzahl
-    with open(path+'web/scores.json') as file:
+    with open(path+'scores/web/scores.json') as file:
         data_score = json.load(file)
         data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
-    with open(path+'web/scores.json','w') as file:
+    with open(path+'scores/web/scores.json','w') as file:
         json.dump(data_score,file,indent=4)
     
     
@@ -114,28 +114,33 @@ def end_timer(t1,msg):
 
 
 def clone_repo(path,remote):
-    path = path + 'scores'
+    global repo
     try:
-        Repo.clone_from(remote, path)
-        print('Cloned a repo for scores to',path)
+        repo = Repo.clone_from(remote, path)
+        print('Cloned repo for scores')
     except:
-        print('Mistake while cloneing repo')
+        repo = git.Repo(path+'/.git')
         return False
 
 
-def pull_repo(repo):
+def pull_repo(prepo):
+    global repo
     try:
         repo.pull()
+        print('pulled1')
     except:
-        print('Mistake while pulling repo')
+        try:
+            repo = git.Repo(prepo+'/.git')
+            repo.pull()
+            print('pulled2')
+        except:
+            print('Error while pulling repo')
 
 
-def push_repo(repo,remote):
-    try:
-        repo.git.add("web/scores.json")
-        repo.index.commit("Update JSON for Leaderboard")
-        origin = repo.remote(name="origin")
-        origin.push()
-        print('Pushed Succesful')
-    except:
-        print('Mistake while pushing repo')
+def push_repo(remote,prepo):
+    global repo
+    repo.git.add(prepo+"/web/scores.json")
+    repo.index.commit("Update JSON for Leaderboard")
+    repo.remotes.origin.push(refspec='master:master')
+    print('Pushed Succesful')
+
