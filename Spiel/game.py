@@ -6,6 +6,7 @@ from pygame import mixer
 t1 = gamefunctions.start_timer()
 remo_list = []
 timer = 0
+
 sound = 'on' #Variable, welche bestimmt ob Musik oder Sounds abgespielt wird
 random_number = random.randint(0,2) #Random Hintergrundfarbe für Loginscreen, Wände oder Playerpath
 play_music = True
@@ -240,7 +241,7 @@ while running == True:
             backgroundindex = 1
             switch_music = True
             play_music = True
-        sm = gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
+        sm = gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list,random_number=random_number)
         try:
             sm = str(sm).split('.')
             newgame,sm=bool(sm[1]),sm[0]
@@ -264,7 +265,7 @@ while running == True:
         screenmode,sm = 'gamescreen','gamescreen'
     if screenmode == 'settings' or sm == 'settings':
         screenmode,sm='settings','settings'
-        gamescreens.settings(data,return_manuels,random_number)
+        sm = gamescreens.settings(data,return_manuels,random_number)
     # grundlegende Funktionen
     pygame.display.flip() 
     time.sleep(0.05)

@@ -98,25 +98,36 @@ def collideplayer(player,list_coords,remo_list,statement):
         return s
 
 # zeichnet wände
-def drawing(screen,walls):
+def drawing(screen,walls, index_wall,random_number,color):
+        #random color
     red = pygame.Color('red')
     blue = pygame.Color('blue')
-    green = pygame.Color('green')
+    green = pygame.Color('darkgreen')
     colors = [red,blue,green]
+    
+    #Wechsel zwischen Farben
+    settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
+    #if settings_change_wall[index_wall] = 
     x = random.randint(0,2)
+  
     c=0
     for e in range(11):
-        pygame.draw.rect(screen,colors[x],walls[c])
+        pygame.draw.rect(screen,color,walls[c])
         c+=1
 
 
 # playerpath: zeigt alle begangen Felder an
-def playerpath(remo_list,screen,player):
-    blue = pygame.Color('blue')
-    green = pygame.Color('green')
+def playerpath(remo_list,screen,player,color_one,index_path):
+    real_color_path = color_one
     red = pygame.Color('red')
-    colors = [blue,green,red]
+    blue = pygame.Color('blue')
+    green = pygame.Color('darkgreen')
     x = random.randint(0,2)
+    colors = [red,blue,green]
+    settings_change_path = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
+    if settings_change_path[index_path] == 'RAINBOW':
+        real_color_path = colors[x]
+        
     pygame.Rect(player[0],player[1],44,44)
     for element in remo_list:
-        pygame.draw.rect(screen,colors[x],element)
+        pygame.draw.rect(screen,real_color_path,element)

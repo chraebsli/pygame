@@ -11,7 +11,9 @@ black = pygame.Color('black')
 
 def titlescreen(data, data_1):
     send_data=False
-    global field_blit,sounds
+    global field_blit,sounds,index_path,index_wall
+    index_wall = 0
+    index_path = 0
     screen = data['screen']
     background_titlescreen = data_1['background_titlescreen']
     background_xy = data['background_xy']
@@ -148,9 +150,9 @@ def skinscreen(data, data_3,data_2):
         return screenmode
 
 
-def gamescreen(data, data_2,remo_list):
+def gamescreen(data, data_2,remo_list,random_number):
     t1 = gamefunctions.start_timer() # to start timer
-    global counter_felder,block_coords,player_coords,player,points,sounds,t3
+    global counter_felder,block_coords,player_coords,player,points,sounds,t3,index_path,index_wall,color,color_one
     send_data=False
     points = 0
     screenmode=data['screenmode']
@@ -173,7 +175,13 @@ def gamescreen(data, data_2,remo_list):
     repo = data['repo']
     remote = data['remote']
     prepo = data['prepo']
-
+    #Farben
+    red = pygame.Color('red')
+    blue = pygame.Color('blue')
+    green = pygame.Color('darkgreen')
+    colors = [red,blue,green]
+    x_color = random.randint(0,2) #Falls der Spieler ohne die Wände zu konfigurien, das Spiel startet
+    x_color_one = random.randint(0,2) #Falls der Spieler ohne den Pfad zu konfigurien, das Spiel startet
     # Sounds
     movesound = pygame.mixer.Sound(path + "audio/Sounds/move.wav")
     movesound.set_volume(0.25)
@@ -192,16 +200,20 @@ def gamescreen(data, data_2,remo_list):
         counter += 1
     if counter != 0:
         collision_detct.move(screen,player_xy,True)
-
-    collision_detct.drawing(screen,walls_rect)
+    try:
+        collision_detct.drawing(screen,walls_rect,index_wall,random_number,color)
+    except NameError:
+        color = colors[x_color]
     coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
 
     screen.blit(endskin, (end_xy[0],end_xy[1]))
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     gamefunctions.background(screen, path)
-    collision_detct.playerpath(remo_list,screen,player_xy)
-
+    try:
+        collision_detct.playerpath(remo_list,screen,player_xy,color_one,index_path)
+    except NameError:
+        color_one = colors[x_color_one]
     # if no player selected
     try:
         screen.blit(player, (player_xy[-2],player_xy[-1])) 
@@ -297,11 +309,13 @@ def gamescreen(data, data_2,remo_list):
 
     if player_xy == end_xy:
         global playername
-        print(f'You ended this round as {playername} with {points} points ')
-        gamefunctions.return_endtime(t3)
-        gamefunctions.scores(points,playername,path)
-        gamefunctions.push_repo(remote,prepo,playername)
+        played_time = gamefunctions.return_endtime(t3)
+        print(f'You ended this round as {playername} with {points} points in {played_time} minutes')
+        if points >=150:
+            gamefunctions.scores(points,playername,played_time,path)
+            gamefunctions.push_repo(remote,prepo,playername)
         send_data=True
+    
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
         send_data=True
     if send_data==True:
@@ -316,7 +330,7 @@ def gamescreen(data, data_2,remo_list):
         else:
             screenmode='titlescreen.True'
         return screenmode
-    gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
+    #gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
 
 
 def loginscreen(data,number):
@@ -578,56 +592,116 @@ def timer(data,timer,number):
         clock.tick(60)
 
 def settings(data,return_manuels,random_number):
-    x,y = 1,1
-
+    x1,y = 323,255
+    global index_path,index_wall
     senkrechte = data['settings_demo_vertical']
     gerade = data['settings_demo_horizontal']
 
     background = data['settings_background']
     demo_background = data['settings_demo']
+    for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    print('Quit game ...')
+                    pygame.quit() 
+                    exit(0) 
+                if event.type == pygame.KEYDOWN:
+                    screenmode = 'titlescreen'
+                    return screenmode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x,y = event.pos
+                    if x > 925 and y > 900 and x < 1250 and y < 950:
+                        if index_wall == 4:
+                            index_wall = 0
+                        else: index_wall += 1
+                        
+                    if x > 900 and y > 800 and x < 1205 and y < 850:
+                        if index_path == 4:
+                            index_path = 0
+                        else: index_path += 1
+                        
     
-    index_wall = 0
-    index_path = 0
-    field_blit = False
     screen = data['screen']
     screen.blit(background,(0,0))
-    screen.blit(demo_background,(320,250))
     #random color
     red = pygame.Color('red')
     blue = pygame.Color('blue')
     green = pygame.Color('darkgreen')
     colors = [red,blue,green]
 
-    #rainbow
-    x = random.randint(1,2)
-    color = colors[x]
+    
 
     #Wechsel zwischen Farben
-    settings_change_wall = ['RAINBOW','RANDOM','RED','RED','GREEN']
-    settings_change_path = ['RAINBOW','RANDOM','RED','RED','GREEN']
+    settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
+    settings_change_path = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
 
-    for s in range(1,20):
-        screen.blit(senkrechte,(x,250))
-        x+=50
-    for h in range(1,10):
-        screen.blit(gerade,(320,y))
-        y+=50
-
-    for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                print('Quit game ...')
-                pygame.quit() 
-                exit(0) 
-
+    #x = random.randint(0,2)
+    #color = colors[x]
+    global color
+    
+    #Wählt Farbe von Wand aus
+    if settings_change_wall[index_wall] == 'RAINBOW':
+        #rainbow
+        x = random.randint(0,2)
+        
+        color = colors[x]
+    if settings_change_wall[index_wall] == 'RANDOM':
+        #global color
+        color = colors[random_number]
+    if settings_change_wall[index_wall] == 'RED':
+        #global color
+        color = colors[0]
+    if settings_change_wall[index_wall] == 'BLUE':
+        #global color
+        color = colors[1]
+    if settings_change_wall[index_wall] == 'GREEN':
+        #global color
+        color = colors[2] 
+    #Wählt Farbe vom Spielerpfad aus
+    global color_one
+    if settings_change_path[index_path] == 'RAINBOW':
+        #rainbow
+        x = random.randint(0,2)
+        color_one = colors[x]
+    if settings_change_path[index_path] == 'RANDOM':
+        color_one = colors[random_number]
+    if settings_change_path[index_path] == 'RED':
+        color_one = colors[0]
+    if settings_change_path[index_path] == 'BLUE':
+        color_one = colors[1]
+    if settings_change_path[index_path] == 'GREEN':
+        color_one = colors[2]   
+   
+        
             
-    if field_blit == True:
-            index +1
-            print('index increased')
-            pygame.draw.rect(screen,colors[number],(1500,900,110,50))
-            field_blit = False
-            print('wall changed')
+    
+
     second_font = pygame.font.SysFont(None, 90)
     wall_surface = second_font.render(f'COLOR OF WALLS: {settings_change_wall[index_wall]}',False,(255,255,255))
     path_surface = second_font.render(f'COLOR OF PATH : {settings_change_path[index_path]}',False,(255,255,255))
+    #Kleines Fenster, welches die Auswirkungen beim Wechseln einer dieser EInstellungen zeigt
+    print(index_wall)
+    #Auswirkungen auf Wände
+    pygame.draw.rect(screen,color,(1025,255,150,50))
+        #Wählt Farbe von Wand aus
+    pygame.draw.rect(screen,color,(323,605,50,150))
+    pygame.draw.rect(screen,color,(625,405,150,50))
+    pygame.draw.rect(screen,color,(1223,455,50,150))
+    #Auswirkungen auf Pfad
+    pygame.draw.rect(screen,color_one,(1023,505,50,250))
+    pygame.draw.rect(screen,color_one,(523,505,500,50))
+    pygame.draw.rect(screen,color_one,(523,255,50,300))
+    for s in range(21):
+        screen.blit(senkrechte,(x1,255))
+        x1 += 50
+        
+    for h in range(1,12):
+        screen.blit(gerade,(320,y))
+        y+=50
+    
+    
+    
+    pygame.draw.rect(screen,(0,0,0),(925,900,325,50))
     screen.blit(wall_surface,(345,900))
+    pygame.draw.rect(screen,(0,0,0),(900,800,305,50))
     screen.blit(path_surface,(345,800))
+    

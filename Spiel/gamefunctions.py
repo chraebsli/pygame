@@ -71,7 +71,7 @@ def random_coinskin(path1,coin1):
 
 
 # write score
-def scores(points,name,path):
+def scores(points,name,played_time,path):
     global str_time
     # gives date and time dd.mm.yyyy hh:mm:ss
     actual=datetime.datetime.now()
@@ -82,7 +82,7 @@ def scores(points,name,path):
     # get data in json 
     with open(path+'scores/web/scores.json') as file:
         data = json.load(file)
-    data['scores'].append({'time':now,'name':name,'points':points,'playtime':str_time[2:7]})
+    data['scores'].append({'date':now,'name':name,'points':points,'time':played_time})
     with open(path+'scores/web/scores.json','w') as file:
         json.dump(data,file,indent=4)
 
@@ -121,6 +121,8 @@ def return_endtime(t3): #gibt, falls der Spieler das Spiel beendet, seine Spielz
         global str_time
         time = datetime.datetime.now() - t3
         str_time = str(time)
+        str_time_min = str_time[3:9]
+        return str_time_min
 
 
 # starts a timer
@@ -158,6 +160,6 @@ def push_repo(remote,prepo,playername):
     global repo
     print(repo)
     repo.git.add(prepo+"/web/scores.json")
-    repo.index.commit(f"Update JSON for Leaderboard")
+    repo.index.commit(f"added score from {playername}")
     repo.remotes.origin.push(refspec='master:master')
     print('Pushed Succesful')
