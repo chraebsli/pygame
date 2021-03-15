@@ -1,15 +1,20 @@
-#import git
+import git
 import pygame,datetime,json,collision_detct
-#from git import Repo
+from git import Repo
 
-# Funktion für das setzen der Wände
+randskin = 1
+randcoin = 1
+
+
+# display walls
 def wall_blit(screen,walls,wall_coords_xy):
     c=1
     for wall in walls:
         screen.blit(wall,wall_coords_xy[c])
         c+=1
 
-# Anzeigen von den Feldabgrenzungen
+
+# display background
 def background(screen,path):
     x,y = 1,1
     senkrechte = pygame.image.load(path + "images/gamescreen/senkrechte.png")
@@ -22,9 +27,8 @@ def background(screen,path):
         screen.blit(gerade,(1,y))
         y+=49
 
-# randomskin für das Ziel
-randskin = 1
-randcoin = 1
+
+# animated skin for end
 def random_endskin(path1,end1):
     global randskin
     if randskin == 1:
@@ -44,7 +48,8 @@ def random_endskin(path1,end1):
         randskin=1
     return end1
 
-# farbenwechselndes Ende
+
+# animated skin for coin
 def random_coinskin(path1,coin1):
     global randcoin
     if randcoin == 1:
@@ -65,6 +70,7 @@ def random_coinskin(path1,coin1):
     return coin1
 
 
+# write score
 def scores(points,name,path):
     global str_time
     # gives date and time dd.mm.yyyy hh:mm:ss
@@ -74,23 +80,23 @@ def scores(points,name,path):
     now=date+' '+time
 
     # get data in json 
-    with open(path+'web/scores.json') as file:
+    with open(path+'scores/web/scores.json') as file:
         data = json.load(file)
     data['scores'].append({'time':now,'name':name,'points':points,'playtime':str_time[2:7]})
-    with open(path+'web/scores.json','w') as file:
+    with open(path+'scores/web/scores.json','w') as file:
         json.dump(data,file,indent=4)
 
     # sortiert die liste nach höchstpunktzahl
-    with open(path+'web/scores.json') as file:
+    with open(path+'scores/web/scores.json') as file:
         data_score = json.load(file)
         data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
-    with open(path+'web/scores.json','w') as file:
+    with open(path+'scores/web/scores.json','w') as file:
         json.dump(data_score,file,indent=4)
     
     
-def show_points(points,remo_list,screen,coins_rect,t1):
+def show_points(points,remo_list,screen,coins_rect,t3):
         global str_time
-        time = datetime.datetime.now() - t1
+        time = datetime.datetime.now() - t3
         color = pygame.Color('white')
         black = pygame.Color('black')
         base_font = pygame.font.SysFont(None, 160)
@@ -104,25 +110,32 @@ def show_points(points,remo_list,screen,coins_rect,t1):
         screen.blit(timelabel,(900, 5))
 
 
+# calculate points
 def calculate_points(points,remo_list,coins_rect):
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
         return final_punkte-1
-def return_endtime(t1): #gibt, falls der Spieler das Spiel beendet, seine Spielzeit zurück
+
+
+def return_endtime(t3): #gibt, falls der Spieler das Spiel beendet, seine Spielzeit zurück
         global str_time
-        time = datetime.datetime.now() - t1
+        time = datetime.datetime.now() - t3
         str_time = str(time)
+
+
+# starts a timer
 def start_timer():
     t1 = datetime.datetime.now()
     return t1
 
 
+# ends a timer
 def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
 
 
-'''
+# clones scores
 def clone_repo(path,remote):
     global repo
     try:
@@ -133,24 +146,18 @@ def clone_repo(path,remote):
         return False
 
 
+# pulls scores
 def pull_repo(prepo):
-    global repo
-    try:
-        repo.pull()
-        print('pulled1')
-    except:
-        try:
-            repo = git.Repo(prepo+'/.git')
-            repo.pull()
-            print('pulled2')
-        except:
-            print('Error while pulling repo')
+    repo = git.Repo(prepo)
+    r = repo.remotes.origin
+    r.pull()
 
 
-def push_repo(remote,prepo):
+# pushs scores
+def push_repo(remote,prepo,playername):
     global repo
+    print(repo)
     repo.git.add(prepo+"/web/scores.json")
-    repo.index.commit("Update JSON for Leaderboard")
+    repo.index.commit(f"Update JSON for Leaderboard {playername}")
     repo.remotes.origin.push(refspec='master:master')
     print('Pushed Succesful')
-'''
