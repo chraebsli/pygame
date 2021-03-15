@@ -12,8 +12,8 @@ black = pygame.Color('black')
 def titlescreen(data, data_1):
     send_data=False
     global field_blit,sounds,index_path,index_wall
-    index_wall = 0
     index_path = 0
+    index_wall = 0
     screen = data['screen']
     background_titlescreen = data_1['background_titlescreen']
     background_xy = data['background_xy']
@@ -152,7 +152,7 @@ def skinscreen(data, data_3,data_2):
 
 def gamescreen(data, data_2,remo_list,random_number):
     t1 = gamefunctions.start_timer() # to start timer
-    global counter_felder,block_coords,player_coords,player,points,sounds,t3,index_path,index_wall,color,color_one
+    global counter_felder,block_coords,player_coords,player,points,sounds,t3,final_index_p,final_index_w,color,color_one
     send_data=False
     points = 0
     screenmode=data['screenmode']
@@ -201,9 +201,9 @@ def gamescreen(data, data_2,remo_list,random_number):
     if counter != 0:
         collision_detct.move(screen,player_xy,True)
     try:
-        collision_detct.drawing(screen,walls_rect,index_wall,random_number,color)
+        collision_detct.drawing(screen,walls_rect,final_index_w,random_number,color)
     except NameError:
-        color = colors[x_color]
+        real_color = colors[x_color]
     coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
 
@@ -211,9 +211,9 @@ def gamescreen(data, data_2,remo_list,random_number):
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     gamefunctions.background(screen, path)
     try:
-        collision_detct.playerpath(remo_list,screen,player_xy,color_one,index_path)
+        collision_detct.playerpath(remo_list,screen,player_xy,color_one,final_index_p)
     except NameError:
-        color_one = colors[x_color_one]
+        real_color_one = colors[x_color_one]
     # if no player selected
     try:
         screen.blit(player, (player_xy[-2],player_xy[-1])) 
@@ -594,6 +594,8 @@ def timer(data,timer,number):
 def settings(data,return_manuels,random_number):
     x1,y = 323,255
     global index_path,index_wall
+
+
     senkrechte = data['settings_demo_vertical']
     gerade = data['settings_demo_horizontal']
 
@@ -606,6 +608,10 @@ def settings(data,return_manuels,random_number):
                     exit(0) 
                 if event.type == pygame.KEYDOWN:
                     screenmode = 'titlescreen'
+                    global final_index_p
+                    final_index_p = index_path
+                    global final_index_w
+                    final_index_w = index_wall
                     return screenmode
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x,y = event.pos

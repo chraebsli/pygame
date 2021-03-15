@@ -99,20 +99,24 @@ def collideplayer(player,list_coords,remo_list,statement):
 
 # zeichnet wände
 def drawing(screen,walls, index_wall,random_number,color):
+    real_color_wall = color
         #random color
     red = pygame.Color('red')
     blue = pygame.Color('blue')
     green = pygame.Color('darkgreen')
     colors = [red,blue,green]
-    
+    x = random.randint(0,2)
+    colors = [red,blue,green]
+    settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
+    if settings_change_wall[index_wall] == 'RAINBOW':
+        real_color_wall = colors[x]
     #Wechsel zwischen Farben
     settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
-    #if settings_change_wall[index_wall] = 
-    x = random.randint(0,2)
+
   
     c=0
     for e in range(11):
-        pygame.draw.rect(screen,color,walls[c])
+        pygame.draw.rect(screen,real_color_wall,walls[c])
         c+=1
 
 
