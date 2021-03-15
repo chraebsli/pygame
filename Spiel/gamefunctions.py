@@ -158,6 +158,7 @@ def pull_repo(prepo):
 # pushs scores
 def push_repo(remote,prepo,playername):
     global repo
+    print(repo)
     repo.git.add(prepo+"/web/scores.json")
     repo.index.commit(f"added score from {playername}")
     repo.remotes.origin.push(refspec='master:master')
