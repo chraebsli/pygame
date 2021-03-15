@@ -10,7 +10,6 @@ sound = 'on' #Variable, welche bestimmt ob Musik oder Sounds abgespielt wird
 random_number = random.randint(0,2) #Random Hintergrundfarbe für Loginscreen, Wände oder Playerpath
 play_music = True
 switch_music = False
-print('please select the game window, the game started')
 main_path = os.path.dirname(__file__)
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
 
@@ -20,9 +19,7 @@ prepo = path + 'scores'
 username = "coinchasergame"
 token = "7b8917e30712096093d5c6dc8fd9a7246bc8b6ca"
 remote = f"https://{username}:{token}@github.com/{username}/{repo}"
-cloned = gamefunctions.clone_repo(prepo,remote)
-gamefunctions.pull_repo(prepo)
-
+gamefunctions.pull_repo(remote,prepo)
 # random Wände generieren (Koordinaten)
 wall_coords_x,wall_coords_y,wall_coords_xy=[],[],[]
 coin_coords_x,coin_coords_y,coin_coords_xy=[],[],[]
@@ -142,6 +139,7 @@ return_manuels = pygame.image.load(path + "images/manuels/return_banner.png")
 settings_manuels = pygame.image.load(path + "images/manuels/settings_banner.png")
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
+print('please select the game window, the game started')
 
 # audio
 normal_background = path+"audio/background/music.mp3" #AdhesiveWombat - Night Shade

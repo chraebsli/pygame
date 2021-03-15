@@ -149,11 +149,7 @@ def skinscreen(data, data_3,data_2):
 
 
 def gamescreen(data, data_2,remo_list):
-<<<<<<< HEAD
     #t1 = gamefunctions.start_timer() # to start timer
-=======
-    t1 = gamefunctions.start_timer() # to start timer
->>>>>>> master
     global counter_felder,block_coords,player_coords,player,points,sounds,t3
     send_data=False
     points = 0
@@ -305,7 +301,7 @@ def gamescreen(data, data_2,remo_list):
         print(f'You ended this round as {playername} with {points} points in {played_time} minutes')
         if points >=150:
             gamefunctions.scores(points,playername,played_time,path)
-            gamefunctions.push_repo(remote,prepo,playername)
+            gamefunctions.push_repo(prepo,playername)
         send_data=True
     
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':

@@ -137,29 +137,20 @@ def end_timer(t1,msg):
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
 
 
-# clones scores
-def clone_repo(path,remote):
+# pulls scores
+def pull_repo(remote,path):
     global repo
     try:
         repo = Repo.clone_from(remote, path)
-        print('Cloned repo for scores')
     except:
-        repo = git.Repo(path+'/.git')
-        return False
-
-
-# pulls scores
-def pull_repo(prepo):
-    repo = git.Repo(prepo)
-    r = repo.remotes.origin
-    r.pull()
-
+        repo = git.Repo(path)
+        r = repo.remotes.origin
+        r.pull()
 
 # pushs scores
-def push_repo(remote,prepo,playername):
+def push_repo(path,playername):
     global repo
-    print(repo)
-    repo.git.add(prepo+"/web/scores.json")
-    repo.index.commit(f"added score from {playername}")
+    repo.git.add(path+"/web/scores.json")
+    repo.index.commit(f"added {playername} to the leaderboard")
     repo.remotes.origin.push(refspec='master:master')
     print('Pushed Succesful')
