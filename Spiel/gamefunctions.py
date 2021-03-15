@@ -64,6 +64,7 @@ def random_coinskin(path1,coin1):
 
 
 def scores(points,name,path):
+    global str_time
     # gives date and time dd.mm.yyyy hh:mm:ss
     actual=datetime.datetime.now()
     date=actual.strftime('%d.%m')
@@ -73,7 +74,7 @@ def scores(points,name,path):
     # get data in json 
     with open(path+'web/scores.json') as file:
         data = json.load(file)
-    data['scores'].append({'time':now,'name':name,'points':points})
+    data['scores'].append({'time':now,'name':name,'points':points,'playtime':str_time[2:7]})
     with open(path+'web/scores.json','w') as file:
         json.dump(data,file,indent=4)
 
@@ -85,22 +86,29 @@ def scores(points,name,path):
         json.dump(data_score,file,indent=4)
     
     
-def show_points(points,remo_list,screen,coins_rect):
+def show_points(points,remo_list,screen,coins_rect,t1):
+        global str_time
+        time = datetime.datetime.now() - t1
         color = pygame.Color('white')
         black = pygame.Color('black')
         base_font = pygame.font.SysFont(None, 160)
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
-        text_surface = base_font.render(f'Punkte: {final_punkte+1}',False,black)
+        text_surface = base_font.render(f'Points: {final_punkte+1}',False,black)
+        str_time = str(time)
+        timelabel = base_font.render(f'Time: {str_time[2:7]}', True, (0,0,0))
         pygame.draw.rect(screen, color,(0,0,2000,100))
-        screen.blit(text_surface,(500, 5))
+        screen.blit(text_surface,(150, 5))
+        screen.blit(timelabel,(900, 5))
 
 
 def calculate_points(points,remo_list,coins_rect):
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
         return final_punkte-1
-
+def return_endtime(): #gibt falls der Spieler das Spiel beendet, seine Spielzeit zurück
+        global str_time
+        return str_time
 def start_timer():
     t1 = datetime.datetime.now()
     return t1
@@ -110,3 +118,22 @@ def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
 
+def stopuhr():
+    global minutes,seconds
+    clock = pygame.time.Clock()
+    minutes = 0
+    seconds = 0
+    milliseconds = 0
+
+    
+    while True:
+        if milliseconds > 1000:
+            seconds += 1
+            milliseconds -= 1000
+        
+
+
+        if seconds > 60:
+            minutes += 1
+            seconds -= 60
+        milliseconds += clock.tick_busy_loop(60)

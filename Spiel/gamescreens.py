@@ -1,4 +1,4 @@
-import pygame,collision_detct,gamefunctions,json
+import pygame,collision_detct,gamefunctions,json,datetime
 from pygame.locals import *
 from pygame import mixer
 felder = []
@@ -64,7 +64,7 @@ def titlescreen(data, data_1):
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
             if x > play_button_rect[0] and y > play_button_rect[1] and x < play_button_rect[2] and y < play_button_rect[3]:
-                screenmode='gamescreen'
+                screenmode='timer'
                 send_data=True           
             elif x > skin_button_rect[0] and y > skin_button_rect[1] and x < skin_button_rect[2] and y < skin_button_rect[3]:
                 screenmode='skinscreen'
@@ -96,7 +96,6 @@ def skinscreen(data, data_3,data_2):
     skins = data['skins']
     screen.blit(background_skinscreen, (background_xy[0],background_xy[1]))
     c=0
-    
     for skin in skins_skinscreen:
         l=[112,485,870,1230]
         screen.blit(skins_skinscreen[c], (l[c],375))
@@ -149,7 +148,7 @@ def gamescreen(data, data_2,remo_list):
     global points,sounds
     #Punkte die man In-Game mit Münzen erzielt
     points = 0
-    global counter_felder,block_coords,player_coords, player
+    global counter_felder,block_coords,player_coords, player,t1
     screenmode=data['screenmode']
     keys = data['keys']
     path = data['path']
@@ -176,6 +175,7 @@ def gamescreen(data, data_2,remo_list):
     #Schauen ob Audio aktiviert ist
     if sounds == 'off':
             mixer.music.pause()
+
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -248,7 +248,7 @@ def gamescreen(data, data_2,remo_list):
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
     
     if keys[5]:
-        gamefunctions.show_points(points,remo_list,screen,coins_rect)
+        gamefunctions.show_points(points,remo_list,screen,coins_rect,t1)
     if keys[4]:
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)  
         
@@ -543,4 +543,37 @@ def win(data):
             if event.type == pygame.KEYDOWN:
                 screenmode='titlescreen'
                 return screenmode
-            
+
+def timer(data,timer,number):
+    global t1
+    t1 = None
+    screen = data['screen']
+    logo = data['logo']
+    clock = pygame.time.Clock()
+    counter, text = 3, '3'.rjust(3)
+    pygame.time.set_timer(pygame.USEREVENT, 1000)
+    font = pygame.font.SysFont(None, 230)
+    red = pygame.Color('red')
+    blue = pygame.Color('blue')
+    green = pygame.Color('darkgreen')
+    colors = [red,blue,green]
+    first_render_pos = (150+70,100+150)
+    run = True
+    while run:
+        for e in pygame.event.get():
+            if e.type == pygame.USEREVENT: 
+                counter -= 1
+                text = str(counter).rjust(3) if counter > 0 else ''
+            if e.type == pygame.QUIT: 
+                run = False
+            if counter == 0:
+                t1 = datetime.datetime.now()
+                return 'gamescreen'
+        pygame.display.flip()
+        screen.fill(colors[number])
+        screen.blit(logo,(490,0))
+        screen.blit(font.render(text+' SECONDS', True, (255, 255, 255)), (182+60, 600+150))
+        screen.blit(font.render('GAME STARTS',True,(255, 255, 255)),first_render_pos)
+        screen.blit(font.render('IN',True,(255, 255, 255)),(725+25,350+150))
+        clock.tick(60)
+

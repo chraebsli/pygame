@@ -3,8 +3,10 @@ import os, pygame, random, sys, datetime, time, gamescreens,gamefunctions,collis
 from gamescreens import *
 from pygame.locals import *
 from pygame import mixer
+
 t1 = gamefunctions.start_timer()
 remo_list = []
+timer = 0
 sound = 'on' #Variable, welche bestimmt ob Musik oder Sounds abgespielt wird
 random_number = random.randint(0,2) #Random Hintergrundfarbe für Loginscreen
 play_music = True
@@ -159,6 +161,7 @@ screen.fill(0)
 running = True
 backgroundindex = 0
 gamefunctions.end_timer(t1,' to load game')
+
 while running == True:
     if sound == 'on':
         if play_music == True:
@@ -221,8 +224,7 @@ while running == True:
             backgroundindex = 1
             switch_music = True
             play_music = True
-            
-        sm=gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
+        sm= gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
         try:
             sm = str(sm).split('.')
             newgame,sm=bool(sm[1]),sm[0]
@@ -237,7 +239,9 @@ while running == True:
         print('Quit...')
         pygame.quit() 
         exit(0) 
-    
+    if screenmode == 'timer' or sm == 'timer':
+        sm =gamescreens.timer(data,timer,random_number)
+        screenmode,sm = 'gamescreen','gamescreen'
     # grundlegende Funktionen
     pygame.display.flip() 
     time.sleep(0.05)
