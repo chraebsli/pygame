@@ -1,4 +1,4 @@
-import pygame,collision_detct,gamefunctions,json,datetime
+import pygame,collision_detct,gamefunctions,json,datetime,random
 from pygame.locals import *
 from pygame import mixer
 
@@ -472,22 +472,22 @@ def highscorescreen(data):
 def howto(data,img,return_manuels,settings_manuels):
     screen = data['screen']
     screen.blit(img,(1,1))
-    screen.blit(settings_manuels,(1600,1))
+    screen.blit(settings_manuels,(1590,1))
     screen.blit(return_manuels,(30,1))
     for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 print('Quit game ...')
                 pygame.quit() 
                 exit(0) 
-            if event.type == pygame.KEYDOWN:
-                   screenmode='titlescreen'
-                   return screenmode
+            
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x,y = event.pos
                 if x > 30 and y > 1 and x < 77 and y < 136:
                     screenmode='titlescreen'
                     return screenmode
-
+                if x > 1590 and y > 1 and x < 1637 and y < 136:
+                    screenmode = 'settings'
+                    return screenmode
 
 def game_over(data):
     global points,playername
@@ -577,3 +577,57 @@ def timer(data,timer,number):
         screen.blit(font.render('IN',True,(255, 255, 255)),(725+25,350+150))
         clock.tick(60)
 
+def settings(data,return_manuels,random_number):
+    x,y = 1,1
+
+    senkrechte = data['settings_demo_vertical']
+    gerade = data['settings_demo_horizontal']
+
+    background = data['settings_background']
+    demo_background = data['settings_demo']
+    
+    index_wall = 0
+    index_path = 0
+    field_blit = False
+    screen = data['screen']
+    screen.blit(background,(0,0))
+    screen.blit(demo_background,(320,250))
+    #random color
+    red = pygame.Color('red')
+    blue = pygame.Color('blue')
+    green = pygame.Color('darkgreen')
+    colors = [red,blue,green]
+
+    #rainbow
+    x = random.randint(1,2)
+    color = colors[x]
+
+    #Wechsel zwischen Farben
+    settings_change_wall = ['RAINBOW','RANDOM','RED','RED','GREEN']
+    settings_change_path = ['RAINBOW','RANDOM','RED','RED','GREEN']
+
+    for s in range(1,20):
+        screen.blit(senkrechte,(x,250))
+        x+=50
+    for h in range(1,10):
+        screen.blit(gerade,(320,y))
+        y+=50
+
+    for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                print('Quit game ...')
+                pygame.quit() 
+                exit(0) 
+
+            
+    if field_blit == True:
+            index +1
+            print('index increased')
+            pygame.draw.rect(screen,colors[number],(1500,900,110,50))
+            field_blit = False
+            print('wall changed')
+    second_font = pygame.font.SysFont(None, 90)
+    wall_surface = second_font.render(f'COLOR OF WALLS: {settings_change_wall[index_wall]}',False,(255,255,255))
+    path_surface = second_font.render(f'COLOR OF PATH : {settings_change_path[index_path]}',False,(255,255,255))
+    screen.blit(wall_surface,(345,900))
+    screen.blit(path_surface,(345,800))

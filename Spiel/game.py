@@ -140,6 +140,10 @@ button_highscore = pygame.image.load(path+"images/titlescreen/button_highscore.p
 howto_img = pygame.image.load(path+"images/manuels/manuelscreen.png")
 return_manuels = pygame.image.load(path + "images/manuels/return_banner.png")
 settings_manuels = pygame.image.load(path + "images/manuels/settings_banner.png")
+settings_background = pygame.image.load(path + "images/settings/settings_img.png")
+settings_demo = pygame.image.load(path + "images/settings/settings_demo.png")
+settings_demo_vertical = pygame.image.load(path + "images/settings/settings_vertical_line.png")
+settings_demo_horizontal = pygame.image.load(path + "images/settings/settings_horizontal_line.png")
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
 
@@ -153,7 +157,7 @@ bachgroundmusic = [normal_background,game_background]
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
 'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,
-'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win,'repo':repo,'remote':remote,'prepo':prepo}
+'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win,'repo':repo,'remote':remote,'prepo':prepo,'settings_background':settings_background,'settings_demo':settings_demo,'settings_demo_vertical':settings_demo_vertical,'settings_demo_horizontal':settings_demo_horizontal}
 data_1 = {'background_titlescreen':background_titlescreen,
 'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,'leaderboard_button':leaderboard_button,
 'play_button_rect':play_button_rect,'quit_button':quit_button,'skin_button':skin_button,
@@ -258,8 +262,9 @@ while running == True:
     if screenmode == 'timer' or sm == 'timer':
         sm =gamescreens.timer(data,timer,random_number)
         screenmode,sm = 'gamescreen','gamescreen'
-    
+    if screenmode == 'settings' or sm == 'settings':
+        screenmode,sm='settings','settings'
+        gamescreens.settings(data,return_manuels,random_number)
     # grundlegende Funktionen
     pygame.display.flip() 
     time.sleep(0.05)
-#

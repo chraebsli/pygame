@@ -158,6 +158,6 @@ def push_repo(remote,prepo,playername):
     global repo
     print(repo)
     repo.git.add(prepo+"/web/scores.json")
-    repo.index.commit(f"Update JSON for Leaderboard {playername}")
+    repo.index.commit(f"Update JSON for Leaderboard")
     repo.remotes.origin.push(refspec='master:master')
     print('Pushed Succesful')
