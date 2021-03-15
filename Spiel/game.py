@@ -1,18 +1,17 @@
 # import moduleswww
 import os, pygame, random, sys, datetime, time, gamescreens,gamefunctions,collision_detct
-from gamescreens import *
 from pygame.locals import *
 from pygame import mixer
+
 t1 = gamefunctions.start_timer()
 remo_list = []
-sound = 'on' #Variable, welche bestimmt ob Musik oder Sounds abgespielt wird
-random_number = random.randint(0,2) #Random Hintergrundfarbe für Loginscreen
+sound = 'on'
+random_number = random.randint(0,2)
 play_music = True
 switch_music = False
 print('please select the game window, the game started')
-main_path = os.path.dirname(__file__) # Where your .py file is located
+main_path = os.path.dirname(__file__)
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
-
 
 # clone scores
 repo = 'coinchasergame.github.io'
@@ -23,7 +22,7 @@ remote = f"https://{username}:{token}@github.com/{username}/{repo}"
 cloned = gamefunctions.clone_repo(prepo,remote)
 gamefunctions.pull_repo(prepo)
 
-# random Wände generieren (Koordinaten)
+# generate random coords for walls
 wall_coords_x,wall_coords_y,wall_coords_xy=[],[],[]
 coin_coords_x,coin_coords_y,coin_coords_xy=[],[],[]
 for x in range(12): 
@@ -32,20 +31,18 @@ for x in range(12):
 for y in range(12):
     y = random.randrange(2,15)*49+6
     wall_coords_y.append(y)
+wall_coords_xy = [list(k) for k in zip(wall_coords_x, wall_coords_y)]
 
-#random Coins generieren(Koordinaten)
+# generate random coords for coins
 for x1 in range(10):
     x1 = random.randrange(1,34)*49+7
     coin_coords_x.append(x1)
 for y1 in range(10):
     y1 = random.randrange(1,21)*49+7
     coin_coords_y.append(y1)
-len_coins=len(coin_coords_x)
 coin_coords_xy = [list(w) for w in zip(coin_coords_x, coin_coords_y)]
-len_walls=len(wall_coords_x)
 
-# zusammenführen der Koordinaten
-wall_coords_xy = [list(k) for k in zip(wall_coords_x, wall_coords_y)]
+# load walls
 wall1=pygame.image.load(path + "images/gamescreen/waende/Wand1x4.png")
 wall2=pygame.image.load(path + "images/gamescreen/waende/Wand1x5.png")
 wall3=pygame.image.load(path + "images/gamescreen/waende/Wand1x6.png")
@@ -53,12 +50,13 @@ wall4=pygame.image.load(path + "images/gamescreen/waende/Wand4x1.png")
 wall5=pygame.image.load(path + "images/gamescreen/waende/Wand5x1.png")
 wall6=pygame.image.load(path + "images/gamescreen/waende/Wand6x1.png")
 walls=[wall1,wall2,wall3,wall4,wall5,wall6]
+
 # load variables
 newgame=False
 playername=''
 screenmode,sm ='loginscreen','loginscreen'
 keys = [False, False, False, False,True,False]
-display_xy = [1671, 1034] # bildschirmgrösse
+display_xy = [1671, 1034] # screen resolution
 startx_rand = random.randrange(1,34)*49+5
 endx_rand = random.randrange(1,34)*49+5
 background_xy = [1,1]
@@ -71,14 +69,13 @@ skin_button_rect = [132,491,523,687]
 quit_button_rect = [1152,494,1543,689] 
 leaderboard_button_rect = [546,596,1125,791]
 howto_button_rect = [1551,9,1653,106]
-
 block_xy = [1,1]
 end2 = 0
 coin2 = 0
 status=0
 block_coords=[]
 
-# var für pygame.Rect
+# var for pygame.Rect
 wall1_rect=[wall_coords_x[0],wall_coords_y[0],48,192] # x, y, -x, -y
 wall2_rect=[wall_coords_x[1],wall_coords_y[1],48,242]
 wall3_rect=[wall_coords_x[2],wall_coords_y[2],48,291]
@@ -92,7 +89,6 @@ wall10_rect=[wall_coords_x[9],wall_coords_y[9],193,48]
 wall11_rect=[wall_coords_x[10],wall_coords_y[10],242,48]
 wall12_rect=[wall_coords_x[11],wall_coords_y[11],291,48]
 walls_rect=[wall1_rect,wall2_rect,wall3_rect,wall4_rect,wall5_rect,wall6_rect,wall7_rect,wall8_rect,wall9_rect,wall10_rect,wall11_rect,wall12_rect]
-
 coin1_rect=pygame.Rect(coin_coords_x[0],coin_coords_y[0],44,44) # x, y, -x, -y
 coin2_rect=pygame.Rect(coin_coords_x[1],coin_coords_y[1],44,44)
 coin3_rect=pygame.Rect(coin_coords_x[2],coin_coords_y[2],44,44)
@@ -105,7 +101,7 @@ coin9_rect=pygame.Rect(coin_coords_x[8],coin_coords_y[8],44,44)
 coin10_rect=pygame.Rect(coin_coords_x[9],coin_coords_y[9],44,44)
 coins_rect =[coin1_rect,coin2_rect,coin3_rect,coin4_rect,coin5_rect,coin6_rect,coin7_rect,coin8_rect,coin9_rect,coin10_rect]
 
-# load images
+# images
 background_titlescreen = pygame.image.load(path+"images/titlescreen/background_titlescreen.png")
 background_game = pygame.image.load(path+"images/gamescreen/background.png")
 background_skinscreen=pygame.image.load(path+"images/skinsscreen/background.png")
@@ -142,13 +138,16 @@ return_banner = pygame.image.load(path + "images/highscore/return_banner.png")
 button_highscore = pygame.image.load(path+"images/titlescreen/button_highscore.png")
 howto_img = pygame.image.load(path+"images/manuels/manuelscreen.png")
 return_manuels = pygame.image.load(path + "images/manuels/return_banner.png")
+
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
-#Musik und Sounds
+
+# audio
 normal_background = path+"audio/background/music.mp3" #AdhesiveWombat - Night Shade
 game_background = path+"audio/background/new_music.mp3" #Eric Skiff - Unclocked
 bachgroundmusic = [normal_background,game_background]
-# Datenpakete für Parameter
+
+# datapacks for parameter
 # data: universell, data_1: titlescreen, data_2: gamescreen,data_3: skinscreen
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
@@ -167,7 +166,7 @@ data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_s
 'message_skin_one':message_skin_one}
 
 screen.fill(0) 
-# Spielablauf
+# game
 running = True
 backgroundindex = 0
 gamefunctions.end_timer(t1,' to load game')
@@ -178,8 +177,8 @@ while running == True:
             mixer.music.load(bachgroundmusic[backgroundindex])
             mixer.music.play(-1)
             play_music = False
-        
-    # wenn das spiel beendet wird setzt es das spiel zurück
+
+    # for new games
     if newgame==True:
         screen.fill(0) 
         pygame.display.flip()
@@ -194,7 +193,7 @@ while running == True:
     if screenmode == 'loginscreen' or sm== 'loginscreen':
         screenmode,sm == 'loginscreen', 'loginscreen'
         sm=gamescreens.loginscreen(data,random_number)
-    
+
     # game over screen
     if screenmode =='game_over'or sm=='game_over':
         mixer.music.unload()
@@ -206,6 +205,7 @@ while running == True:
         mixer.music.unload()
         screenmode,sm='win','win'
         sm =gamescreens.win(data)    
+
     # titlescreen
     if screenmode =='titlescreen'or sm=='titlescreen':
         screenmode,sm='titlescreen','titlescreen'
@@ -216,6 +216,7 @@ while running == True:
                 play_music = True
             backgroundindex = 0
         sm=gamescreens.titlescreen(data,data_1)
+
     # highscores
     if screenmode == 'highscore' or sm == 'highscore':
         screenmode,sm = 'highscore','highscore'
@@ -225,7 +226,7 @@ while running == True:
     if screenmode =='howto' or sm == 'howto':
         screenmode,sm='howto','howto'
         sm = gamescreens.howto(data,howto_img,return_manuels)
-    
+
     # gamescreen   
     if screenmode =='gamescreen' or sm=='gamescreen':
         screenmode,sm='gamescreen','gamescreen'
@@ -233,24 +234,25 @@ while running == True:
             backgroundindex = 1
             switch_music = True
             play_music = True
-            
+
         sm=gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
         try:
             sm = str(sm).split('.')
             newgame,sm=bool(sm[1]),sm[0]
         except IndexError:
             pass
+
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'
         sm=gamescreens.skinscreen(data=data,data_3=data_3,data_2=data_2)
+
     # quit
     if screenmode =='quitscreen'or sm=='quitscreen':
         print('Quit...')
         pygame.quit() 
         exit(0) 
-    
-    # grundlegende Funktionen
+
     pygame.display.flip() 
     time.sleep(0.05)
 #

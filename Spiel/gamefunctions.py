@@ -2,14 +2,19 @@ import git
 import pygame,datetime,json,collision_detct
 from git import Repo
 
-# Funktion für das setzen der Wände
+randskin = 1
+randcoin = 1
+
+
+# display walls
 def wall_blit(screen,walls,wall_coords_xy):
     c=1
     for wall in walls:
         screen.blit(wall,wall_coords_xy[c])
         c+=1
 
-# Anzeigen von den Feldabgrenzungen
+
+# display background
 def background(screen,path):
     x,y = 1,1
     senkrechte = pygame.image.load(path + "images/gamescreen/senkrechte.png")
@@ -22,9 +27,8 @@ def background(screen,path):
         screen.blit(gerade,(1,y))
         y+=49
 
-# randomskin für das Ziel
-randskin = 1
-randcoin = 1
+
+# animated skin for end
 def random_endskin(path1,end1):
     global randskin
     if randskin == 1:
@@ -44,7 +48,8 @@ def random_endskin(path1,end1):
         randskin=1
     return end1
 
-# farbenwechselndes Ende
+
+# animated skin for coin
 def random_coinskin(path1,coin1):
     global randcoin
     if randcoin == 1:
@@ -65,6 +70,7 @@ def random_coinskin(path1,coin1):
     return coin1
 
 
+# write score
 def scores(points,name,path):
     # gives date and time dd.mm.yyyy hh:mm:ss
     actual=datetime.datetime.now()
@@ -85,8 +91,9 @@ def scores(points,name,path):
         data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
     with open(path+'scores/web/scores.json','w') as file:
         json.dump(data_score,file,indent=4)
-    
-    
+
+
+# show points on <q>
 def show_points(points,remo_list,screen,coins_rect):
         color = pygame.Color('white')
         black = pygame.Color('black')
@@ -98,21 +105,26 @@ def show_points(points,remo_list,screen,coins_rect):
         screen.blit(text_surface,(500, 5))
 
 
+# calculate points
 def calculate_points(points,remo_list,coins_rect):
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
         return final_punkte-1
 
+
+# starts a timer
 def start_timer():
     t1 = datetime.datetime.now()
     return t1
 
 
+# ends a timer
 def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
 
 
+# clones scores
 def clone_repo(path,remote):
     global repo
     try:
@@ -123,6 +135,7 @@ def clone_repo(path,remote):
         return False
 
 
+# pulls scores
 def pull_repo(prepo):
     global repo
     try:
@@ -137,10 +150,10 @@ def pull_repo(prepo):
             print('Error while pulling repo')
 
 
+# pushs scores
 def push_repo(remote,prepo):
     global repo
     repo.git.add(prepo+"/web/scores.json")
     repo.index.commit("Update JSON for Leaderboard")
     repo.remotes.origin.push(refspec='master:master')
     print('Pushed Succesful')
-
