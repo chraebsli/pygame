@@ -299,7 +299,7 @@ def gamescreen(data, data_2,remo_list):
         global playername
         print(f'You ended this round as {playername} with {points} points ')
         gamefunctions.scores(points,playername,path)
-        gamefunctions.push_repo(remote,prepo)
+        gamefunctions.push_repo(remote,prepo,playername)
         send_data=True
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
         send_data=True
