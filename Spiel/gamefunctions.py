@@ -1,4 +1,6 @@
+#import git
 import pygame,datetime,json,collision_detct
+#from git import Repo
 
 # Funktion für das setzen der Wände
 def wall_blit(screen,walls,wall_coords_xy):
@@ -106,9 +108,10 @@ def calculate_points(points,remo_list,coins_rect):
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
         return final_punkte-1
-def return_endtime(): #gibt falls der Spieler das Spiel beendet, seine Spielzeit zurück
+def return_endtime(t1): #gibt, falls der Spieler das Spiel beendet, seine Spielzeit zurück
         global str_time
-        return str_time
+        time = datetime.datetime.now() - t1
+        str_time = str(time)
 def start_timer():
     t1 = datetime.datetime.now()
     return t1
@@ -118,22 +121,36 @@ def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
 
-def stopuhr():
-    global minutes,seconds
-    clock = pygame.time.Clock()
-    minutes = 0
-    seconds = 0
-    milliseconds = 0
 
-    
-    while True:
-        if milliseconds > 1000:
-            seconds += 1
-            milliseconds -= 1000
-        
+'''
+def clone_repo(path,remote):
+    global repo
+    try:
+        repo = Repo.clone_from(remote, path)
+        print('Cloned repo for scores')
+    except:
+        repo = git.Repo(path+'/.git')
+        return False
 
 
-        if seconds > 60:
-            minutes += 1
-            seconds -= 60
-        milliseconds += clock.tick_busy_loop(60)
+def pull_repo(prepo):
+    global repo
+    try:
+        repo.pull()
+        print('pulled1')
+    except:
+        try:
+            repo = git.Repo(prepo+'/.git')
+            repo.pull()
+            print('pulled2')
+        except:
+            print('Error while pulling repo')
+
+
+def push_repo(remote,prepo):
+    global repo
+    repo.git.add(prepo+"/web/scores.json")
+    repo.index.commit("Update JSON for Leaderboard")
+    repo.remotes.origin.push(refspec='master:master')
+    print('Pushed Succesful')
+'''

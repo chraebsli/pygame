@@ -1,12 +1,14 @@
 import pygame,collision_detct,gamefunctions,json,datetime
 from pygame.locals import *
 from pygame import mixer
-felder = []
 
+felder = []
 counter_felder=0
 player_coords,player_coords_c=[],[]
 moves = []
 black = pygame.Color('black')
+
+
 def titlescreen(data, data_1):
     send_data=False
     global field_blit
@@ -64,7 +66,7 @@ def titlescreen(data, data_1):
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
             if x > play_button_rect[0] and y > play_button_rect[1] and x < play_button_rect[2] and y < play_button_rect[3]:
-                screenmode='timer'
+                screenmode='timer' #screenmode='gamescreen' # to skip seq 
                 send_data=True           
             elif x > skin_button_rect[0] and y > skin_button_rect[1] and x < skin_button_rect[2] and y < skin_button_rect[3]:
                 screenmode='skinscreen'
@@ -166,6 +168,10 @@ def gamescreen(data, data_2,remo_list):
     coins_rect = data_2['coins_rect']
     game_over = data['game_over']
     player_rect = pygame.Rect(player_xy[0],player_xy[1],44,44)
+    #repo = data['repo']
+    #remote = data['remote']
+    #prepo = data['prepo']
+
     #Sounds
     movesound = pygame.mixer.Sound(path + "audio/Sounds/move.wav")
     movesound.set_volume(0.25)
@@ -300,6 +306,7 @@ def gamescreen(data, data_2,remo_list):
         print('You ended this round')
         print(playername)
         print(points)
+        gamefunctions.return_endtime(t1)
         gamefunctions.scores(points,playername,path)
         send_data=True
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
@@ -315,6 +322,7 @@ def gamescreen(data, data_2,remo_list):
                 lose_sound.play()
         else:
             screenmode='titlescreen.True'
+        #gamefunctions.push_repo(remote,prepo)
         return screenmode
     #gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
 
@@ -471,10 +479,11 @@ def highscorescreen(data):
         c1 += 1
 
 
-def howto(data,img,return_manuels):
+def howto(data,img,return_manuels,settings_manuels):
     screen = data['screen']
 
     screen.blit(img,(1,1))
+    screen.blit(settings_manuels,(1600,1))
     screen.blit(return_manuels,(30,1))
     for event in pygame.event.get():
             if event.type==pygame.QUIT: # stoppt Script
