@@ -137,17 +137,9 @@ def clone_repo(path,remote):
 
 # pulls scores
 def pull_repo(prepo):
-    global repo
-    try:
-        repo.pull()
-        print('pulled1')
-    except:
-        try:
-            repo = git.Repo(prepo+'/.git')
-            repo.pull()
-            print('pulled2')
-        except:
-            print('Error while pulling repo')
+    repo = git.Repo(prepo)
+    r = repo.remotes.origin
+    r.pull()
 
 
 # pushs scores

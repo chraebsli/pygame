@@ -1,4 +1,4 @@
-# import moduleswww
+# import modules
 import os, pygame, random, sys, datetime, time, gamescreens,gamefunctions,collision_detct
 from pygame.locals import *
 from pygame import mixer

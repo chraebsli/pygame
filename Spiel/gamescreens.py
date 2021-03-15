@@ -299,6 +299,7 @@ def gamescreen(data, data_2,remo_list):
         global playername
         print(f'You ended this round as {playername} with {points} points ')
         gamefunctions.scores(points,playername,path)
+        gamefunctions.push_repo(remote,prepo)
         send_data=True
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
         send_data=True
@@ -313,7 +314,6 @@ def gamescreen(data, data_2,remo_list):
                 lose_sound.play()
         else:
             screenmode='titlescreen.True'
-        gamefunctions.push_repo(remote,prepo)
         return screenmode
     gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
 
