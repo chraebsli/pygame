@@ -5,8 +5,9 @@ from pygame import mixer
 
 t1 = gamefunctions.start_timer()
 remo_list = []
-sound = 'on'
-random_number = random.randint(0,2)
+timer = 0
+sound = 'on' #Variable, welche bestimmt ob Musik oder Sounds abgespielt wird
+random_number = random.randint(0,2) #Random Hintergrundfarbe für Loginscreen, Wände oder Playerpath
 play_music = True
 switch_music = False
 print('please select the game window, the game started')
@@ -22,7 +23,7 @@ remote = f"https://{username}:{token}@github.com/{username}/{repo}"
 cloned = gamefunctions.clone_repo(prepo,remote)
 gamefunctions.pull_repo(prepo)
 
-# generate random coords for walls
+# random Wände generieren (Koordinaten)
 wall_coords_x,wall_coords_y,wall_coords_xy=[],[],[]
 coin_coords_x,coin_coords_y,coin_coords_xy=[],[],[]
 for x in range(12): 
@@ -138,7 +139,7 @@ return_banner = pygame.image.load(path + "images/highscore/return_banner.png")
 button_highscore = pygame.image.load(path+"images/titlescreen/button_highscore.png")
 howto_img = pygame.image.load(path+"images/manuels/manuelscreen.png")
 return_manuels = pygame.image.load(path + "images/manuels/return_banner.png")
-
+settings_manuels = pygame.image.load(path + "images/manuels/settings_banner.png")
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
 
@@ -170,6 +171,7 @@ screen.fill(0)
 running = True
 backgroundindex = 0
 gamefunctions.end_timer(t1,' to load game')
+
 while running == True:
     if sound == 'on':
         if play_music == True:
@@ -225,8 +227,8 @@ while running == True:
     # howto
     if screenmode =='howto' or sm == 'howto':
         screenmode,sm='howto','howto'
-        sm = gamescreens.howto(data,howto_img,return_manuels)
-
+        sm = gamescreens.howto(data,howto_img,return_manuels,settings_manuels)
+    
     # gamescreen   
     if screenmode =='gamescreen' or sm=='gamescreen':
         screenmode,sm='gamescreen','gamescreen'
@@ -234,8 +236,7 @@ while running == True:
             backgroundindex = 1
             switch_music = True
             play_music = True
-
-        sm=gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
+        sm = gamescreens.gamescreen(data=data,data_2=data_2,remo_list=remo_list)
         try:
             sm = str(sm).split('.')
             newgame,sm=bool(sm[1]),sm[0]
@@ -252,7 +253,13 @@ while running == True:
         print('Quit...')
         pygame.quit() 
         exit(0) 
-
+    
+    # timer seq
+    if screenmode == 'timer' or sm == 'timer':
+        sm =gamescreens.timer(data,timer,random_number)
+        screenmode,sm = 'gamescreen','gamescreen'
+    
+    # grundlegende Funktionen
     pygame.display.flip() 
     time.sleep(0.05)
 #

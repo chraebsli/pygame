@@ -71,7 +71,8 @@ def random_coinskin(path1,coin1):
 
 
 # write score
-def scores(points,name,path):
+def scores(points,name,played_time,path):
+    global str_time
     # gives date and time dd.mm.yyyy hh:mm:ss
     actual=datetime.datetime.now()
     date=actual.strftime('%d.%m')
@@ -81,7 +82,7 @@ def scores(points,name,path):
     # get data in json 
     with open(path+'scores/web/scores.json') as file:
         data = json.load(file)
-    data['scores'].append({'time':now,'name':name,'points':points})
+    data['scores'].append({'date':now,'name':name,'points':points,'time':played_time})
     with open(path+'scores/web/scores.json','w') as file:
         json.dump(data,file,indent=4)
 
@@ -91,18 +92,22 @@ def scores(points,name,path):
         data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
     with open(path+'scores/web/scores.json','w') as file:
         json.dump(data_score,file,indent=4)
-
-
-# show points on <q>
-def show_points(points,remo_list,screen,coins_rect):
+    
+    
+def show_points(points,remo_list,screen,coins_rect,t3):
+        global str_time
+        time = datetime.datetime.now() - t3
         color = pygame.Color('white')
         black = pygame.Color('black')
         base_font = pygame.font.SysFont(None, 160)
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
-        text_surface = base_font.render(f'Punkte: {final_punkte+1}',False,black)
+        text_surface = base_font.render(f'Points: {final_punkte+1}',False,black)
+        str_time = str(time)
+        timelabel = base_font.render(f'Time: {str_time[2:7]}', True, (0,0,0))
         pygame.draw.rect(screen, color,(0,0,2000,100))
-        screen.blit(text_surface,(500, 5))
+        screen.blit(text_surface,(150, 5))
+        screen.blit(timelabel,(900, 5))
 
 
 # calculate points
@@ -110,6 +115,14 @@ def calculate_points(points,remo_list,coins_rect):
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
         return final_punkte-1
+
+
+def return_endtime(t3): #gibt, falls der Spieler das Spiel beendet, seine Spielzeit zurück
+        global str_time
+        time = datetime.datetime.now() - t3
+        str_time = str(time)
+        str_time_min = str_time[3:9]
+        return str_time_min
 
 
 # starts a timer
@@ -146,6 +159,6 @@ def pull_repo(prepo):
 def push_repo(remote,prepo,playername):
     global repo
     repo.git.add(prepo+"/web/scores.json")
-    repo.index.commit("added score from {playername}")
+    repo.index.commit(f"added score from {playername}")
     repo.remotes.origin.push(refspec='master:master')
     print('Pushed Succesful')
