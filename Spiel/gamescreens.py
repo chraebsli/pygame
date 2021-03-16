@@ -633,8 +633,8 @@ def settings(data,return_manuels,random_number):
     blue = pygame.Color('blue')
     green = pygame.Color('green')
     colors = [red,blue,green]
-
-    
+    font_1 = pygame.font(None,150)
+    screen.blit(font_1.render('SETTINGS',(255,255,255)),(400,80))
 
     #Wechsel zwischen Farben
     settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
