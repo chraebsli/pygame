@@ -201,9 +201,9 @@ def gamescreen(data, data_2,remo_list,random_number):
     if counter != 0:
         collision_detct.move(screen,player_xy,True)
     try:
-        collision_detct.drawing(screen,walls_rect,final_index_w,random_number,color)
+        collision_detct.drawing(screen,walls_rect,final_index_w,random_number,color,False)
     except NameError:
-        real_color = colors[x_color]
+        collision_detct.drawing(screen,walls_rect,1,random_number,red,True)
     coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
 
@@ -211,9 +211,9 @@ def gamescreen(data, data_2,remo_list,random_number):
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     gamefunctions.background(screen, path)
     try:
-        collision_detct.playerpath(remo_list,screen,player_xy,color_one,final_index_p)
+        collision_detct.playerpath(remo_list,screen,player_xy,color_one,final_index_p,False)
     except NameError:
-        real_color_one = colors[x_color_one]
+        collision_detct.playerpath(remo_list,screen,player_xy,blue,1,True)
     # if no player selected
     try:
         screen.blit(player, (player_xy[-2],player_xy[-1])) 
@@ -631,7 +631,7 @@ def settings(data,return_manuels,random_number):
     #random color
     red = pygame.Color('red')
     blue = pygame.Color('blue')
-    green = pygame.Color('darkgreen')
+    green = pygame.Color('green')
     colors = [red,blue,green]
 
     
