@@ -694,8 +694,13 @@ def settings(data,return_manuels,random_number):
         
         color = colors[x]
     if settings_change_wall[index_wall] == 'RANDOM':
-        #global color
-        color = colors[random_number]
+        x = random.randint(0,3)
+        if x == 1:
+            color = colors[0]
+        elif x == 2:
+            color = colors[1]
+        else:
+            color = colors[2]
     if settings_change_wall[index_wall] == 'RED':
         #global color
         color = colors[0]
@@ -712,7 +717,13 @@ def settings(data,return_manuels,random_number):
         x = random.randint(0,2)
         color_one = colors[x]
     if settings_change_path[index_path] == 'RANDOM':
-        color_one = colors[random_number]
+        x = random.randint(0,3)
+        if x == 1:
+            color_one = colors[0]
+        elif x == 2:
+            color_one = colors[1]
+        else:
+            color_one = colors[2]
     if settings_change_path[index_path] == 'RED':
         color_one = colors[0]
     if settings_change_path[index_path] == 'BLUE':
@@ -730,15 +741,28 @@ def settings(data,return_manuels,random_number):
     #Kleines Fenster, welches die Auswirkungen beim Wechseln einer dieser EInstellungen zeigt
     print(index_wall)
     #Auswirkungen auf Wände
-    pygame.draw.rect(screen,color,(1025,255,150,50))
-        #Wählt Farbe von Wand aus
-    pygame.draw.rect(screen,color,(323,605,50,150))
-    pygame.draw.rect(screen,color,(625,405,150,50))
-    pygame.draw.rect(screen,color,(1223,455,50,150))
+    if settings_change_wall[index_wall] != 'RANDOM':
+        pygame.draw.rect(screen,color,(1025,255,150,50))
+            #Wählt Farbe von Wand aus
+        pygame.draw.rect(screen,color,(323,605,50,150))
+        pygame.draw.rect(screen,color,(625,405,150,50))
+        pygame.draw.rect(screen,color,(1223,455,50,150))
+    elif settings_change_wall[index_wall] == 'RANDOM':
+            white = pygame.Color('grey')
+            pygame.draw.rect(screen,white,(323,605,50,150))
+            pygame.draw.rect(screen,white,(625,405,150,50))
+            pygame.draw.rect(screen,white,(1223,455,50,150))
+
     #Auswirkungen auf Pfad
-    pygame.draw.rect(screen,color_one,(1023,505,50,250))
-    pygame.draw.rect(screen,color_one,(523,505,500,50))
-    pygame.draw.rect(screen,color_one,(523,255,50,300))
+    if settings_change_path[index_path] != 'RANDOM':
+        pygame.draw.rect(screen,color_one,(1023,505,50,250))
+        pygame.draw.rect(screen,color_one,(523,505,500,50))
+        pygame.draw.rect(screen,color_one,(523,255,50,300))
+    elif settings_change_path[index_path] == 'RANDOM':
+        white = pygame.Color('grey')
+        pygame.draw.rect(screen,white,(1023,505,50,250))
+        pygame.draw.rect(screen,white,(523,505,500,50))
+        pygame.draw.rect(screen,white,(523,255,50,300))
     for s in range(21):
         screen.blit(senkrechte,(x1,255))
         x1 += 50
