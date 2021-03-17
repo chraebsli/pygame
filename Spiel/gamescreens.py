@@ -624,17 +624,25 @@ def settings(data,return_manuels,random_number):
                         if index_path == 4:
                             index_path = 0
                         else: index_path += 1
-                        
+                    
+                    if x > 50 and y > 50 and x < 96 and y < 185:
+                        final_index_p = index_path
+                        final_index_w = index_wall
+                        screenmode = 'howto'
+                        return screenmode
+                          
     
     screen = data['screen']
     screen.blit(background,(0,0))
+    font_one = pygame.font.SysFont(None,150)
+    screen.blit(font_one.render('IN-GAME SETTINGS',True,(255,255,255)),(320,150))
+    screen.blit(return_manuels,(50,50))
     #random color
     red = pygame.Color('red')
     blue = pygame.Color('blue')
     green = pygame.Color('green')
     colors = [red,blue,green]
-    font_1 = pygame.font(None,150)
-    screen.blit(font_1.render('SETTINGS',(255,255,255)),(400,80))
+
 
     #Wechsel zwischen Farben
     settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
