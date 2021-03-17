@@ -31,6 +31,8 @@ def titlescreen(data, data_1):
     howto_button_rect=data_1['howto_button_rect']
     screenmode=data['screenmode']
     main_path=data['main_path']
+    path = data['path']
+    click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     upperplayername = playername.upper()
     base_font = pygame.font.SysFont(None, 110)
     text_surface = base_font.render(upperplayername,False,(255,255,255))
@@ -71,20 +73,26 @@ def titlescreen(data, data_1):
             x,y=event.pos
             if x > play_button_rect[0] and y > play_button_rect[1] and x < play_button_rect[2] and y < play_button_rect[3]:
                 screenmode='timer' #screenmode='gamescreen' # to skip seq 
+                click.play()
                 send_data=True           
             elif x > skin_button_rect[0] and y > skin_button_rect[1] and x < skin_button_rect[2] and y < skin_button_rect[3]:
                 screenmode='skinscreen'
+                click.play()
                 send_data=True           
             elif x > quit_button_rect[0] and y > quit_button_rect[1] and x < quit_button_rect[2] and y < quit_button_rect[3]:
                 screenmode='quitscreen'
+                click.play()
                 send_data=True 
             elif x > howto_button_rect[0] and y > howto_button_rect[1] and x < howto_button_rect[2] and y < howto_button_rect[3]:
                 screenmode='howto'
+                click.play()
                 send_data=True 
             elif x > leaderboard_button_rect[0] and y > leaderboard_button_rect[1] and x < leaderboard_button_rect[2] and y < leaderboard_button_rect[3]:
                 screenmode='highscore'
+                click.play()
                 send_data=True
             if x > 1500 and y > 900 and x < 1590 and y < 950:
+                    click.play()
                     print('clicked')
                     field_blit = True 
 
@@ -101,6 +109,8 @@ def skinscreen(data, data_3,data_2):
     screenmode=data['screenmode']
     skins_skinscreen=data_3['skins_skinscreen']
     skins = data['skins']
+    path = data['path']
+    click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     screen.blit(background_skinscreen, (background_xy[0],background_xy[1]))
     c=0
     
@@ -126,21 +136,25 @@ def skinscreen(data, data_3,data_2):
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
             if x > 112 and y > 375 and x < 392 and y < 655:
+                click.play()
                 print('Skin 1 picked')
                 player = skins[0]
                 screenmode='titlescreen'
                 send_data=True
             if x > 485 and y > 375 and x < 765 and y < 655:
+                click.play()
                 print('Skin 2 picked')
                 player = skins[1]
                 screenmode='titlescreen'
                 send_data=True           
             if x > 870 and y > 375 and x < 1150 and y < 655:
+                click.play()
                 print('Skin 3 picked')
                 player = skins[2]
                 screenmode='titlescreen'
                 send_data=True
             if x > 1230 and y > 375 and x < 1510 and y < 655:
+                click.play()
                 print('Skin 4 picked')
                 player = skins[3]
                 screenmode='titlescreen'
@@ -330,7 +344,7 @@ def gamescreen(data, data_2,remo_list,random_number):
         else:
             screenmode='titlescreen.True'
         return screenmode
-    #gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
+    gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
 
 
 def loginscreen(data,number):
@@ -340,6 +354,8 @@ def loginscreen(data,number):
     playername = ""
     send_data=False
     screen = data['screen']
+    path = data['path']
+    click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     base_font = pygame.font.SysFont(None, 160)
     clock = pygame.time.Clock()
     input_box = pygame.Rect(725, 400,50, 130)
@@ -371,15 +387,18 @@ def loginscreen(data,number):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x,y = event.pos
                 if input_box.collidepoint(event.pos):
+                    click.play()
                     active = not active
                 else:
                     active = False
                 color = color_active if active else color_inactive
 
                 if x > 600 and y > 600 and x < 1005 and y < 735 and len(playername) > 0:
+                    click.play()
                     screenmode = 'titlescreen'
                     send_data = True
                 if x > 1500 and y > 900 and x < 1590 and y < 950:
+                    click.play()
                     print('clicked')
                     field_blit = True
             if event.type == pygame.KEYDOWN:
@@ -440,7 +459,7 @@ def highscorescreen(data):
     screen.blit(banner,(410,15))
     screen.blit(return_banner,(1225,900))
     path = data['path']
-
+    click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 print('Quit game ...')
@@ -453,6 +472,7 @@ def highscorescreen(data):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x,y = event.pos
                 if x > 1225 and y > 900 and x < 1630 and y < 1035:
+                    click.play()
                     screenmode='titlescreen'
                     send_data=True
                     return screenmode
@@ -485,6 +505,8 @@ def highscorescreen(data):
 
 def howto(data,img,return_manuels,settings_manuels):
     screen = data['screen']
+    path = data['path']
+    click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     screen.blit(img,(1,1))
     screen.blit(settings_manuels,(1590,1))
     screen.blit(return_manuels,(30,1))
@@ -497,9 +519,11 @@ def howto(data,img,return_manuels,settings_manuels):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x,y = event.pos
                 if x > 30 and y > 1 and x < 77 and y < 136:
+                    click.play()
                     screenmode='titlescreen'
                     return screenmode
                 if x > 1590 and y > 1 and x < 1637 and y < 136:
+                    click.play()
                     screenmode = 'settings'
                     return screenmode
 
@@ -563,6 +587,12 @@ def timer(data,timer,number):
     t3 = None
     screen = data['screen']
     logo = data['logo']
+    path = data['path']
+    timer = pygame.mixer.Sound(path + "audio/Sounds/timer.wav")
+    timer.set_volume(0.25)
+    if sounds == 'on':
+        mixer.music.unload()
+        timer.play()
     clock = pygame.time.Clock()
     counter, text = 3, '3'.rjust(3)
     pygame.time.set_timer(pygame.USEREVENT, 1000)
@@ -594,7 +624,9 @@ def timer(data,timer,number):
 def settings(data,return_manuels,random_number):
     x1,y = 323,255
     global index_path,index_wall
-
+    path = data['path']
+    click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
+    
 
     senkrechte = data['settings_demo_vertical']
     gerade = data['settings_demo_horizontal']
@@ -616,16 +648,19 @@ def settings(data,return_manuels,random_number):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x,y = event.pos
                     if x > 925 and y > 900 and x < 1250 and y < 950:
+                        click.play()
                         if index_wall == 4:
                             index_wall = 0
                         else: index_wall += 1
                         
                     if x > 900 and y > 800 and x < 1205 and y < 850:
+                        click.play()
                         if index_path == 4:
                             index_path = 0
                         else: index_path += 1
                     
                     if x > 50 and y > 50 and x < 96 and y < 185:
+                        click.play()
                         final_index_p = index_path
                         final_index_w = index_wall
                         screenmode = 'howto'
