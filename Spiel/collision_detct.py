@@ -129,7 +129,7 @@ def playerpath(remo_list,screen,player,color_one,index_path,exceeption):
     green = pygame.Color('green')
     x = random.randint(0,2)
     colors = [red,blue,green]
-    settings_change_path = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
+    settings_change_path = ['RAINBOW','RANDOM','RED','BLUE','GREEN','CUSTOM']
     if settings_change_path[index_path] == 'RAINBOW' or exceeption == True:
         real_color_path = colors[x]
         
