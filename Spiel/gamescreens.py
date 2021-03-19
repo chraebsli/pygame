@@ -358,7 +358,7 @@ def loginscreen(data,number):
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     base_font = pygame.font.SysFont(None, 160)
     clock = pygame.time.Clock()
-    input_box = pygame.Rect(725, 400,50, 130)
+    input_box = pygame.Rect(700, 400,50, 130)
     color_inactive = pygame.Color('white')
     color_active = pygame.Color('grey')
     red = pygame.Color('red')
@@ -626,8 +626,8 @@ def settings(data,return_manuels,random_number):
     global index_path,index_wall
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
-    
-
+    input_box = pygame.Rect(890, 780,350, 90)
+    input_box_2 = pygame.Rect(920, 880,350, 90)
     senkrechte = data['settings_demo_vertical']
     gerade = data['settings_demo_horizontal']
 
@@ -747,22 +747,30 @@ def settings(data,return_manuels,random_number):
         pygame.draw.rect(screen,color,(323,605,50,150))
         pygame.draw.rect(screen,color,(625,405,150,50))
         pygame.draw.rect(screen,color,(1223,455,50,150))
+        if settings_change_wall[index_wall] != 'RANDOM':
+            pygame.draw.rect(screen,(color),input_box_2,2)
     elif settings_change_wall[index_wall] == 'RANDOM':
             white = pygame.Color('grey')
             pygame.draw.rect(screen,white,(323,605,50,150))
             pygame.draw.rect(screen,white,(625,405,150,50))
             pygame.draw.rect(screen,white,(1223,455,50,150))
-
+            if settings_change_wall[index_wall] == 'RANDOM':
+                pygame.draw.rect(screen,(255,255,255),input_box_2,2)
     #Auswirkungen auf Pfad
     if settings_change_path[index_path] != 'RANDOM':
         pygame.draw.rect(screen,color_one,(1023,505,50,250))
         pygame.draw.rect(screen,color_one,(523,505,500,50))
         pygame.draw.rect(screen,color_one,(523,255,50,300))
+        if settings_change_path[index_path] != 'RANDOM':
+            pygame.draw.rect(screen,(color_one),input_box,2)
+
     elif settings_change_path[index_path] == 'RANDOM':
         white = pygame.Color('grey')
         pygame.draw.rect(screen,white,(1023,505,50,250))
         pygame.draw.rect(screen,white,(523,505,500,50))
         pygame.draw.rect(screen,white,(523,255,50,300))
+        if settings_change_path[index_path] == 'RANDOM':
+            pygame.draw.rect(screen,(255,255,255),input_box,2)
     for s in range(21):
         screen.blit(senkrechte,(x1,255))
         x1 += 50
@@ -771,8 +779,7 @@ def settings(data,return_manuels,random_number):
         screen.blit(gerade,(320,y))
         y+=50
     
-    
-    
+    input_box = pygame.Rect(890, 780,350, 90)
     pygame.draw.rect(screen,(0,0,0),(925,900,325,50))
     screen.blit(wall_surface,(345,900))
     pygame.draw.rect(screen,(0,0,0),(900,800,305,50))
