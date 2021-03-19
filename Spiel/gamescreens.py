@@ -348,7 +348,8 @@ def gamescreen(data, data_2,remo_list,random_number):
 
 
 def loginscreen(data,number):
-    global playername,sounds,field_blit
+    global playername,sounds,field_blit,custom_color
+    custom_color = ''
     field_blit = False
     sounds = 'on'
     playername = ""
@@ -623,33 +624,47 @@ def timer(data,timer,number):
 
 def settings(data,return_manuels,random_number):
     x1,y = 323,255
-    global index_path,index_wall
+    global index_path,index_wall,custom_color
+    done = False
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     input_box = pygame.Rect(890, 780,350, 90)
     input_box_2 = pygame.Rect(920, 880,350, 90)
     senkrechte = data['settings_demo_vertical']
     gerade = data['settings_demo_horizontal']
-
+    active = True
     background = data['settings_background']
     demo_background = data['settings_demo']
+    invalid = False
     for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     print('Quit game ...')
                     pygame.quit() 
                     exit(0) 
-                if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN and done == False:
                     screenmode = 'titlescreen'
                     global final_index_p
                     final_index_p = index_path
                     global final_index_w
                     final_index_w = index_wall
-                    return screenmode
+                    if event.key == pygame.K_RETURN:
+                        try:
+                            if pygame.Color(custom_color) == pygame.Color(custom_color):
+                                done = True
+                        except ValueError:
+                            invalid = True
+                            custom_color = ''
+                    elif event.key == pygame.K_BACKSPACE:
+                            custom_color = custom_color[:-1]
+                    else:
+                        if len(custom_color) < 30:
+                            custom_color = custom_color + event.unicode
+            
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x,y = event.pos
                     if x > 925 and y > 900 and x < 1250 and y < 950:
                         click.play()
-                        if index_wall == 4:
+                        if index_wall == 5:
                             index_wall = 0
                         else: index_wall += 1
                         
@@ -680,8 +695,8 @@ def settings(data,return_manuels,random_number):
 
 
     #Wechsel zwischen Farben
-    settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
-    settings_change_path = ['RAINBOW','RANDOM','RED','BLUE','GREEN']
+    settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN','CUSTOM']
+    settings_change_path = ['RAINBOW','RANDOM','RED','BLUE','GREEN','CUSTOM']
 
     #x = random.randint(0,2)
     #color = colors[x]
@@ -709,7 +724,10 @@ def settings(data,return_manuels,random_number):
         color = colors[1]
     if settings_change_wall[index_wall] == 'GREEN':
         #global color
-        color = colors[2] 
+        color = colors[2]
+    if settings_change_wall[index_wall] == 'CUSTOM':
+        if done == True:
+            color = pygame.Color(custom_color)
     #Wählt Farbe vom Spielerpfad aus
     global color_one
     if settings_change_path[index_path] == 'RAINBOW':
@@ -736,7 +754,11 @@ def settings(data,return_manuels,random_number):
     
 
     second_font = pygame.font.SysFont(None, 90)
-    wall_surface = second_font.render(f'COLOR OF WALLS: {settings_change_wall[index_wall]}',False,(255,255,255))
+    if settings_change_wall[index_wall] != 'CUSTOM':
+        wall_surface = second_font.render(f'COLOR OF WALLS: {settings_change_wall[index_wall]}',False,(255,255,255))
+    else:
+        wall_surface = second_font.render(f'COLOR OF WALLS: {custom_color.upper()}',False,(255,255,255))
+
     path_surface = second_font.render(f'COLOR OF PATH : {settings_change_path[index_path]}',False,(255,255,255))
     #Kleines Fenster, welches die Auswirkungen beim Wechseln einer dieser EInstellungen zeigt
     print(index_wall)

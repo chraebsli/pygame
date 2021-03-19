@@ -6,7 +6,6 @@ from pygame import mixer
 t1 = gamefunctions.start_timer()
 remo_list = []
 timer = 0
-
 sound = 'on' #Variable, welche bestimmt ob Musik oder Sounds abgespielt wird
 random_number = random.randint(0,2) #Random Hintergrundfarbe für Loginscreen, Wände oder Playerpath
 play_music = True
