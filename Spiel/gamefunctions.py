@@ -1,10 +1,6 @@
-import git
 import pygame,datetime,json,collision_detct
-from git import Repo
-
 randskin = 1
 randcoin = 1
-
 
 # display walls
 def wall_blit(screen,walls,wall_coords_xy):
@@ -70,23 +66,8 @@ def random_coinskin(path1,coin1):
     return coin1
 
 
-# write score
+# sortiert die liste nach höchstpunktzahl
 def scores(points,name,played_time,path):
-    global str_time
-    # gives date and time dd.mm.yyyy hh:mm:ss
-    actual=datetime.datetime.now()
-    date=actual.strftime('%d.%m')
-    time=actual.strftime('%H:%M')
-    now=date+' '+time
-
-    # get data in json 
-    with open(path+'scores/web/scores.json') as file:
-        data = json.load(file)
-    data['scores'].append({'date':now,'name':name,'points':points,'time':played_time})
-    with open(path+'scores/web/scores.json','w') as file:
-        json.dump(data,file,indent=4)
-
-    # sortiert die liste nach höchstpunktzahl
     with open(path+'scores/web/scores.json') as file:
         data_score = json.load(file)
         data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
@@ -95,34 +76,34 @@ def scores(points,name,played_time,path):
     
     
 def show_points(points,remo_list,screen,coins_rect,t3):
-        global str_time
-        time = datetime.datetime.now() - t3
-        color = pygame.Color('white')
-        black = pygame.Color('black')
-        base_font = pygame.font.SysFont(None, 160)
-        points = collision_detct.point_counter(points,remo_list,coins_rect)
-        final_punkte = points + int(len(remo_list))
-        text_surface = base_font.render(f'Points: {final_punkte+1}',False,black)
-        str_time = str(time)
-        timelabel = base_font.render(f'Time: {str_time[2:7]}', True, (0,0,0))
-        pygame.draw.rect(screen, color,(0,0,2000,100))
-        screen.blit(text_surface,(150, 5))
-        screen.blit(timelabel,(900, 5))
+    global str_time
+    time = datetime.datetime.now() - t3
+    color = pygame.Color('white')
+    black = pygame.Color('black')
+    base_font = pygame.font.SysFont(None, 160)
+    points = collision_detct.point_counter(points,remo_list,coins_rect)
+    final_punkte = points + int(len(remo_list))
+    text_surface = base_font.render(f'Points: {final_punkte+1}',False,black)
+    str_time = str(time)
+    timelabel = base_font.render(f'Time: {str_time[2:7]}', True, (0,0,0))
+    pygame.draw.rect(screen, color,(0,0,2000,100))
+    screen.blit(text_surface,(150, 5))
+    screen.blit(timelabel,(900, 5))
 
 
 # calculate points
 def calculate_points(points,remo_list,coins_rect):
-        points = collision_detct.point_counter(points,remo_list,coins_rect)
-        final_punkte = points + int(len(remo_list))
-        return final_punkte-1
+    points = collision_detct.point_counter(points,remo_list,coins_rect)
+    final_punkte = points + int(len(remo_list))
+    return final_punkte-1
 
 
 def return_endtime(t3): #gibt, falls der Spieler das Spiel beendet, seine Spielzeit zurück
-        global str_time
-        time = datetime.datetime.now() - t3
-        str_time = str(time)
-        str_time_min = str_time[3:9]
-        return str_time_min
+    global str_time
+    time = datetime.datetime.now() - t3
+    str_time = str(time)
+    str_time_min = str_time[3:9]
+    return str_time_min
 
 
 # starts a timer
@@ -137,20 +118,42 @@ def end_timer(t1,msg):
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
 
 
-# pulls scores
-def pull_repo(remote,path):
-    global repo
-    try:
-        repo = Repo.clone_from(remote, path)
-    except:
-        repo = git.Repo(path)
-        r = repo.remotes.origin
-        r.pull()
+# upload data to the database
+def upload(playername, points, time):
+    import mysql.connector
+    from mysql.connector import errorcode
 
-# pushs scores
-def push_repo(path,playername):
-    global repo
-    repo.git.add(path+"/web/scores.json")
-    repo.index.commit(f"added {playername} to the leaderboard")
-    repo.remotes.origin.push(refspec='master:master')
-    print('Pushed Succesful')
+    actual=datetime.datetime.now()
+    date=actual.strftime('%d.%m')
+    time=actual.strftime('%H:%M')
+    timestamp=date+' '+time
+
+    # Obtain connection string information from the portal
+    config = {
+    'host':'192.168.60.146',
+    'user':'coinchaser',
+    'password':'Coinchaser2021',
+    'database':'coinchaser',
+    }
+
+    # Construct connection string
+    try:
+        conn = mysql.connector.connect(**config)
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with the user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cursor = conn.cursor()
+
+    # Insert some data into table
+    cursor.execute("INSERT INTO leaderboard (crdate, playername, points, playedTime) VALUES (%s,%s,%s,%s)", (timestamp,playername,points,time))
+
+    # Cleanup
+    conn.commit()
+    cursor.close()
+    conn.close()
+    print("Uploaded successful")
