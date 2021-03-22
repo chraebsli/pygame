@@ -1,4 +1,4 @@
-import pygame,collision_detct,gamefunctions,json,datetime,random
+import pygame,collision_detct,gamefunctions,json,datetime,random,sqlite3
 from pygame.locals import *
 from pygame import mixer
 
@@ -346,7 +346,7 @@ def gamescreen(data, data_2,remo_list,random_number):
 
 
 def loginscreen(data,number):
-    global playername,sounds,field_blit,custom_color,custom_color_path,active_path,active_wall
+    global playername,sounds,field_blit,custom_color,custom_color_path,active_path,active_wall,passwort
     custom_color = '' #Für Settingsscreen
     custom_color_path = '' #Für Settingsscreen
     active_wall = False #Für Settingsscreen
@@ -354,6 +354,7 @@ def loginscreen(data,number):
     field_blit = False
     sounds = 'on'
     playername = ""
+    passwort = ""
     send_data=False
     screen = data['screen']
     path = data['path']
@@ -378,7 +379,14 @@ def loginscreen(data,number):
     logo = data['logo']
     screenmode=data['screenmode']
     done = False
+    #Datenbank öffnen
+    verbindung = sqlite3.connect(path + '/login.db')
+    zeiger = verbindung.cursor()
 
+    sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
+    zeiger.execute(sql)
+    verbindung.commit()
+    
     while not done:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
