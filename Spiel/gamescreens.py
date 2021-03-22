@@ -849,13 +849,18 @@ def settings(data,return_manuels,random_number):
     
     input_box = pygame.Rect(890, 780,350, 90)
     pygame.draw.rect(screen,(0,0,0),(925,900,325,50))
-    if active_path == True and appear_path_box == False:
+    #Path: Ein Switch, mit welchen man das Schreiben in der Input Box ein oder ausschalten kann
+    if active_path == False and appear_path_box == False or active_path == True and appear_path_box == False:
         pygame.draw.rect(screen,(0,0,0),switch_path)
-    if active_path == False and appear_path_box == True:
+    elif active_path == False and appear_path_box == True:
         pygame.draw.rect(screen,red,switch_path)
     else:
         pygame.draw.rect(screen,green,switch_path)
-    if active_wall == False and appear_wall_box:
+
+    #Path: Ein Switch, mit welchen man das Schreiben in der Input Box ein oder ausschalten kann
+    if active_wall == False and appear_wall_box == False or active_wall == True and appear_wall_box == False:
+        pygame.draw.rect(screen,(0,0,0),switch_wall)
+    elif active_wall == False and appear_wall_box == True:
         pygame.draw.rect(screen,red,switch_wall)
     else:
         pygame.draw.rect(screen,green,switch_wall)
