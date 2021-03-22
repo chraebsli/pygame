@@ -11,6 +11,7 @@ def start():
 	'database':'coinchaser'
 	}
 
+	'''
 	# Construct connection string
 	try:
 		conn = mysql.connector.connect(**config)
@@ -24,9 +25,12 @@ def start():
 			print(err)
 	else:
 		cursor = conn.cursor()
+	'''
 
+	conn = mysql.connector.connect(**config)
+	cursor = conn.cursor()
 	# Insert some data into table
-	cursor.execute("INSERT INTO leaderboard (crdate, playername, points, playedTime) VALUES (%s,%s,%s,%s)", ("16.03.", "test2", 400, "1:45.65"))
+	cursor.execute("INSERT INTO leaderboard (crdate, playername, points, playedTime) VALUES (%s,%s,%s,%s)", ("16.03.", "test3", 400, "1:45.65"))
 
 	# Cleanup
 	conn.commit()
