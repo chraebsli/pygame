@@ -186,9 +186,7 @@ def gamescreen(data, data_2,remo_list,random_number):
     coins_rect = data_2['coins_rect']
     game_over = data['game_over']
     player_rect = pygame.Rect(player_xy[0],player_xy[1],44,44)
-    repo = data['repo']
-    remote = data['remote']
-    prepo = data['prepo']
+    
     #Farben
     red = pygame.Color('red')
     blue = pygame.Color('blue')
@@ -196,6 +194,7 @@ def gamescreen(data, data_2,remo_list,random_number):
     colors = [red,blue,green]
     x_color = random.randint(0,2) #Falls der Spieler ohne die Wände zu konfigurien, das Spiel startet
     x_color_one = random.randint(0,2) #Falls der Spieler ohne den Pfad zu konfigurien, das Spiel startet
+    
     # Sounds
     movesound = pygame.mixer.Sound(path + "audio/Sounds/move.wav")
     movesound.set_volume(0.25)
@@ -327,7 +326,6 @@ def gamescreen(data, data_2,remo_list,random_number):
         print(f'You ended this round as {playername} with {points} points in {played_time} minutes')
         if points >=150:
             gamefunctions.scores(points,playername,played_time,path)
-            gamefunctions.push_repo(remote,prepo,playername)
         send_data=True
     
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
@@ -486,7 +484,7 @@ def highscorescreen(data):
     for i,j in zip(titles,pos):
         header = base_font.render(i,True,(255,255,255))
         screen.blit(header,(j,200))
-    with open(path+'scores/web/scores.json') as file:
+    with open(path+'scores.json') as file:
         data_score = json.load(file)
 
     c=300
