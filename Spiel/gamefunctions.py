@@ -1,6 +1,4 @@
-import git
 import pygame,datetime,json,collision_detct
-from git import Repo
 
 randskin = 1
 randcoin = 1

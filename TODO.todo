@@ -3,4 +3,4 @@ TODO:
     - optimieren
     - bessere skins
     - evtl bessrer background
-    - readme.md pip gitpython,mysql.connector
+    - readme.md pip install mysql.connector

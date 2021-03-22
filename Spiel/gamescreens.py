@@ -223,10 +223,12 @@ def gamescreen(data, data_2,remo_list,random_number):
     screen.blit(endskin, (end_xy[0],end_xy[1]))
     screen.blit(start1, (start_xy[0],start_xy[1])) 
     gamefunctions.background(screen, path)
+    
     try:
         collision_detct.playerpath(remo_list,screen,player_xy,color_one,final_index_p,False)
     except NameError:
         collision_detct.playerpath(remo_list,screen,player_xy,blue,1,True)
+    
     # if no player selected
     try:
         screen.blit(player, (player_xy[-2],player_xy[-1])) 
