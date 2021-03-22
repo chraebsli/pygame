@@ -854,7 +854,7 @@ def settings(data,return_manuels,random_number):
     
     input_box = pygame.Rect(890, 780,350, 90)
     pygame.draw.rect(screen,(0,0,0),(925,900,325,50))
-    if active_path == False and appear_path_box == False:
+    if active_path == True and appear_path_box == False:
         pygame.draw.rect(screen,(0,0,0),switch_path)
     if active_path == False and appear_path_box == True:
         pygame.draw.rect(screen,red,switch_path)
