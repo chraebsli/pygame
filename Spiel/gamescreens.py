@@ -480,25 +480,29 @@ def highscorescreen(data):
                     return screenmode
 
     # blit categories
-    titles,pos = ['Time','Name','Points'],[300,700,1100]
+    titles,pos = ['Date','Name','Points','Time'],[180,600,950,1300]
     for i,j in zip(titles,pos):
         header = base_font.render(i,True,(255,255,255))
-        screen.blit(header,(j,200))
+        screen.blit(header,(j,220))
     with open(path+'scores.json') as file:
         data_score = json.load(file)
 
-    c=300
+    c=320
     c1=1
     for p in data_score['scores']:
         if c1 == 8:
             break
         # setzt var auf den inhalt der JSON Datei
-        time = p['time']
+        date = p['date']
         name = p['name']
         points = str(p['points'])
+        try:
+            time = p['time']
+        except KeyError:
+            time = 'undef'
 
         # zeigt die Inhalte an
-        blitlist = [time,name,points]
+        blitlist = [date,name,points,time]
         for i,j in zip(blitlist,pos):
             screen.blit(base_font.render(i,True,(255,255,255)),(j,c))
         c += 80
@@ -584,6 +588,7 @@ def win(data):
                 screenmode='titlescreen'
                 return screenmode
 
+
 def timer(data,timer,number):
     global t3
     t3 = None
@@ -630,7 +635,6 @@ def settings(data,return_manuels,random_number):
     done_two = False
     appear_wall_box = False
     appear_path_box = False
-
 
     #Wechsel zwischen Farben
     settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN','CUSTOM']
@@ -736,9 +740,6 @@ def settings(data,return_manuels,random_number):
     green = pygame.Color('green')
     colors = [red,blue,green]
 
-
-    
-
     #x = random.randint(0,2)
     #color = colors[x]
     global color
@@ -794,10 +795,6 @@ def settings(data,return_manuels,random_number):
         appear_path_box = True
         if done_two == True:
             color_one = pygame.Color(custom_color_path)   
-   
-        
-            
-    
 
     second_font = pygame.font.SysFont(None, 90)
     if settings_change_wall[index_wall] != 'CUSTOM':
