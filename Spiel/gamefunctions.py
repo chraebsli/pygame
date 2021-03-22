@@ -1,6 +1,7 @@
-import git
 import pygame,datetime,json,collision_detct
-from git import Repo
+import mysql.connector
+from mysql.connector import errorcode
+
 
 randskin = 1
 randcoin = 1
@@ -135,4 +136,81 @@ def start_timer():
 def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
+
+# send score to sql server
+def sqlSend(playername, points, playedTime):
+    
+    # Obtain connection string information from the portal
+    config = {
+    #'host':'188.154.233.211', # remote
+    'host':'192.168.60.146', # local
+    'user':'coinchaser',
+    'password':'Coinchaser2021',
+    'database':'coinchaser'
+    }
+
+    # Construct connection string
+    try:
+        conn = mysql.connector.connect(**config)
+        print("Connectet...")
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with the user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cur = conn.cursor()
+
+    # gives date and time dd.mm.yyyy hh:mm:ss
+    actual=datetime.datetime.now()
+    date=actual.strftime('%d.%m')
+    time=actual.strftime('%H:%M')
+    crdate=date+' '+time
+
+    # Insert some data into table
+    cur.execute("INSERT INTO leaderboard (crdate, playername, points, playedTime) VALUES (%s,%s,%s,%s)", (crdate, playername, points, playedTime))
+
+    # Cleanup
+    conn.commit()
+    cur.close()
+    conn.close()
+    print("Submittet Score Succesful")
+
+
+# load score from sql server
+def sqlload():
+
+    # Obtain connection string information from the portal
+    config = {
+    'host':'192.168.60.146',
+    'user':'coinchaser',
+    'password':'Coinchaser2021',
+    'database':'coinchaser'
+    }
+
+    # Construct connection string
+    try:
+        conn = mysql.connector.connect(**config)
+        print("Connectet...")
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with the user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cur = conn.cursor()
+
+    # Insert some data into table
+    cur.execute("SELECT * FROM leaderboard")
+    table = cur.fetchall()
+
+    # Cleanup
+    conn.commit()
+    cur.close()
+    conn.close()
+    print("Submittet Score Succesful")
 
