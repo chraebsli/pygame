@@ -326,6 +326,7 @@ def gamescreen(data, data_2,remo_list,random_number):
         print(f'You ended this round as {playername} with {points} points in {played_time} minutes')
         if points >=150:
             gamefunctions.scores(points,playername,played_time,path)
+            gamefunctions.sqlSend(playername, points, played_time)
         send_data=True
     
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
@@ -354,7 +355,7 @@ def loginscreen(data,number):
     field_blit = False
     sounds = 'on'
     playername = ""
-    passwort = "yeet"
+    passwort = ""
     send_data=False
     screen = data['screen']
     path = data['path']
@@ -362,7 +363,7 @@ def loginscreen(data,number):
     base_font = pygame.font.SysFont(None, 160)
     clock = pygame.time.Clock()
     input_box = pygame.Rect(700, 400,50, 130)
-    input_box_2 = pygame.Rect(700, 560,50, 130)
+    input_box_2 = pygame.Rect(700, 560,475, 130)
     color_inactive = pygame.Color('white')
     color_active = pygame.Color('grey')
     red = pygame.Color('red')
@@ -370,6 +371,7 @@ def loginscreen(data,number):
     green = pygame.Color('darkgreen')
     colors = [red,blue,green]
     color = color_inactive
+    color_two = color_inactive
     active = False
     active_2 = False 
     play_button=data['start1']
@@ -407,15 +409,22 @@ def loginscreen(data,number):
 
                 if input_box_2.collidepoint(event.pos):
                     click.play()
-                    active = not active
+                    active_2 = not active
                 else:
-                    active = False
-                color = color_active if active else color_inactive
-
-                if x > 600 and y > 600 and x < 1005 and y < 735 and len(playername) > 0:
+                    active_2 = False
+                color_two = color_active if active_2 else color_inactive
+                
+                if x > 100 and y > 900 and x < 355 and y < 960:
                     click.play()
-                    screenmode = 'titlescreen'
+                    screenmode = 'registration'
                     send_data = True
+                if x > 580 and y > 700 and x < 985 and y < 835 and len(playername) > 0 and len(passwort) > 0:
+                    click.play()
+                    state = gamefunctions.check_account_exsistance(playername,passwort,path)
+                    print(state)
+                    if state == 'this account exists':
+                                screenmode = 'titlescreen'
+                                send_data = True
                 if x > 1500 and y > 900 and x < 1590 and y < 950:
                     click.play()
                     print('clicked')
@@ -423,24 +432,36 @@ def loginscreen(data,number):
             if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                             print(playername)
+                            print(passwort)
                             if len(playername) > 0 and len(passwort) > 0:
-                                screenmode = 'titlescreen'
-                                send_data = True
-                            
+                                state = gamefunctions.check_account_exsistance(playername,passwort,path)
+                                print(state)
+                                if state == 'this account exists':
+                                    screenmode = 'titlescreen'
+                                    send_data = True
                     elif event.key == pygame.K_BACKSPACE:
+                        if active:
                             playername = playername[:-1]
+                        if active_2:
+                            passwort = passwort[:-1]
                     else:
-                        if len(playername) < 7:
-                            playername = playername + event.unicode
+                        if active:
+                            if len(playername) < 7:
+                                playername = playername + event.unicode
+                        if active_2:
+                            if len(passwort) < 7:
+                                passwort = passwort + event.unicode
 
         screen.fill(colors[number])
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
+        passwort_surface = base_font.render(f'Pass: {passwort}',True,(255,255,255))
         width = max(475, text_surface.get_width()-400)
         input_box.w = width
 
         pygame.draw.rect(screen, color, input_box, 2)
-        blit_list=[text_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,logo]
-        list2=[(input_box.x-350, input_box.y+5),(600,600),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
+        pygame.draw.rect(screen, color, input_box_2,2)
+        blit_list=[text_surface,passwort_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,logo]
+        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-300,input_box_2.y+5),(580,700),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
         c=0
 
         for img in blit_list:
@@ -458,6 +479,9 @@ def loginscreen(data,number):
             print(sounds)
         second_font = pygame.font.SysFont(None, 90)
         sound_surface = second_font.render(f'SOUNDS: {sounds.upper()}',False,(255,255,255))
+        registration_surface = second_font.render('SIGN UP',False,(255,255,255))
+        
+        screen.blit(registration_surface,(100,900))
         screen.blit(sound_surface,(1200,900))
         if sounds == 'off':
             mixer.music.pause()
@@ -884,4 +908,122 @@ def settings(data,return_manuels,random_number):
     screen.blit(wall_surface,(345,900))
     pygame.draw.rect(screen,(0,0,0),(900,800,305,50))
     screen.blit(path_surface,(345,800))
+
+
+def registration(data,number):
+    
+    playername = ""
+    passwort = ""
+    send_data=False
+    screen = data['screen']
+    path = data['path']
+    click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
+    base_font = pygame.font.SysFont(None, 160)
+    clock = pygame.time.Clock()
+    input_box = pygame.Rect(700, 400,50, 130)
+    input_box_2 = pygame.Rect(700, 560,475, 130)
+    color_inactive = pygame.Color('white')
+    color_active = pygame.Color('grey')
+    red = pygame.Color('red')
+    blue = pygame.Color('blue')
+    green = pygame.Color('darkgreen')
+    colors = [red,blue,green]
+    color = color_inactive
+    color_two = color_inactive
+    active = False
+    active_2 = False 
+    play_button= base_font.render('SIGN UP',False,(255,255,255))
+    rand_unten=data['rand_unten']
+    rand_oben=data['rand_oben']
+    rand_links=data['rand_links']
+    rand_rechts=data['rand_rechts']
+    corners=data['corners']
+    logo = data['logo']
+    screenmode=data['screenmode']
+    done = False
+    #Datenbank öffnen
+    verbindung = sqlite3.connect(path + '/login.db')
+    zeiger = verbindung.cursor()
+
+    sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
+    zeiger.execute(sql)
+    verbindung.commit()
+    
+    while not done:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                print('Quit game ...')
+                pygame.quit() 
+                exit(0) 
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x,y = event.pos
+                if input_box.collidepoint(event.pos):
+                    click.play()
+                    active = not active
+                else:
+                    active = False
+                color = color_active if active else color_inactive
+
+                if input_box_2.collidepoint(event.pos):
+                    click.play()
+                    active_2 = not active
+                else:
+                    active_2 = False
+                color_two = color_active if active_2 else color_inactive
+
+                if x > 580 and y > 750 and x < 1040 and y < 840 and len(playername) > 0 and len(passwort) > 0:
+                    click.play()
+                    gamefunctions.register_account(playername,passwort,path)
+                    screenmode = 'loginscreen'
+                    send_data = True
+                if x > 1500 and y > 900 and x < 1590 and y < 950:
+                    click.play()
+                    print('clicked')
+                    field_blit = True
+            if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                            print(playername)
+                            print(passwort)
+                            if len(playername) > 0 and len(passwort) > 0:
+                                gamefunctions.register_account(playername,passwort,path)
+                                screenmode = 'loginscreen'
+                                send_data = True
+                    elif event.key == pygame.K_BACKSPACE:
+                        if active:
+                            playername = playername[:-1]
+                        if active_2:
+                            passwort = passwort[:-1]
+                    else:
+                        if active:
+                            if len(playername) < 7:
+                                playername = playername + event.unicode
+                        if active_2:
+                            if len(passwort) < 7:
+                                passwort = passwort + event.unicode
+
+        screen.fill(colors[number])
+        text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
+        passwort_surface = base_font.render(f'Pass: {passwort}',True,(255,255,255))
+        banner_surface = base_font.render('CREATE AN ACCOUNT',True,(255,255,255))
+        width = max(475, text_surface.get_width()-400)
+        input_box.w = width
+        pygame.draw.rect(screen, color, input_box, 2)
+        pygame.draw.rect(screen, color, input_box_2,2)
+        blit_list=[text_surface,passwort_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,banner_surface]
+        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-300,input_box_2.y+5),(580,750),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(235,200)]
+        c=0
+
+        for img in blit_list:
+            screen.blit(img,list2[c])
+            c+=1
+        second_font = pygame.font.SysFont(None, 90)
+        
+        return_surface = second_font.render(f'RETURN',False,(255,255,255))
+
+        pygame.display.flip()
+        clock.tick(30)
+        if send_data==True:
+            return screenmode
+
     

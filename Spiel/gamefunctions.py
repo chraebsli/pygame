@@ -1,5 +1,5 @@
 import git
-import pygame,datetime,json,collision_detct
+import pygame,datetime,json,collision_detct,sqlite3
 from git import Repo
 
 randskin = 1
@@ -135,4 +135,32 @@ def start_timer():
 def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
+
+def check_account_exsistance(playername,password,path):
+    verbindung = sqlite3.connect(path + '/scores.db')
+    zeiger = verbindung.cursor()
+
+    sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
+    zeiger.execute(sql)
+
+    zeiger.execute("SELECT * FROM daten")
+    inhalt = zeiger.fetchall()
+    print(inhalt)
+    combine = (playername,password)
+    if combine in inhalt:
+        x = 'this account exists'
+        print('Yes')
+    else:
+        x = 'Try Again'
+        print('No')
+        print(combine)
+    verbindung.close()
+    return x
+
+def register_account(playername,password,path):
+    verbindung = sqlite3.connect(path + '/scores.db')
+    zeiger = verbindung.cursor()
+    combine = (playername,password)
+    zeiger.execute("INSERT INTO daten VALUES (?,?)",combine)
+    verbindung.commit()
 

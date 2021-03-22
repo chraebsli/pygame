@@ -135,6 +135,7 @@ settings_background = pygame.image.load(path + "images/settings/settings_img.png
 settings_demo = pygame.image.load(path + "images/settings/settings_demo.png")
 settings_demo_vertical = pygame.image.load(path + "images/settings/settings_vertical_line.png")
 settings_demo_horizontal = pygame.image.load(path + "images/settings/settings_horizontal_line.png")
+sign_up_banner = pygame.image.load(path + "images/registration/sign_up.png")
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
 
@@ -148,7 +149,7 @@ bachgroundmusic = [normal_background,game_background]
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
 'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,
-'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win,'settings_background':settings_background,'settings_demo':settings_demo,'settings_demo_vertical':settings_demo_vertical,'settings_demo_horizontal':settings_demo_horizontal}
+'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win,'settings_background':settings_background,'settings_demo':settings_demo,'settings_demo_vertical':settings_demo_vertical,'settings_demo_horizontal':settings_demo_horizontal,'sign_up':sign_up_banner}
 data_1 = {'background_titlescreen':background_titlescreen,
 'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,'leaderboard_button':leaderboard_button,
 'play_button_rect':play_button_rect,'quit_button':quit_button,'skin_button':skin_button,
@@ -243,6 +244,9 @@ while running == True:
         screenmode,sm='skinscreen','skinscreen'
         sm=gamescreens.skinscreen(data=data,data_3=data_3,data_2=data_2)
 
+    if screenmode == 'registration' or sm =='registration':
+        screenmode,sm = 'registration','registration'
+        sm = gamescreens.registration(data,random_number)
     # quit
     if screenmode =='quitscreen'or sm=='quitscreen':
         print('Quit...')
