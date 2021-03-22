@@ -140,6 +140,8 @@ def end_timer(t1,msg):
 def check_account_exsistance(playername,password,path):
     verbindung = sqlite3.connect(path + '/scores.db')
     zeiger = verbindung.cursor()
+    #sql = 'DELETE FROM daten'
+    #zeiger.execute(sql)
 
     sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
     zeiger.execute(sql)
@@ -158,10 +160,23 @@ def check_account_exsistance(playername,password,path):
     verbindung.close()
     return x
 
-def register_account(playername,password,path):
+def register_account(playername,password,path,statement):
     verbindung = sqlite3.connect(path + '/scores.db')
     zeiger = verbindung.cursor()
-    combine = (playername,password)
-    zeiger.execute("INSERT INTO daten VALUES (?,?)",combine)
-    verbindung.commit()
+    if statement == True: # Dieser Block überprüft, ob es den Benutzernamen schon gibt.
+        zeiger.execute("SELECT benutzername FROM daten")
+        inhalt = zeiger.fetchall()
+        print(inhalt)
+        change_format = (playername,)
+        print(change_format)
+        if change_format in inhalt:
+            return 'benutzername vergeben' 
+            print('vergeben')
+        else:
+             return 'ok'
+             print('ok')
+    if statement == False: #Dieser Block schreibt die Daten in die Datenbank
+        combine = (playername,password)
+        zeiger.execute("INSERT INTO daten VALUES (?,?)",combine)
+        verbindung.commit()
 

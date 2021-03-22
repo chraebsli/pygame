@@ -427,6 +427,9 @@ def loginscreen(data,number):
                     if state == 'this account exists':
                                 screenmode = 'titlescreen'
                                 send_data = True
+                    else:
+                        playername = ''
+                        passwort = ''
                 if x > 1500 and y > 900 and x < 1590 and y < 950:
                     click.play()
                     print('clicked')
@@ -441,6 +444,9 @@ def loginscreen(data,number):
                                 if state == 'this account exists':
                                     screenmode = 'titlescreen'
                                     send_data = True
+                                else:
+                                    playername = ''
+                                    passwort = ''
                     elif event.key == pygame.K_BACKSPACE:
                         if active:
                             playername = playername[:-1]
@@ -976,26 +982,41 @@ def registration(data,number):
 
                 if x > 580 and y > 750 and x < 1040 and y < 840 and len(playername) > 0 and len(passwort) > 0:
                     click.play()
-                    gamefunctions.register_account(playername,passwort,path)
+                    check = gamefunctions.register_account(playername,passwort,path,True)
+                    if check == 'ok':
+                        gamefunctions.register_account(playername,passwort,path,False)
+                    else:
+                        playername = ''
+                        passwort = ''
+                    if len(playername) > 0:
+                        screenmode = 'loginscreen'
+                        send_data = True
+                if x > 100 and y > 900 and x < 350 and y < 950:
+                    click.play()
                     screenmode = 'loginscreen'
                     send_data = True
-                if x > 1500 and y > 900 and x < 1590 and y < 950:
-                    click.play()
-                    print('clicked')
-                    field_blit = True
             if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                             print(playername)
                             print(passwort)
                             if len(playername) > 0 and len(passwort) > 0:
-                                gamefunctions.register_account(playername,passwort,path)
-                                screenmode = 'loginscreen'
-                                send_data = True
+                                check = gamefunctions.register_account(playername,passwort,path,True)
+                                if check == 'ok':
+                                    gamefunctions.register_account(playername,passwort,path,False)
+                                else:
+                                    playername = ''
+                                    passwort = ''
+                                if len(playername) > 0:
+                                    screenmode = 'loginscreen'
+                                    send_data = True
                     elif event.key == pygame.K_BACKSPACE:
                         if active:
                             playername = playername[:-1]
                         if active_2:
                             passwort = passwort[:-1]
+                    elif event.key == pygame.K_ESCAPE:
+                        screenmode = 'loginscreen'
+                        return screenmode
                     else:
                         if active:
                             if len(playername) < 7:
@@ -1022,7 +1043,7 @@ def registration(data,number):
         second_font = pygame.font.SysFont(None, 90)
         
         return_surface = second_font.render(f'RETURN',False,(255,255,255))
-
+        screen.blit(return_surface,(100,900))
         pygame.display.flip()
         clock.tick(30)
         if send_data==True:
