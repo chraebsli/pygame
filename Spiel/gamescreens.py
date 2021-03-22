@@ -355,7 +355,7 @@ def loginscreen(data,number):
     field_blit = False
     sounds = 'on'
     playername = ""
-    passwort = ""
+    passwort = "yeet"
     send_data=False
     screen = data['screen']
     path = data['path']
@@ -363,6 +363,7 @@ def loginscreen(data,number):
     base_font = pygame.font.SysFont(None, 160)
     clock = pygame.time.Clock()
     input_box = pygame.Rect(700, 400,50, 130)
+    input_box_2 = pygame.Rect(700, 560,50, 130)
     color_inactive = pygame.Color('white')
     color_active = pygame.Color('grey')
     red = pygame.Color('red')
@@ -371,6 +372,7 @@ def loginscreen(data,number):
     colors = [red,blue,green]
     color = color_inactive
     active = False
+    active_2 = False 
     play_button=data['start1']
     rand_unten=data['rand_unten']
     rand_oben=data['rand_oben']
@@ -404,6 +406,13 @@ def loginscreen(data,number):
                     active = False
                 color = color_active if active else color_inactive
 
+                if input_box_2.collidepoint(event.pos):
+                    click.play()
+                    active = not active
+                else:
+                    active = False
+                color = color_active if active else color_inactive
+
                 if x > 600 and y > 600 and x < 1005 and y < 735 and len(playername) > 0:
                     click.play()
                     screenmode = 'titlescreen'
@@ -413,12 +422,12 @@ def loginscreen(data,number):
                     print('clicked')
                     field_blit = True
             if event.type == pygame.KEYDOWN:
-                if active:
                     if event.key == pygame.K_RETURN:
                             print(playername)
-                            if len(playername) > 0:
+                            if len(playername) > 0 and len(passwort) > 0:
                                 screenmode = 'titlescreen'
                                 send_data = True
+                            
                     elif event.key == pygame.K_BACKSPACE:
                             playername = playername[:-1]
                     else:
