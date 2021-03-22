@@ -93,7 +93,7 @@ def scores(points,name,played_time,path):
     with open(path+'scores.json','w') as file:
         json.dump(data_score,file,indent=4)
     
-    
+#zeigt die aktuelle Punkteanzahl an, falls der Spieler in game 'Q' drückt   
 def show_points(points,remo_list,screen,coins_rect,t3):
         global str_time
         time = datetime.datetime.now() - t3
@@ -110,7 +110,7 @@ def show_points(points,remo_list,screen,coins_rect,t3):
         screen.blit(timelabel,(900, 5))
 
 
-# calculate points
+# calculate points: rechnet die Finalpunktzahl aus, falls der Spieler das Spiel erfolgreich beendet
 def calculate_points(points,remo_list,coins_rect):
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
