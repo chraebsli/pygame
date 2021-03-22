@@ -2,3 +2,5 @@
 Spiel/__pycache__/
 
 Spiel/resources/scores
+
+Spiel/resources/scores.json
