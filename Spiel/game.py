@@ -1,16 +1,15 @@
 # import modules
-import os, pygame, random, sys, datetime, time, gamescreens,gamefunctions,collision_detct
+import os, pygame, random, time, gamescreens,gamefunctions
 from pygame.locals import *
 from pygame import mixer
 
 t1 = gamefunctions.start_timer()
 remo_list = []
 timer = 0
-sound = 'on' #Variable, welche bestimmt ob Musik oder Sounds abgespielt wird
-random_number = random.randint(0,2) #Random Hintergrundfarbe für Loginscreen, Wände oder Playerpath
+sound = 'on' # standart sound option
+random_number = random.randint(0,2) 
 play_music = True
 switch_music = False
-print('please select the game window, the game started')
 main_path = os.path.dirname(__file__)
 path = str(os.path.join(main_path, 'resources'))+'/' # The resource folder path
 
@@ -67,31 +66,21 @@ coin2 = 0
 status=0
 block_coords=[]
 
-# var for pygame.Rect
-wall1_rect=[wall_coords_x[0],wall_coords_y[0],48,192] # x, y, -x, -y
-wall2_rect=[wall_coords_x[1],wall_coords_y[1],48,242]
-wall3_rect=[wall_coords_x[2],wall_coords_y[2],48,291]
-wall4_rect=[wall_coords_x[3],wall_coords_y[3],193,48]
-wall5_rect=[wall_coords_x[4],wall_coords_y[4],241,48]
-wall6_rect=[wall_coords_x[5],wall_coords_y[5],291,48]
-wall7_rect=[wall_coords_x[6],wall_coords_y[6],48,192] 
-wall8_rect=[wall_coords_x[7],wall_coords_y[7],48,242]
-wall9_rect=[wall_coords_x[8],wall_coords_y[8],48,291]
-wall10_rect=[wall_coords_x[9],wall_coords_y[9],193,48]
-wall11_rect=[wall_coords_x[10],wall_coords_y[10],242,48]
-wall12_rect=[wall_coords_x[11],wall_coords_y[11],291,48]
-walls_rect=[wall1_rect,wall2_rect,wall3_rect,wall4_rect,wall5_rect,wall6_rect,wall7_rect,wall8_rect,wall9_rect,wall10_rect,wall11_rect,wall12_rect]
-coin1_rect=pygame.Rect(coin_coords_x[0],coin_coords_y[0],44,44) # x, y, -x, -y
-coin2_rect=pygame.Rect(coin_coords_x[1],coin_coords_y[1],44,44)
-coin3_rect=pygame.Rect(coin_coords_x[2],coin_coords_y[2],44,44)
-coin4_rect=pygame.Rect(coin_coords_x[3],coin_coords_y[3],44,44)
-coin5_rect=pygame.Rect(coin_coords_x[4],coin_coords_y[4],44,44)
-coin6_rect=pygame.Rect(coin_coords_x[5],wall_coords_y[5],44,44)
-coin7_rect=pygame.Rect(coin_coords_x[6],coin_coords_y[6],44,44)
-coin8_rect=pygame.Rect(coin_coords_x[7],coin_coords_y[7],44,44)
-coin9_rect=pygame.Rect(coin_coords_x[8],coin_coords_y[8],44,44)
-coin10_rect=pygame.Rect(coin_coords_x[9],coin_coords_y[9],44,44)
-coins_rect =[coin1_rect,coin2_rect,coin3_rect,coin4_rect,coin5_rect,coin6_rect,coin7_rect,coin8_rect,coin9_rect,coin10_rect]
+# iterate walls, coincs for rect
+c1 = [48,48,48,193,241,291,48,48,48,193,241,291]
+c2 = [192,242,291,48,48,48,192,242,291,48,48,48]
+c,walls_rect = 0,[]
+for j,k in zip(c1,c2):
+    e = [wall_coords_x[c], wall_coords_y[c], j, k]
+    walls_rect.append(e)
+    c += 1
+
+c,coins_rect = 0,[]
+for i in range(10):
+    e = pygame.Rect(coin_coords_x[c], coin_coords_y[c], 44, 44)
+    coins_rect.append(e)
+    c += 1
+
 
 # images
 background_titlescreen = pygame.image.load(path+"images/titlescreen/background_titlescreen.png")
@@ -143,6 +132,10 @@ screen=pygame.display.set_mode((display_xy))
 normal_background = path+"audio/background/music.mp3" #AdhesiveWombat - Night Shade
 game_background = path+"audio/background/new_music.mp3" #Eric Skiff - Unclocked
 bachgroundmusic = [normal_background,game_background]
+
+pygame.init()
+screen=pygame.display.set_mode((display_xy))
+print('please select the game window, the game started')
 
 # datapacks for parameter
 # data: universell, data_1: titlescreen, data_2: gamescreen,data_3: skinscreen
