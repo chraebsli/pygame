@@ -630,6 +630,10 @@ def settings(data,return_manuels,random_number):
     global index_path,index_wall,custom_color,custom_color_path,active_wall,active_path
     done = False
     done_two = False
+    appear_wall_box = False
+    appear_path_box = False
+
+
     #Wechsel zwischen Farben
     settings_change_wall = ['RAINBOW','RANDOM','RED','BLUE','GREEN','CUSTOM']
     settings_change_path = ['RAINBOW','RANDOM','RED','BLUE','GREEN','CUSTOM']
@@ -756,23 +760,20 @@ def settings(data,return_manuels,random_number):
         else:
             color = colors[2]
     if settings_change_wall[index_wall] == 'RED':
-        #global color
         color = colors[0]
     if settings_change_wall[index_wall] == 'BLUE':
-        #global color
         color = colors[1]
     if settings_change_wall[index_wall] == 'GREEN':
-        #global color
         color = colors[2]
     if settings_change_wall[index_wall] == 'CUSTOM':
         wall_changing = True
     if settings_change_wall[index_wall] == 'CUSTOM':
+        appear_wall_box = True
         if done == True:
             color = pygame.Color(custom_color)
     #Wählt Farbe vom Spielerpfad aus
     global color_one
     if settings_change_path[index_path] == 'RAINBOW':
-        #rainbow
         x = random.randint(0,2)
         color_one = colors[x]
     if settings_change_path[index_path] == 'RANDOM':
@@ -792,6 +793,7 @@ def settings(data,return_manuels,random_number):
     if settings_change_path[index_path] == 'CUSTOM':
         wall_changing = True
     if settings_change_wall[index_path] == 'CUSTOM':
+        appear_path_box = True
         if done_two == True:
             color_one = pygame.Color(custom_color_path)   
    
@@ -814,7 +816,7 @@ def settings(data,return_manuels,random_number):
     #Auswirkungen auf Wände
     if settings_change_wall[index_wall] != 'RANDOM':
         pygame.draw.rect(screen,color,(1025,255,150,50))
-            #Wählt Farbe von Wand aus
+        #Wählt Farbe von Wand aus
         pygame.draw.rect(screen,color,(323,605,50,150))
         pygame.draw.rect(screen,color,(625,405,150,50))
         pygame.draw.rect(screen,color,(1223,455,50,150))
@@ -852,11 +854,13 @@ def settings(data,return_manuels,random_number):
     
     input_box = pygame.Rect(890, 780,350, 90)
     pygame.draw.rect(screen,(0,0,0),(925,900,325,50))
-    if active_path == False:
+    if active_path == False and appear_path_box == False:
+        pygame.draw.rect(screen,(0,0,0),switch_path)
+    if active_path == False and appear_path_box == True:
         pygame.draw.rect(screen,red,switch_path)
     else:
         pygame.draw.rect(screen,green,switch_path)
-    if active_wall == False:
+    if active_wall == False and appear_wall_box:
         pygame.draw.rect(screen,red,switch_wall)
     else:
         pygame.draw.rect(screen,green,switch_wall)
