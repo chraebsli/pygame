@@ -1,7 +1,4 @@
-import git
 import pygame,datetime,json,collision_detct,sqlite3
-from git import Repo
-import pygame,datetime,json,collision_detct
 
 randskin = 1
 randcoin = 1
@@ -79,20 +76,13 @@ def scores(points,name,played_time,path):
     date=actual.strftime('%d.%m')
     time=actual.strftime('%H:%M')
     now=date+' '+time
+    
+    conn = sqlite3.connect(path + '/coinchaser.db')
+    cur = conn.cursor()
+    cur.execute("INSERT INTO leaderboard (crdate, playername, points, playedTime) VALUES (?,?,?,?)", (now, name, points, played_time))
+    conn.commit()
+    conn.close()
 
-    # get data in json 
-    with open(path+'scores.json') as file:
-        data = json.load(file)
-    data['scores'].append({'date':now,'name':name,'points':points,'time':played_time})
-    with open(path+'scores.json','w') as file:
-        json.dump(data,file,indent=4)
-
-    # sortiert die liste nach höchstpunktzahl
-    with open(path+'scores.json') as file:
-        data_score = json.load(file)
-        data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
-    with open(path+'scores.json','w') as file:
-        json.dump(data_score,file,indent=4)
     
 #zeigt die aktuelle Punkteanzahl an, falls der Spieler in game 'Q' drückt   
 def show_points(points,remo_list,screen,coins_rect,t3):
@@ -136,9 +126,11 @@ def start_timer():
 def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
+
+
 #Schaut beim Login Screen, ob der Account schon existriert
 def check_account_exsistance(playername,password,path):
-    verbindung = sqlite3.connect(path + '/login.db')
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
     zeiger = verbindung.cursor()
 
     sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
@@ -153,9 +145,11 @@ def check_account_exsistance(playername,password,path):
         x = 'Try Again'
     verbindung.close()
     return x
+
+
 #Account in Datenbank registrieren
 def register_account(playername,password,path,statement):
-    verbindung = sqlite3.connect(path + '/login.db')
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
     zeiger = verbindung.cursor()
     if statement == True: # Dieser Block überprüft, ob es den Benutzernamen schon gibt.
         zeiger.execute("SELECT benutzername FROM daten")
@@ -170,9 +164,10 @@ def register_account(playername,password,path,statement):
         zeiger.execute("INSERT INTO daten VALUES (?,?,?)",combine)
         verbindung.commit()
 
+
 #Zeigt die Summe von Punkten an, welche mit dem Account gewonnen wurde 
 def show_account_points(playername,path,password):
-    verbindung = sqlite3.connect(path + '/login.db')
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
     zeiger = verbindung.cursor()
     
     zeiger.execute("SELECT points FROM daten WHERE benutzername = ? AND passwort = ?",(playername,password))
@@ -182,7 +177,7 @@ def show_account_points(playername,path,password):
 
 #Aktualisiert nach einer erfolgreichen Runde die Account Punkte
 def renew_acc_points(playername,path,password,game_points):
-    verbindung = sqlite3.connect(path + '/login.db')
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
     zeiger = verbindung.cursor()
     
     zeiger.execute("SELECT points FROM daten WHERE benutzername = ? AND passwort = ?",(playername,password))

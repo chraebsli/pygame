@@ -255,9 +255,11 @@ while running == True:
     if screenmode == 'timer' or sm == 'timer':
         sm =gamescreens.timer(data,timer,random_number)
         screenmode,sm = 'gamescreen','gamescreen'
+    
     if screenmode == 'settings' or sm == 'settings':
         screenmode,sm='settings','settings'
         sm = gamescreens.settings(data,return_manuels,random_number)
+    
     # grundlegende Funktionen
     pygame.display.flip() 
     time.sleep(0.05)
