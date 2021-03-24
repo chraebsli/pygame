@@ -104,9 +104,14 @@ skin_one = pygame.image.load(path + "images/gamescreen/skins/skin1.png")
 skin_two = pygame.image.load(path + "images/gamescreen/skins/skin2.png")
 skin_three = pygame.image.load(path + "images/gamescreen/skins/skin3.png")
 skin_four = pygame.image.load(path + "images/gamescreen/skins/skin4.png")
+lock_skin_one = pygame.image.load(path + "images/skinsscreen/lock_skin1.png")
+lock_skin_two = pygame.image.load(path + "images/skinsscreen/lock_skin2.png")
+lock_skin_three = pygame.image.load(path + "images/skinsscreen/lock_skin3.png")
+lock_skin_four = pygame.image.load(path + "images/skinsscreen/lock_skin4.png")
 game_over = pygame.image.load(path + "images/gamescreen/game_over.png")
 win = pygame.image.load(path + "images/gamescreen/win_screen.png")
 skins = [skin_one,skin_two,skin_three,skin_four]
+locks = [lock_skin_one,lock_skin_two,lock_skin_three,lock_skin_four]
 start1 = pygame.image.load(path + "images/loginscreen/start.png")
 rand_unten = pygame.image.load(path + "images/loginscreen/rand_unten.png")
 rand_oben = pygame.image.load(path + "images/loginscreen/rand_oben.png")
@@ -162,7 +167,7 @@ data_2 = {'background_game':background_game,'start':start,
 'player': player,'start_xy':start_xy,'end_xy': end_xy,'player_xy': player_xy,
 'display_xy':display_xy,'end2': 0,'walls':walls,'block_xy': block_xy,'block':block,'coin2':0,
 'block_coords':block_coords,'wall_coords_xy':wall_coords_xy,'walls_rect':walls_rect,'coin_coords':coin_coords_xy,'coins_rect':coins_rect}
-data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_skinscreen,
+data_3={'background_skinscreen':background_skinscreen,'skins_skinscreen':skins_skinscreen,'locks':locks,
 'message_skin_one':message_skin_one}
 
 screen.fill(0) 
@@ -245,7 +250,7 @@ while running == True:
     # skinscreen
     if screenmode =='skinscreen'or sm=='skinscreen':
         screenmode,sm='skinscreen','skinscreen'
-        sm=gamescreens.skinscreen(data=data,data_3=data_3,data_2=data_2)
+        sm=gamescreens.skinscreen(data=data,data_3=data_3,data_2=data_2,return_banner=return_manuels)
 
     if screenmode == 'registration' or sm =='registration':
         screenmode,sm = 'registration','registration'
