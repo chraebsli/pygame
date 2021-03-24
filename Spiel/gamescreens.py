@@ -35,6 +35,9 @@ def titlescreen(data, data_1):
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     upperplayername = playername.upper()
     base_font = pygame.font.SysFont(None, 110)
+    print(playername)
+    overall_points = gamefunctions.show_account_points(playername,path,passwort)
+    
     text_surface = base_font.render(upperplayername,False,(255,255,255))
     screen.blit(background_titlescreen, (background_xy[0],background_xy[1])) 
     screen.blit(play_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
@@ -58,6 +61,8 @@ def titlescreen(data, data_1):
 
     second_font = pygame.font.SysFont(None, 90)
     sound_surface = second_font.render(f'SOUNDS: {sounds.upper()}',False,(255,255,255))
+    points_surface = second_font.render(overall_points,False,(255,255,255))
+    screen.blit(points_surface,(50,900))
     screen.blit(sound_surface,(1200,900))
 
     if sounds == 'off':
@@ -324,6 +329,7 @@ def gamescreen(data, data_2,remo_list,random_number):
 
     if player_xy == end_xy:
         global playername
+        gamefunctions.renew_acc_points(playername,path,passwort,points)
         played_time = gamefunctions.return_endtime(t3)
         print(f'You ended this round as {playername} with {points} points in {played_time} minutes')
         if points >=150:
@@ -389,7 +395,7 @@ def loginscreen(data,number):
     verbindung = sqlite3.connect(path + '/login.db')
     zeiger = verbindung.cursor()
 
-    sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
+    sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT,points INT)'
     zeiger.execute(sql)
     verbindung.commit()
     
