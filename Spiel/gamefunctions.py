@@ -85,12 +85,12 @@ def scores(points,name,played_time,path):
 
     
 #zeigt die aktuelle Punkteanzahl an, falls der Spieler in game 'Q' drückt   
-def show_points(points,remo_list,screen,coins_rect,t3):
+def show_points(points,remo_list,screen,coins_rect,t3,path):
         global str_time
         time = datetime.datetime.now() - t3
         color = pygame.Color('white')
         black = pygame.Color('black')
-        base_font = pygame.font.SysFont(None, 160)
+        base_font = pygame.font.Font(path + 'fonts/orbitron.ttf',85)
         points = collision_detct.point_counter(points,remo_list,coins_rect)
         final_punkte = points + int(len(remo_list))
         text_surface = base_font.render(f'Points: {final_punkte+1}',False,black)

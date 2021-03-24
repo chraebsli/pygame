@@ -127,6 +127,15 @@ settings_demo_horizontal = pygame.image.load(path + "images/settings/settings_ho
 sign_up_banner = pygame.image.load(path + "images/registration/sign_up.png")
 pygame.init()
 screen=pygame.display.set_mode((display_xy))
+o65 = pygame.font.Font(path + 'fonts/orbitron.ttf',40)
+o80 = pygame.font.Font(path + 'fonts/orbitron.ttf',50)
+o90 = pygame.font.Font(path + 'fonts/orbitron.ttf',54)
+o110 = pygame.font.Font(path + 'fonts/orbitron.ttf',65)
+o150 = pygame.font.Font(path + 'fonts/orbitron.ttf',90)
+o160 = pygame.font.Font(path + 'fonts/orbitron.ttf',100)
+o180 = pygame.font.Font(path + 'fonts/orbitron.ttf',110)
+o230 = pygame.font.Font(path + 'fonts/orbitron.ttf',130)
+fonts = [o65,o80,o90,o110,o150,o160,o180,o230]
 
 # audio
 normal_background = path+"audio/background/music.mp3" #AdhesiveWombat - Night Shade
@@ -142,7 +151,8 @@ print('please select the game window, the game started')
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
 'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,
-'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win,'settings_background':settings_background,'settings_demo':settings_demo,'settings_demo_vertical':settings_demo_vertical,'settings_demo_horizontal':settings_demo_horizontal,'sign_up':sign_up_banner}
+'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win,'settings_background':settings_background,'settings_demo':settings_demo,
+'settings_demo_vertical':settings_demo_vertical,'settings_demo_horizontal':settings_demo_horizontal,'sign_up':sign_up_banner,'fonts':fonts}
 data_1 = {'background_titlescreen':background_titlescreen,
 'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,'leaderboard_button':leaderboard_button,
 'play_button_rect':play_button_rect,'quit_button':quit_button,'skin_button':skin_button,

@@ -1,4 +1,4 @@
-import pygame,collision_detct,gamefunctions,json,datetime,random,sqlite3
+import pygame,collision_detct,gamefunctions,datetime,random,sqlite3
 from pygame.locals import *
 from pygame import mixer
 
@@ -32,9 +32,10 @@ def titlescreen(data, data_1):
     screenmode=data['screenmode']
     main_path=data['main_path']
     path = data['path']
+    font = data['fonts']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     upperplayername = playername.upper()
-    base_font = pygame.font.SysFont(None, 110)
+    base_font = font[3]
     overall_points = gamefunctions.show_account_points(playername,path,passwort)
     
     text_surface = base_font.render(upperplayername,False,(255,255,255))
@@ -58,7 +59,7 @@ def titlescreen(data, data_1):
         field_blit = False
         print(sounds)
 
-    second_font = pygame.font.SysFont(None, 90)
+    second_font = font[2]
     sound_surface = second_font.render(f'SOUNDS: {sounds.upper()}',False,(255,255,255))
     points_surface = second_font.render(overall_points,False,(255,255,255))
     screen.blit(points_surface,(50,900))
@@ -167,7 +168,7 @@ def skinscreen(data, data_3,data_2):
 
 
 def gamescreen(data, data_2,remo_list,random_number):
-    t1 = gamefunctions.start_timer() # to start timer
+    #t1 = gamefunctions.start_timer() # to start timer
     global counter_felder,block_coords,player_coords,player,points,sounds,t3,final_index_p,final_index_w,color,color_one
     send_data=False
     points = 0
@@ -284,7 +285,7 @@ def gamescreen(data, data_2,remo_list,random_number):
         remo_list = collision_detct.collideplayer(player_xy,list_coords,remo_list,False)
 
     if keys[5]:
-        gamefunctions.show_points(points,remo_list,screen,coins_rect,t3)
+        gamefunctions.show_points(points,remo_list,screen,coins_rect,t3,path)
     if keys[4]:
         collision_detct.check_counter(screen,remo_list,coinskin,coins_rect)  
 
@@ -347,11 +348,12 @@ def gamescreen(data, data_2,remo_list,random_number):
         else:
             screenmode='titlescreen.True'
         return screenmode
-    gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
+    #gamefunctions.end_timer(t1,' to load frame') # print how long it takes to load a frame
 
 
 def loginscreen(data,number):
     global playername,sounds,field_blit,custom_color,custom_color_path,active_path,active_wall,passwort
+    font = data['fonts']
     custom_color = '' #Für Settingsscreen
     custom_color_path = '' #Für Settingsscreen
     active_wall = False #Für Settingsscreen
@@ -364,7 +366,7 @@ def loginscreen(data,number):
     screen = data['screen']
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
-    base_font = pygame.font.SysFont(None, 160)
+    base_font = font[5]
     clock = pygame.time.Clock()
     input_box = pygame.Rect(700, 400,50, 130)
     input_box_2 = pygame.Rect(700, 560,475, 130)
@@ -482,7 +484,7 @@ def loginscreen(data,number):
             pygame.draw.rect(screen,colors[number],(1500,900,110,50))
             field_blit = False
             print(sounds)
-        second_font = pygame.font.SysFont(None, 90)
+        second_font = font[2]
         sound_surface = second_font.render(f'SOUNDS: {sounds.upper()}',False,(255,255,255))
         registration_surface = second_font.render('SIGN UP',False,(255,255,255))
         
@@ -498,7 +500,8 @@ def loginscreen(data,number):
 
 
 def highscorescreen(data):
-    base_font = pygame.font.SysFont(None, 80)
+    font = data['fonts']
+    base_font = font[1]
     screen = data['screen']
     banner = data['banner']
     return_banner = data['return_banner']
@@ -581,16 +584,18 @@ def howto(data,img,return_manuels,settings_manuels):
                     screenmode = 'settings'
                     return screenmode
 
+
 def game_over(data):
     global points,playername
+    font = data['fonts']
     screen = data['screen']
     game_over = data['game_over']
     screen.blit(game_over,(1,1))
     points_blit = str('NONE')
     name_blit = str(playername)
     message_blit = 'PRESS ANY KEY TO CONTINUE'
-    base_font = pygame.font.SysFont(None, 180)
-    message_font = pygame.font.SysFont(None, 65)
+    base_font = font[6]
+    message_font = font[0]
     points_surface = base_font.render(points_blit,False,(255,255,255))
     name_surface = base_font.render(name_blit,False,(255,255,255))
     message_surface = message_font.render(message_blit,False,(255,255,255))
@@ -609,8 +614,8 @@ def game_over(data):
 
 
 def win(data):
-    global points
-    global playername
+    global points,playername
+    font = data['fonts']
     screen = data['screen']
     path = data['path']
     win = data['win']
@@ -618,8 +623,8 @@ def win(data):
     points_blit = str(points)
     name_blit = str(playername)
     message_blit = 'PRESS ANY KEY TO CONTINUE'
-    base_font = pygame.font.SysFont(None, 180)
-    message_font = pygame.font.SysFont(None, 65)
+    base_font = font[6]
+    message_font = font[0]
     points_surface = base_font.render(points_blit,False,(255,255,255))
     name_surface = base_font.render(name_blit,False,(255,255,255))
     message_surface = message_font.render(message_blit,False,(255,255,255))
@@ -639,6 +644,7 @@ def win(data):
 
 def timer(data,timer,number):
     global t3
+    font = data['fonts']
     t3 = None
     screen = data['screen']
     logo = data['logo']
@@ -651,7 +657,7 @@ def timer(data,timer,number):
     clock = pygame.time.Clock()
     counter, text = 3, '3'.rjust(3)
     pygame.time.set_timer(pygame.USEREVENT, 1000)
-    font = pygame.font.SysFont(None, 230)
+    font = font[7]
     red = pygame.Color('red')
     blue = pygame.Color('blue')
     green = pygame.Color('darkgreen')
@@ -679,6 +685,7 @@ def timer(data,timer,number):
 def settings(data,return_manuels,random_number):
     x1,y = 323,255
     global index_path,index_wall,custom_color,custom_color_path,active_wall,active_path
+    font = data['fonts']
     done = False
     done_two = False
     appear_wall_box = False
@@ -779,7 +786,7 @@ def settings(data,return_manuels,random_number):
     
     screen = data['screen']
     screen.blit(background,(0,0))
-    font_one = pygame.font.SysFont(None,150)
+    font_one = font[4]
     screen.blit(font_one.render('IN-GAME SETTINGS',True,(255,255,255)),(320,150))
     screen.blit(return_manuels,(50,50))
     #random color
@@ -844,7 +851,7 @@ def settings(data,return_manuels,random_number):
         if done_two == True:
             color_one = pygame.Color(custom_color_path)   
 
-    second_font = pygame.font.SysFont(None, 90)
+    second_font = font[2]
     if settings_change_wall[index_wall] != 'CUSTOM':
         wall_surface = second_font.render(f'COLOR OF WALLS: {settings_change_wall[index_wall]}',False,(255,255,255))
     else:
@@ -917,14 +924,14 @@ def settings(data,return_manuels,random_number):
 
 
 def registration(data,number):
-    
+    font = data['fonts']
     playername = ""
     passwort = ""
     send_data=False
     screen = data['screen']
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
-    base_font = pygame.font.SysFont(None, 160)
+    base_font = font[5]
     clock = pygame.time.Clock()
     input_box = pygame.Rect(700, 400,50, 130)
     input_box_2 = pygame.Rect(700, 560,475, 130)
@@ -1036,7 +1043,7 @@ def registration(data,number):
         for img in blit_list:
             screen.blit(img,list2[c])
             c+=1
-        second_font = pygame.font.SysFont(None, 90)
+        second_font = font['090']
         
         return_surface = second_font.render(f'RETURN',False,(255,255,255))
         screen.blit(return_surface,(100,900))
