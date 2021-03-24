@@ -334,7 +334,6 @@ def gamescreen(data, data_2,remo_list,random_number):
         print(f'You ended this round as {playername} with {points} points in {played_time} minutes')
         if points >=150:
             gamefunctions.scores(points,playername,played_time,path)
-            gamefunctions.sqlSend(playername, points, played_time)
         send_data=True
     
     if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':

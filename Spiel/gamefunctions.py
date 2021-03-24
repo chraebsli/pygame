@@ -1,7 +1,4 @@
-import git
 import pygame,datetime,json,collision_detct,sqlite3
-from git import Repo
-import pygame,datetime,json,collision_detct
 
 randskin = 1
 randcoin = 1
@@ -82,7 +79,9 @@ def scores(points,name,played_time,path):
     
     conn = sqlite3.connect(path + '/coinchaser.db')
     cur = conn.cursor()
-    cur.execute("INSERT INTO leaderboard VALUES(crdate, playername, points, playedTime")
+    cur.execute("INSERT INTO leaderboard (crdate, playername, points, playedTime) VALUES (?,?,?,?)", (now, name, points, played_time))
+    conn.commit()
+    conn.close()
 
     '''
     # get data in json 
