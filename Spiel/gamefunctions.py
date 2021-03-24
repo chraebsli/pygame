@@ -83,21 +83,6 @@ def scores(points,name,played_time,path):
     conn.commit()
     conn.close()
 
-    '''
-    # get data in json 
-    with open(path+'scores.json') as file:
-        data = json.load(file)
-    data['scores'].append({'date':now,'name':name,'points':points,'time':played_time})
-    with open(path+'scores.json','w') as file:
-        json.dump(data,file,indent=4)
-
-    # sortiert die liste nach höchstpunktzahl
-    with open(path+'scores.json') as file:
-        data_score = json.load(file)
-        data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
-    with open(path+'scores.json','w') as file:
-        json.dump(data_score,file,indent=4)
-    '''
     
 #zeigt die aktuelle Punkteanzahl an, falls der Spieler in game 'Q' drückt   
 def show_points(points,remo_list,screen,coins_rect,t3):

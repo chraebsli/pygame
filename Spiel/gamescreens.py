@@ -35,7 +35,6 @@ def titlescreen(data, data_1):
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     upperplayername = playername.upper()
     base_font = pygame.font.SysFont(None, 110)
-    print(playername)
     overall_points = gamefunctions.show_account_points(playername,path,passwort)
     
     text_surface = base_font.render(upperplayername,False,(255,255,255))
@@ -98,7 +97,6 @@ def titlescreen(data, data_1):
                 send_data=True
             if x > 1500 and y > 900 and x < 1590 and y < 950:
                     click.play()
-                    print('clicked')
                     field_blit = True 
 
     if send_data==True:
@@ -132,7 +130,6 @@ def skinscreen(data, data_3,data_2):
 
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:            
-                print('escape')
                 player = data_2['player']
                 screenmode='titlescreen'
                 send_data=True
@@ -428,7 +425,6 @@ def loginscreen(data,number):
                 if x > 580 and y > 700 and x < 985 and y < 835 and len(playername) > 0 and len(passwort) > 0:
                     click.play()
                     state = gamefunctions.check_account_exsistance(playername,passwort,path)
-                    print(state)
                     if state == 'this account exists':
                                 screenmode = 'titlescreen'
                                 send_data = True
@@ -437,15 +433,11 @@ def loginscreen(data,number):
                         passwort = ''
                 if x > 1500 and y > 900 and x < 1590 and y < 950:
                     click.play()
-                    print('clicked')
                     field_blit = True
             if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
-                            print(playername)
-                            print(passwort)
                             if len(playername) > 0 and len(passwort) > 0:
                                 state = gamefunctions.check_account_exsistance(playername,passwort,path)
-                                print(state)
                                 if state == 'this account exists':
                                     screenmode = 'titlescreen'
                                     send_data = True
@@ -538,23 +530,25 @@ def highscorescreen(data):
     for i,j in zip(titles,pos):
         header = base_font.render(i,True,(255,255,255))
         screen.blit(header,(j,220))
-    with open(path+'scores.json') as file:
-        data_score = json.load(file)
+    
+    conn = sqlite3.connect(path + '/coinchaser.db')
+    cur = conn.cursor()
+    cur.execute("SELECT crdate, playername, points, playedTime FROM leaderboard ORDER BY points desc, playedTime asc")
+    table = cur.fetchall()
+    conn.commit()
+    conn.close()
 
     c=320
     c1=1
-    for p in data_score['scores']:
+    for p in table:
         if c1 == 8:
             break
-        # setzt var auf den inhalt der JSON Datei
-        date = p['date']
-        name = p['name']
-        points = str(p['points'])
-        try:
-            time = p['time']
-        except KeyError:
-            time = 'undef'
 
+        date = p[0]
+        name = p[1]
+        points = str(p[2])
+        time = p[3]
+        
         # zeigt die Inhalte an
         blitlist = [date,name,points,time]
         for i,j in zip(blitlist,pos):
@@ -861,7 +855,6 @@ def settings(data,return_manuels,random_number):
         path_surface = second_font.render(f'COLOR OF PATH : {custom_color_path.upper()}',False,(255,255,255))
 
     #Kleines Fenster, welches die Auswirkungen beim Wechseln einer dieser EInstellungen zeigt
-    print(index_wall)
     #Auswirkungen auf Wände
     if settings_change_wall[index_wall] != 'RANDOM':
         pygame.draw.rect(screen,color,(1025,255,150,50))
@@ -1002,8 +995,6 @@ def registration(data,number):
                     send_data = True
             if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
-                            print(playername)
-                            print(passwort)
                             if len(playername) > 0 and len(passwort) > 0:
                                 check = gamefunctions.register_account(playername,passwort,path,True)
                                 if check == 'ok':
