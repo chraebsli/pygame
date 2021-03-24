@@ -105,25 +105,48 @@ def titlescreen(data, data_1):
         return screenmode
 
 
-def skinscreen(data, data_3,data_2):
+def skinscreen(data, data_3,data_2,return_banner):
     global player
     send_data=False
     screen = data['screen']
+    path = data['path']
     background_xy = data['background_xy']
     background_skinscreen=data_3['background_skinscreen']
     screenmode=data['screenmode']
     skins_skinscreen=data_3['skins_skinscreen']
+    locks = data_3['locks']
+    blockskins = gamefunctions.access_to_acc_points(playername,path,passwort)
+    lock_skin1 = False
+    lock_skin2 = False
+    lock_skin3 = False
+    lock_skin4 = False
+    if blockskins < 10000:
+        lock_skin1 = True
+    if blockskins < 25000:
+        lock_skin2 = True
+    if blockskins < 50000:
+        lock_skin3 = True
+    if blockskins < 5000:
+        lock_skin4 = True
     skins = data['skins']
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     screen.blit(background_skinscreen, (background_xy[0],background_xy[1]))
+    screen.blit(return_banner,(30,1))
     c=0
     
     for skin in skins_skinscreen:
         l=[112,485,870,1230]
         screen.blit(skins_skinscreen[c], (l[c],375))
         c+=1
-
+    if lock_skin1 == True:
+        screen.blit(locks[0],(98,320))
+    if lock_skin2 == True:
+        screen.blit(locks[1],(483,320))
+    if lock_skin3 == True:
+        screen.blit(locks[2],(858,320))
+    if lock_skin4 == True:
+        screen.blit(locks[3],(1225,320))
     for event in pygame.event.get():
         if event.type==pygame.QUIT: # stoppt Script
             print('Quit game ...')
@@ -140,30 +163,34 @@ def skinscreen(data, data_3,data_2):
         # load skins
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x,y=event.pos
-            if x > 112 and y > 375 and x < 392 and y < 655:
+            if x > 112 and y > 375 and x < 392 and y < 655 and lock_skin1 == False:
                 click.play()
                 print('Skin 1 picked')
                 player = skins[0]
                 screenmode='titlescreen'
                 send_data=True
-            if x > 485 and y > 375 and x < 765 and y < 655:
+            if x > 485 and y > 375 and x < 765 and y < 655 and lock_skin2 == False:
                 click.play()
                 print('Skin 2 picked')
                 player = skins[1]
                 screenmode='titlescreen'
                 send_data=True           
-            if x > 870 and y > 375 and x < 1150 and y < 655:
+            if x > 870 and y > 375 and x < 1150 and y < 655 and lock_skin3 == False:
                 click.play()
                 print('Skin 3 picked')
                 player = skins[2]
                 screenmode='titlescreen'
                 send_data=True
-            if x > 1230 and y > 375 and x < 1510 and y < 655:
+            if x > 1230 and y > 375 and x < 1510 and y < 655 and lock_skin4 == False:
                 click.play()
                 print('Skin 4 picked')
                 player = skins[3]
                 screenmode='titlescreen'
-                send_data=True 
+                send_data=True
+            if x > 30 and y > 1 and x < 77 and y < 136:
+                    click.play()
+                    screenmode='titlescreen'
+                    send_data = True
 
     if send_data==True:
         return screenmode
@@ -460,10 +487,10 @@ def loginscreen(data,number):
                             passwort = passwort[:-1]
                     else:
                         if active:
-                            if len(playername) < 7:
+                            if len(playername) < 12:
                                 playername = playername + event.unicode
                         if active_2:
-                            if len(passwort) < 7:
+                            if len(passwort) < 12:
                                 passwort = passwort + event.unicode
 
         screen.fill(colors[number])
@@ -1025,10 +1052,10 @@ def registration(data,number):
                         return screenmode
                     else:
                         if active:
-                            if len(playername) < 7:
+                            if len(playername) < 12:
                                 playername = playername + event.unicode
                         if active_2:
-                            if len(passwort) < 7:
+                            if len(passwort) < 12:
                                 passwort = passwort + event.unicode
 
         screen.fill(colors[number])
