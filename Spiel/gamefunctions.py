@@ -77,7 +77,7 @@ def scores(points,name,played_time,path):
     time=actual.strftime('%H:%M')
     now=date+' '+time
     
-    conn = sqlite3.connect(path + '/coinchaser.db')
+    conn = sqlite3.connect(path + '/.coinchaser')
     cur = conn.cursor()
     cur.execute("INSERT INTO leaderboard (crdate, playername, points, playedTime) VALUES (?,?,?,?)", (now, name, points, played_time))
     conn.commit()
@@ -130,7 +130,7 @@ def end_timer(t1,msg):
 
 #Schaut beim Login Screen, ob der Account schon existriert
 def check_account_exsistance(playername,password,path):
-    verbindung = sqlite3.connect(path + '/coinchaser.db')
+    verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
 
     sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
@@ -149,7 +149,7 @@ def check_account_exsistance(playername,password,path):
 
 #Account in Datenbank registrieren
 def register_account(playername,password,path,statement):
-    verbindung = sqlite3.connect(path + '/coinchaser.db')
+    verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
     if statement == True: # Dieser Block überprüft, ob es den Benutzernamen schon gibt.
         zeiger.execute("SELECT benutzername FROM daten")
@@ -167,7 +167,7 @@ def register_account(playername,password,path,statement):
 
 #Zeigt die Summe von Punkten an, welche mit dem Account gewonnen wurde 
 def show_account_points(playername,path,password):
-    verbindung = sqlite3.connect(path + '/coinchaser.db')
+    verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
     
     zeiger.execute("SELECT points FROM daten WHERE benutzername = ? AND passwort = ?",(playername,password))
@@ -177,7 +177,7 @@ def show_account_points(playername,path,password):
 
 #Aktualisiert nach einer erfolgreichen Runde die Account Punkte
 def renew_acc_points(playername,path,password,game_points):
-    verbindung = sqlite3.connect(path + '/coinchaser.db')
+    verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
     
     zeiger.execute("SELECT points FROM daten WHERE benutzername = ? AND passwort = ?",(playername,password))
@@ -189,7 +189,7 @@ def renew_acc_points(playername,path,password,game_points):
 
 #gibt Punkteanzahl vom Account zurück
 def access_to_acc_points(playername,path,password):
-    verbindung = sqlite3.connect(path + '/coinchaser.db')
+    verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
     
     zeiger.execute("SELECT points FROM daten WHERE benutzername = ? AND passwort = ?",(playername,password))
