@@ -143,46 +143,62 @@ def end_timer(t1,msg):
     t2 = datetime.datetime.now()
     print ('\nTime collabsed' + msg + ': ' + str(t2 - t1)[5:] + ' seconds\n')
 
+
+#Schaut beim Login Screen, ob der Account schon existriert
 def check_account_exsistance(playername,password,path):
-    verbindung = sqlite3.connect(path + '/scores.db')
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
     zeiger = verbindung.cursor()
-    #sql = 'DELETE FROM daten'
-    #zeiger.execute(sql)
 
     sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
     zeiger.execute(sql)
 
-    zeiger.execute("SELECT * FROM daten")
+    zeiger.execute("SELECT benutzername,passwort FROM daten")
     inhalt = zeiger.fetchall()
-    print(inhalt)
     combine = (playername,password)
     if combine in inhalt:
         x = 'this account exists'
-        print('Yes')
     else:
         x = 'Try Again'
-        print('No')
-        print(combine)
     verbindung.close()
     return x
 
+
+#Account in Datenbank registrieren
 def register_account(playername,password,path,statement):
-    verbindung = sqlite3.connect(path + '/scores.db')
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
     zeiger = verbindung.cursor()
     if statement == True: # Dieser Block überprüft, ob es den Benutzernamen schon gibt.
         zeiger.execute("SELECT benutzername FROM daten")
         inhalt = zeiger.fetchall()
-        print(inhalt)
         change_format = (playername,)
-        print(change_format)
         if change_format in inhalt:
             return 'benutzername vergeben' 
-            print('vergeben')
         else:
              return 'ok'
-             print('ok')
     if statement == False: #Dieser Block schreibt die Daten in die Datenbank
-        combine = (playername,password)
-        zeiger.execute("INSERT INTO daten VALUES (?,?)",combine)
+        combine = (playername,password,0)
+        zeiger.execute("INSERT INTO daten VALUES (?,?,?)",combine)
         verbindung.commit()
 
+
+#Zeigt die Summe von Punkten an, welche mit dem Account gewonnen wurde 
+def show_account_points(playername,path,password):
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
+    zeiger = verbindung.cursor()
+    
+    zeiger.execute("SELECT points FROM daten WHERE benutzername = ? AND passwort = ?",(playername,password))
+    inhalt = zeiger.fetchall()
+    return f'CC-POINTS: {str(inhalt[0][0])}'
+
+
+#Aktualisiert nach einer erfolgreichen Runde die Account Punkte
+def renew_acc_points(playername,path,password,game_points):
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
+    zeiger = verbindung.cursor()
+    
+    zeiger.execute("SELECT points FROM daten WHERE benutzername = ? AND passwort = ?",(playername,password))
+    inhalt = zeiger.fetchall()
+    int_points = int(inhalt[0][0])
+    int_points += game_points
+    zeiger.execute("UPDATE daten SET points = ? WHERE benutzername = ? AND passwort = ?",(int_points,playername,password))
+    verbindung.commit()
