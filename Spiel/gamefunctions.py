@@ -79,7 +79,12 @@ def scores(points,name,played_time,path):
     date=actual.strftime('%d.%m')
     time=actual.strftime('%H:%M')
     now=date+' '+time
+    
+    conn = sqlite3.connect(path + '/coinchaser.db')
+    cur = conn.cursor()
+    cur.execute("INSERT INTO leaderboard VALUES(crdate, playername, points, playedTime")
 
+    '''
     # get data in json 
     with open(path+'scores.json') as file:
         data = json.load(file)
@@ -93,6 +98,7 @@ def scores(points,name,played_time,path):
         data_score['scores'] = list(sorted(data_score['scores'],key=lambda p: p['points'],reverse=True))
     with open(path+'scores.json','w') as file:
         json.dump(data_score,file,indent=4)
+    '''
     
 #zeigt die aktuelle Punkteanzahl an, falls der Spieler in game 'Q' drückt   
 def show_points(points,remo_list,screen,coins_rect,t3):

@@ -386,7 +386,7 @@ def loginscreen(data,number):
     screenmode=data['screenmode']
     done = False
     #Datenbank öffnen
-    verbindung = sqlite3.connect(path + '/login.db')
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
     zeiger = verbindung.cursor()
 
     sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
@@ -950,7 +950,7 @@ def registration(data,number):
     screenmode=data['screenmode']
     done = False
     #Datenbank öffnen
-    verbindung = sqlite3.connect(path + '/login.db')
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
     zeiger = verbindung.cursor()
 
     sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
