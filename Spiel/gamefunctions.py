@@ -189,7 +189,7 @@ def renew_acc_points(playername,path,password,game_points):
 
 #gibt Punkteanzahl vom Account zurück
 def access_to_acc_points(playername,path,password):
-    verbindung = sqlite3.connect(path + '/login.db')
+    verbindung = sqlite3.connect(path + '/coinchaser.db')
     zeiger = verbindung.cursor()
     
     zeiger.execute("SELECT points FROM daten WHERE benutzername = ? AND passwort = ?",(playername,password))
