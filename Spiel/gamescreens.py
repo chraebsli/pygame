@@ -55,7 +55,7 @@ def titlescreen(data, data_1):
             sounds = 'on'
             mixer.music.play(-1)
         print(sounds)
-        pygame.draw.rect(screen,grey,(1500,900,110,50))
+        pygame.draw.rect(screen,pygame.Color('#454545'),(1500,900,110,50))
         field_blit = False
         print(sounds)
 
@@ -396,7 +396,7 @@ def loginscreen(data,number):
     base_font = font[5]
     clock = pygame.time.Clock()
     input_box = pygame.Rect(700, 400,50, 130)
-    input_box_2 = pygame.Rect(700, 560,475, 130)
+    input_box_2 = pygame.Rect(700, 560,50, 130)
     color_inactive = pygame.Color('white')
     color_active = pygame.Color('grey')
     red = pygame.Color('red')
@@ -490,12 +490,14 @@ def loginscreen(data,number):
         text_surface = base_font.render(f'Name: {playername}',True,(255,255,255))
         passwort_surface = base_font.render(f'Pass: {passwort}',True,(255,255,255))
         width = max(475, text_surface.get_width()-400)
+        width_2 = max(475, passwort_surface.get_width()-400)
         input_box.w = width
+        input_box_2.w = width_2
 
         pygame.draw.rect(screen, color, input_box, 2)
         pygame.draw.rect(screen, color, input_box_2,2)
         blit_list=[text_surface,passwort_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,logo]
-        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-300,input_box_2.y+5),(580,700),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
+        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(580,700),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
         c=0
 
         for img in blit_list:
@@ -704,9 +706,9 @@ def timer(data,timer,number):
         pygame.display.flip()
         screen.fill(colors[number])
         screen.blit(logo,(490,0))
-        screen.blit(font.render(text+' SECONDS', True, (255, 255, 255)), (182+60, 600+150))
+        screen.blit(font.render(text+' SECONDS', True, (255, 255, 255)), (182+80, 600+150))
         screen.blit(font.render('GAME STARTS',True,(255, 255, 255)),first_render_pos)
-        screen.blit(font.render('IN',True,(255, 255, 255)),(725+25,350+150))
+        screen.blit(font.render('IN',True,(255, 255, 255)),(725+5,350+150))
         clock.tick(60)
 
 def settings(data,return_manuels,random_number):
@@ -961,7 +963,7 @@ def registration(data,number):
     base_font = font[5]
     clock = pygame.time.Clock()
     input_box = pygame.Rect(700, 400,50, 130)
-    input_box_2 = pygame.Rect(700, 560,475, 130)
+    input_box_2 = pygame.Rect(700, 560,50, 130)
     color_inactive = pygame.Color('white')
     color_active = pygame.Color('grey')
     red = pygame.Color('red')
@@ -1060,17 +1062,19 @@ def registration(data,number):
         passwort_surface = base_font.render(f'Pass: {passwort}',True,(255,255,255))
         banner_surface = base_font.render('CREATE AN ACCOUNT',True,(255,255,255))
         width = max(475, text_surface.get_width()-400)
+        width_2 = max(475, passwort_surface.get_width()-400)
         input_box.w = width
+        input_box_2.w = width_2
         pygame.draw.rect(screen, color, input_box, 2)
         pygame.draw.rect(screen, color, input_box_2,2)
         blit_list=[text_surface,passwort_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,banner_surface]
-        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-300,input_box_2.y+5),(580,750),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(235,200)]
+        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(580,750),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(235,200)]
         c=0
 
         for img in blit_list:
             screen.blit(img,list2[c])
             c+=1
-        second_font = font['090']
+        second_font = font[2]
         
         return_surface = second_font.render(f'RETURN',False,(255,255,255))
         screen.blit(return_surface,(100,900))
