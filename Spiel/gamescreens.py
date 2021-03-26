@@ -417,7 +417,7 @@ def loginscreen(data,number):
     screenmode=data['screenmode']
     done = False
     #Datenbank öffnen
-    verbindung = sqlite3.connect(path + '/coinchaser.db')
+    verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
 
     sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT,points INT)'
@@ -561,7 +561,7 @@ def highscorescreen(data):
         header = base_font.render(i,True,(255,255,255))
         screen.blit(header,(j,220))
     
-    conn = sqlite3.connect(path + '/coinchaser.db')
+    conn = sqlite3.connect(path + '/.coinchaser')
     cur = conn.cursor()
     cur.execute("SELECT crdate, playername, points, playedTime FROM leaderboard ORDER BY points desc, playedTime asc")
     table = cur.fetchall()
@@ -982,7 +982,7 @@ def registration(data,number):
     screenmode=data['screenmode']
     done = False
     #Datenbank öffnen
-    verbindung = sqlite3.connect(path + '/coinchaser.db')
+    verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
 
     sql = 'CREATE TABLE IF NOT EXISTS daten(benutzername TEXT,passwort TEXT)'
