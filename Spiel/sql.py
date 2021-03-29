@@ -4,7 +4,7 @@ from mysql.connector import errorcode
 def start():
 	# Obtain connection string information from the portal
 	config = {
-	'host':'188.154.233.211', # remote
+	'host':'188.154.233.211:3306', # remote
 	#'host':'192.168.60.146', # local
 	'user':'coinchaser',
 	'password':'Coinchaser2021',
