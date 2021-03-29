@@ -157,7 +157,7 @@ print('please select the game window, the game started')
 data = {'path':path,'display_xy':display_xy,'background_xy':background_xy,'keys':keys,'main_path':main_path,'newgame':newgame,
 'screen':screen, 'gamescreens':gamescreens,'screenmode':screenmode, 'skins':skins,'start1':start1,'rand_unten':rand_unten,
 'rand_oben':rand_oben,'rand_links':rand_links,'rand_rechts':rand_rechts,'corners':corners,'logo':logo,'playername':playername,
-'banner':banner,'return_banner':return_banner,'game_over':game_over,'win':win,'settings_background':settings_background,'settings_demo':settings_demo,
+'game_over':game_over,'win':win,'settings_background':settings_background,'settings_demo':settings_demo,
 'settings_demo_vertical':settings_demo_vertical,'settings_demo_horizontal':settings_demo_horizontal,'sign_up':sign_up_banner,'fonts':fonts}
 data_1 = {'background_titlescreen':background_titlescreen,
 'play_button':play_button,'buttons_titlescreen_xy':buttons_titlescreen_xy,'leaderboard_button':leaderboard_button,
