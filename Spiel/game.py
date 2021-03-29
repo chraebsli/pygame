@@ -122,7 +122,6 @@ logo = pygame.image.load(path + "images/loginscreen/logo.png")
 banner = pygame.image.load(path + "images/highscore/banner.png")
 return_banner = pygame.image.load(path + "images/highscore/return_banner.png")
 button_highscore = pygame.image.load(path+"images/titlescreen/button_highscore.png")
-howto_img = pygame.image.load(path+"images/manuels/manuelscreen.png")
 return_manuels = pygame.image.load(path + "images/manuels/return_banner.png")
 settings_manuels = pygame.image.load(path + "images/manuels/settings_banner.png")
 settings_background = pygame.image.load(path + "images/settings/settings_img.png")
@@ -232,7 +231,7 @@ while running == True:
     # howto
     if screenmode =='howto' or sm == 'howto':
         screenmode,sm='howto','howto'
-        sm = gamescreens.howto(data,howto_img,return_manuels,settings_manuels)
+        sm = gamescreens.howto(data,return_manuels,settings_manuels)
     
     # gamescreen   
     if screenmode =='gamescreen' or sm=='gamescreen':

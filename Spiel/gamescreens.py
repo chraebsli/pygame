@@ -612,11 +612,11 @@ def highscorescreen(data):
         c1 += 1
 
 
-def howto(data,img,return_manuels,settings_manuels):
+def howto(data,return_manuels,settings_manuels):
     screen = data['screen']
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
-    screen.blit(img,(1,1))
+    screen.fill(0)
     screen.blit(settings_manuels,(1590,1))
     screen.blit(return_manuels,(30,1))
     for event in pygame.event.get():
@@ -635,6 +635,36 @@ def howto(data,img,return_manuels,settings_manuels):
                     click.play()
                     screenmode = 'settings'
                     return screenmode
+
+    f1 = pygame.font.Font(path + 'fonts/orbitron.ttf',60)
+    f2 = pygame.font.Font(path + 'fonts/orbitron.ttf',38)
+    color = (255,255,255)
+    line = 45
+    
+    # oberer Teil
+    screen.blit(f1.render('How Coinchaser works', True, color),(400,40))
+    l1 = ['Your main objective is to earn as many points as possible',
+    'to get to the top of the leaderboard',
+    'You can earn 100 points by collecting a coin which',
+    'will spawn randomly each game, or you can earn 1 point',
+    'by moving from one field to an other, but there is a catch!',
+    'You can only touch a field once',
+    "If you touch a field twice or run into a wall, your score",
+    "won't save"]
+    c1 = ((250,150+line*0),(250,150+line*1),(250,280+line*0),(250,280+line*1),(250,280+line*2),(250,280+line*3),(250,485+line*0),(250,485+line*1),)
+    for i,j in zip(l1,c1):
+        screen.blit(f2.render(i, True, color),j)
+   
+   # unterer Teil
+    screen.blit(f1.render('In-Game Controlls', True, color),(550,580))
+    l2 = ['W/UP','A/Left','S/Down','D/Right','Q','esc','Tab']
+    l3 = ['Move forward','Move left','Move backward','Move right','Show time and Points','Return','Show password']
+    c = 0
+    for i,j in zip(l2,l3):
+        screen.blit(f2.render(i, True, color),(500,660+line*c))
+        screen.blit(f2.render(':', True, color),(800,660+line*c))
+        screen.blit(f2.render(j, True, color),(900,660+line*c))
+        c+=1
 
 
 def game_over(data):
