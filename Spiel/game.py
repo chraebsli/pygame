@@ -255,6 +255,11 @@ while running == True:
     if screenmode == 'registration' or sm =='registration':
         screenmode,sm = 'registration','registration'
         sm = gamescreens.registration(data,random_number)
+
+    #reloginscreen
+    if screenmode == 'reloginscreen' or sm== 'reloginscreen':
+        screenmode,sm == 'reloginscreen', 'reloginscreen'
+        sm=gamescreens.reloginscreen(data,random_number)
     # quit
     if screenmode =='quitscreen'or sm=='quitscreen':
         print('Quit...')

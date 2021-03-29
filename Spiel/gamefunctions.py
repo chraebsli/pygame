@@ -195,3 +195,10 @@ def access_to_acc_points(playername,path,password):
     zeiger.execute("SELECT points FROM daten WHERE benutzername = ? AND passwort = ?",(playername,password))
     inhalt = zeiger.fetchall()
     return int(inhalt[0][0])
+
+#Passwort ändern
+def renew_password(playername,path,password):
+    verbindung = sqlite3.connect(path + '/.coinchaser')
+    zeiger = verbindung.cursor()
+    zeiger.execute("UPDATE daten SET passwort = ? WHERE benutzername = ?",(password,playername))
+    verbindung.commit()
