@@ -202,3 +202,16 @@ def renew_password(playername,path,password):
     zeiger = verbindung.cursor()
     zeiger.execute("UPDATE daten SET passwort = ? WHERE benutzername = ?",(password,playername))
     verbindung.commit()
+
+def check_username(playername,password,path):
+    verbindung = sqlite3.connect(path + '/.coinchaser')
+    zeiger = verbindung.cursor()
+    zeiger.execute("SELECT benutzername FROM daten")
+    inhalt = zeiger.fetchall()
+    combine = (playername,)
+    if combine in inhalt:
+        x = 'this account exists'
+    else:
+        x = 'Try Again'
+    verbindung.close()
+    return x

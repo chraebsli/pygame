@@ -261,6 +261,12 @@ while running == True:
     if screenmode == 'reloginscreen' or sm== 'reloginscreen':
         screenmode,sm == 'reloginscreen', 'reloginscreen'
         sm=gamescreens.reloginscreen(data,random_number)
+    
+    #recoveryscreen
+    if screenmode == 'recoveryscreen' or sm== 'recoveryscreen':
+        screenmode,sm == 'recoveryscreen', 'recoveryscreen'
+        sm=gamescreens.recoveryscreen(data,random_number)
+
     # quit
     if screenmode =='quitscreen'or sm=='quitscreen':
         print('Quit...')
