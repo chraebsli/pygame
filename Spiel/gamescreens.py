@@ -1070,7 +1070,7 @@ def registration(data,number):
         for img in blit_list:
             screen.blit(img,list2[c])
             c+=1
-        second_font = font['090']
+        second_font = font[2]
         
         return_surface = second_font.render(f'RETURN',False,(255,255,255))
         screen.blit(return_surface,(100,900))
