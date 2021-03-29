@@ -131,6 +131,8 @@ settings_demo_vertical = pygame.image.load(path + "images/settings/settings_vert
 settings_demo_horizontal = pygame.image.load(path + "images/settings/settings_horizontal_line.png")
 sign_up_banner = pygame.image.load(path + "images/registration/sign_up.png")
 pygame.init()
+
+# fonts
 screen=pygame.display.set_mode((display_xy))
 o65 = pygame.font.Font(path + 'fonts/orbitron.ttf',40)
 o80 = pygame.font.Font(path + 'fonts/orbitron.ttf',50)
@@ -147,7 +149,6 @@ normal_background = path+"audio/background/music.mp3" #AdhesiveWombat - Night Sh
 game_background = path+"audio/background/new_music.mp3" #Eric Skiff - Unclocked
 bachgroundmusic = [normal_background,game_background]
 
-pygame.init()
 screen=pygame.display.set_mode((display_xy))
 print('please select the game window, the game started')
 
