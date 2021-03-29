@@ -553,13 +553,11 @@ def loginscreen(data,number):
 def highscorescreen(data):
     font = data['fonts']
     base_font = font[1]
+    titlefont = font[6]
+    rfont = font[4]
     screen = data['screen']
-    banner = data['banner']
-    return_banner = data['return_banner']
     black = pygame.Color('black')
     screen.fill(black)
-    screen.blit(banner,(410,15))
-    screen.blit(return_banner,(1225,900))
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     for event in pygame.event.get():
@@ -579,6 +577,9 @@ def highscorescreen(data):
                     send_data=True
                     return screenmode
 
+    screen.blit(titlefont.render('Highscores', True, (255,255,255)),(510,15))
+    screen.blit(rfont.render('>Return', True, (255,255,255)),(1225,900))
+    
     # blit categories
     titles,pos = ['Date','Name','Points','Time'],[180,600,950,1300]
     for i,j in zip(titles,pos):
