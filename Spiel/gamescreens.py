@@ -57,10 +57,8 @@ def titlescreen(data, data_1):
         elif sounds == 'off':
             sounds = 'on'
             mixer.music.play(-1)
-        print(sounds)
         pygame.draw.rect(screen,pygame.Color('#454545'),(1500,900,110,50))
         field_blit = False
-        print(sounds)
 
     second_font = font[2]
     sound_surface = second_font.render(f'SOUNDS: {sounds.upper()}',False,(255,255,255))
@@ -434,6 +432,8 @@ def loginscreen(data,number):
     logo = data['logo']
     screenmode=data['screenmode']
     done = False
+    logo = base_font.render('Coinchaser',True,(255,255,255))
+    play_button = base_font.render('>Start',True,(255,255,255))
     #Datenbank öffnen
     verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
@@ -531,7 +531,7 @@ def loginscreen(data,number):
         pygame.draw.rect(screen, color, input_box, 2)
         pygame.draw.rect(screen, color, input_box_2,2)
         blit_list=[text_surface,passwort_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,logo]
-        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(580,700),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
+        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(650,700),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(535,150)]
         c=0
 
         for img in blit_list:
@@ -543,10 +543,8 @@ def loginscreen(data,number):
             elif sounds == 'off':
                 sounds = 'on'
                 mixer.music.play(-1)
-            print(sounds)
             pygame.draw.rect(screen,colors[number],(1500,900,110,50))
             field_blit = False
-            print(sounds)
         second_font = font[2]
         sound_surface = second_font.render(f'SOUNDS: {sounds.upper()}',False,(255,255,255))
         registration_surface = second_font.render('SIGN UP',False,(255,255,255))
