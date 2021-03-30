@@ -27,11 +27,9 @@ def titlescreen(data, data_1):
     play_button_rect=data_1['play_button_rect']
     skin_button_rect=data_1['skin_button_rect']
     quit_button_rect=data_1['quit_button_rect']
-    button_highscore=data_1['button_highscore']
     leaderboard_button_rect=data_1['leaderboard_button_rect']
     howto_button_rect=data_1['howto_button_rect']
     screenmode=data['screenmode']
-    main_path=data['main_path']
     path = data['path']
     font = data['fonts']
     log_off_rect = pygame.Rect(40,30,250,60)
@@ -50,7 +48,6 @@ def titlescreen(data, data_1):
     screen.blit(leaderboard_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(text_surface,(50,20))
     
-    grey = pygame.Color('black')
     if field_blit == True:
         if sounds == 'on':
             sounds = 'off'
@@ -220,23 +217,16 @@ def gamescreen(data, data_2,remo_list,random_number):
     start_xy=data_2['start_xy']
     end_xy=data_2['end_xy']
     player_xy=data_2['player_xy']
-    display_xy=data_2['display_xy']
     end2=data_2['end2']
     block_coords = data_2['block_coords']
     walls_rect=data_2['walls_rect'] #[wallnr][wallcoord(x,y,-x-y)]
     newgame=data['newgame']
     coin2=data_2['coin2']
     coins_rect = data_2['coins_rect']
-    game_over = data['game_over']
-    player_rect = pygame.Rect(player_xy[0],player_xy[1],44,44)
     
     #Farben
     red = pygame.Color('red')
     blue = pygame.Color('blue')
-    green = pygame.Color('darkgreen')
-    colors = [red,blue,green]
-    x_color = random.randint(0,2) #Falls der Spieler ohne die Wände zu konfigurien, das Spiel startet
-    x_color_one = random.randint(0,2) #Falls der Spieler ohne den Pfad zu konfigurien, das Spiel startet
     
     # Sounds
     movesound = pygame.mixer.Sound(path + "audio/Sounds/move.wav")
@@ -420,7 +410,6 @@ def loginscreen(data,number):
     green = pygame.Color('darkgreen')
     colors = [red,blue,green]
     color = color_inactive
-    color_two = color_inactive
     active = False
     active_2 = False 
     rand_unten=data['rand_unten']
@@ -461,7 +450,6 @@ def loginscreen(data,number):
                     active_2 = not active
                 else:
                     active_2 = False
-                color_two = color_active if active_2 else color_inactive
                 
                 if x > 100 and y > 900 and x < 355 and y < 960:
                     click.play()
@@ -577,14 +565,12 @@ def highscorescreen(data):
                 exit(0) 
             if event.type == pygame.KEYDOWN:
                     screenmode = 'titlescreen'
-                    send_data = True
                     return screenmode
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x,y = event.pos
                 if x > 1225 and y > 900 and x < 1630 and y < 1035:
                     click.play()
                     screenmode='titlescreen'
-                    send_data=True
                     return screenmode
 
     screen.blit(titlefont.render('Highscores', True, (255,255,255)),(510,15))
@@ -709,7 +695,6 @@ def win(data):
     global points,playername
     font = data['fonts']
     screen = data['screen']
-    path = data['path']
     win = data['win']
     screen.blit(win,(1,1))
     points_blit = str(points)
@@ -801,7 +786,6 @@ def settings(data,return_manuels,random_number):
     senkrechte = data['settings_demo_vertical']
     gerade = data['settings_demo_horizontal']
     background = data['settings_background']
-    demo_background = data['settings_demo']
     switch_path = pygame.Rect(1240 + 10,input_box[1] + 20 ,50,50)
     switch_wall = pygame.Rect(1270 + 10,input_box_2[1] + 20 ,50,50)
     for event in pygame.event.get():
@@ -1035,7 +1019,6 @@ def registration(data,number):
     green = pygame.Color('darkgreen')
     colors = [red,blue,green]
     color = color_inactive
-    color_two = color_inactive
     active = False
     active_2 = False 
     play_button= base_font.render('SIGN UP',False,(255,255,255))
@@ -1179,7 +1162,6 @@ def reloginscreen(data,number): #fast eine 1:1 Kopie vom Loginscreen / Unterschi
     green = pygame.Color('darkgreen')
     colors = [red,blue,green]
     color = color_inactive
-    color_two = color_inactive
     active = False
     active_2 = False 
     rand_unten=data['rand_unten']
@@ -1334,7 +1316,6 @@ def recoveryscreen(data,number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
     input_box = pygame.Rect(700, 400,50, 130)
     input_box_2 = pygame.Rect(700, 560,50, 130)
     return_rect = pygame.Rect(100,900,265,60)
-    reset_rect = pygame.Rect(1200,900,400,60)
     color_inactive = pygame.Color('white')
     color_active = pygame.Color('grey')
     red = pygame.Color('red')
@@ -1342,7 +1323,6 @@ def recoveryscreen(data,number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
     green = pygame.Color('darkgreen')
     colors = [red,blue,green]
     color = color_inactive
-    color_two = color_inactive
     active = False
     active_2 = False 
     rand_unten=data['rand_unten']
