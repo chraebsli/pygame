@@ -247,9 +247,9 @@ def gamescreen(data, data_2,remo_list,random_number):
     if counter != 0:
         collision_detct.move(screen,player_xy,True)
     try:
-        collision_detct.drawing(screen,walls_rect,final_index_w,random_number,color,False)
+        collision_detct.drawing(screen,walls_rect,final_index_w,color,False)
     except NameError:
-        collision_detct.drawing(screen,walls_rect,1,random_number,red,True)
+        collision_detct.drawing(screen,walls_rect,1,red,True)
     coinskin = gamefunctions.random_coinskin(path1 = path,coin1 = coin2)
     endskin = gamefunctions.random_endskin(path1 = path, end1 = end2)
 

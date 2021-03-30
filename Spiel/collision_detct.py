@@ -98,7 +98,7 @@ def collideplayer(player,list_coords,remo_list,statement):
         return s
 
 # zeichnet wände
-def drawing(screen,walls, index_wall,random_number,color,exception):
+def drawing(screen,walls, index_wall,color,exception):
     real_color_wall = color
         #random color
     red = pygame.Color('red')
