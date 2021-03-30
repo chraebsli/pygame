@@ -10,6 +10,7 @@ black = pygame.Color('black')
 
 
 def titlescreen(data, data_1):
+    #Variablen für Screen---------------------------------------------------------------------------------------------------------------------------------------------------
     send_data=False
     global field_blit,sounds,index_path,index_wall
     index_path = 0
@@ -38,7 +39,8 @@ def titlescreen(data, data_1):
     upperplayername = playername.upper()
     base_font = font[3]
     overall_points = gamefunctions.show_account_points(playername,path,passwort)
-    
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Sprites    
     text_surface = base_font.render(upperplayername,False,(255,255,255))
     screen.blit(background_titlescreen, (background_xy[0],background_xy[1])) 
     screen.blit(play_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
@@ -65,7 +67,8 @@ def titlescreen(data, data_1):
     points_surface = second_font.render(overall_points,False,(255,255,255))
     screen.blit(points_surface,(50,900))
     screen.blit(sound_surface,(1200,900))
-
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Controlls
     if sounds == 'off':
         mixer.music.pause()
     for event in pygame.event.get():
@@ -103,11 +106,14 @@ def titlescreen(data, data_1):
             if log_off_rect.collidepoint(event.pos):
                 screenmode = 'reloginscreen'
                 send_data = True
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Screenwechsel
     if send_data==True:
         return screenmode
-
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def skinscreen(data, data_3,data_2,return_banner):
+    #Variablen für Screen---------------------------------------------------------------------------------------------------------------------------------------------------
     global player
     send_data=False
     screen = data['screen']
@@ -133,6 +139,8 @@ def skinscreen(data, data_3,data_2,return_banner):
     skins = data['skins']
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
+    #-------------------------------------------------------------------------------------------------------------------------------------------------------------
+    #Sprites
     screen.blit(background_skinscreen, (background_xy[0],background_xy[1]))
     screen.blit(return_banner,(30,1))
     c=0
@@ -149,6 +157,8 @@ def skinscreen(data, data_3,data_2,return_banner):
         screen.blit(locks[2],(858,320))
     if lock_skin4 == True:
         screen.blit(locks[3],(1225,320))
+    #---------------------------------------------------------------------------------------------------------------------------------------------------
+    #Controlls
     for event in pygame.event.get():
         if event.type==pygame.QUIT: # stoppt Script
             print('Quit game ...')
@@ -192,13 +202,15 @@ def skinscreen(data, data_3,data_2,return_banner):
                     click.play()
                     screenmode='titlescreen'
                     send_data = True
-
+    #-----------------------------------------------------------------------------------------------------------------------------------------------------
+    #Screenwechsel
     if send_data==True:
         return screenmode
-
+    #------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def gamescreen(data, data_2,remo_list,random_number):
     #t1 = gamefunctions.start_timer() # to start timer
+    #Variablen für Screen---------------------------------------------------------------------------------------------------------------------------------------------------
     global counter_felder,block_coords,player_coords,player,points,sounds,t3,final_index_p,final_index_w,color,color_one
     send_data=False
     points = 0
@@ -234,11 +246,11 @@ def gamescreen(data, data_2,remo_list,random_number):
     lose_sound = pygame.mixer.Sound(path + "audio/Sounds/lose.wav")
     lose_sound.set_volume(0.5)
     win_sound = pygame.mixer.Sound(path + "audio/Sounds/win.wav")
-
+    #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     # play audio
     if sounds == 'off':
             mixer.music.pause()
-
+    #---------------------------------------------------------------------------------------------------------------------------------------------------------
     # Sprites hinzufügen
     counter = 0
     if counter == 0:
@@ -273,7 +285,7 @@ def gamescreen(data, data_2,remo_list,random_number):
             print('Quit game ...')
             pygame.quit() 
             exit(0) 
-
+    #-----------------------------------------------------------------------------------------------------------------------------------------------------------------
         # detect for keyboard inputs
         elif event.type == pygame.KEYDOWN:
             if event.key==K_w or event.key==K_UP:
@@ -340,7 +352,8 @@ def gamescreen(data, data_2,remo_list,random_number):
             if player_xy[0] > 1624:
                 player_xy[0] -= 49
                 remo_list.pop(-1)
-
+    #--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    #Spiel neu Start Sequenz + Speichern/ Löschen der erzielten Punkte in der Datenbank
         points += 1
         collide=collision_detct.wall_collision(walls_rect,player_xy)
         screenmode = collision_detct.collideplayer(player_xy,list_coords,remo_list,5)
@@ -470,6 +483,7 @@ def loginscreen(data,number):
                     field_blit = True
                 if reset_rect.collidepoint(event.pos):
                     screenmode = 'recoveryscreen'
+                    click.play()
                     send_data = True
             if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
