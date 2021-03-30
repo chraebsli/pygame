@@ -49,8 +49,8 @@ def titlescreen(data, data_1):
     screen.blit(howto_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(leaderboard_button, (buttons_titlescreen_xy[0],buttons_titlescreen_xy[1]))
     screen.blit(text_surface,(50,20))
+    
     grey = pygame.Color('black')
-    pygame.draw.rect(screen,(255,255,255),log_off_rect,3)
     if field_blit == True:
         if sounds == 'on':
             sounds = 'off'
@@ -423,13 +423,11 @@ def loginscreen(data,number):
     color_two = color_inactive
     active = False
     active_2 = False 
-    play_button=data['start1']
     rand_unten=data['rand_unten']
     rand_oben=data['rand_oben']
     rand_links=data['rand_links']
     rand_rechts=data['rand_rechts']
     corners=data['corners']
-    logo = data['logo']
     screenmode=data['screenmode']
     done = False
     logo = base_font.render('Coinchaser',True,(255,255,255))
@@ -876,7 +874,6 @@ def settings(data,return_manuels,random_number):
                             active_path = True
                         else:
                             active_path = False
-                          
     
     screen = data['screen']
     screen.blit(background,(0,0))
@@ -972,6 +969,7 @@ def settings(data,return_manuels,random_number):
             pygame.draw.rect(screen,white,(1223,455,50,150))
             if settings_change_wall[index_wall] == 'RANDOM':
                 pygame.draw.rect(screen,(255,255,255),input_box_2,2)
+    
     #Auswirkungen auf Pfad
     if settings_change_path[index_path] != 'RANDOM':
         pygame.draw.rect(screen,color_one,(1023,505,50,250))
@@ -997,6 +995,7 @@ def settings(data,return_manuels,random_number):
     
     input_box = pygame.Rect(890, 780,350, 90)
     pygame.draw.rect(screen,(0,0,0),(925,900,325,50))
+    
     #Path: Ein Switch, mit welchen man das Schreiben in der Input Box ein oder ausschalten kann
     if active_path == False and appear_path_box == False or active_path == True and appear_path_box == False:
         pygame.draw.rect(screen,(0,0,0),switch_path)
@@ -1045,9 +1044,9 @@ def registration(data,number):
     rand_links=data['rand_links']
     rand_rechts=data['rand_rechts']
     corners=data['corners']
-    logo = data['logo']
     screenmode=data['screenmode']
     done = False
+
     #Datenbank öffnen
     verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
@@ -1133,7 +1132,7 @@ def registration(data,number):
         pygame.draw.rect(screen, color, input_box, 2)
         pygame.draw.rect(screen, color, input_box_2,2)
         blit_list=[text_surface,passwort_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,banner_surface]
-        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(580,750),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(235,200)]
+        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(650,750),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(235,200)]
         c=0
 
         for img in blit_list:
@@ -1183,15 +1182,16 @@ def reloginscreen(data,number): #fast eine 1:1 Kopie vom Loginscreen / Unterschi
     color_two = color_inactive
     active = False
     active_2 = False 
-    play_button=data['start1']
     rand_unten=data['rand_unten']
     rand_oben=data['rand_oben']
     rand_links=data['rand_links']
     rand_rechts=data['rand_rechts']
     corners=data['corners']
-    logo = data['logo']
     screenmode=data['screenmode']
     done = False
+    logo = base_font.render('Coinchaser',True,(255,255,255))
+    play_button = base_font.render('>Start',True,(255,255,255))
+
     #Datenbank öffnen
     verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
@@ -1291,7 +1291,7 @@ def reloginscreen(data,number): #fast eine 1:1 Kopie vom Loginscreen / Unterschi
         pygame.draw.rect(screen, color, input_box, 2)
         pygame.draw.rect(screen, color, input_box_2,2)
         blit_list=[text_surface,passwort_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,logo]
-        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(580,700),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(435,150)]
+        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(650,700),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(535,150)]
         c=0
 
         for img in blit_list:
@@ -1323,7 +1323,6 @@ def recoveryscreen(data,number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
     field_blit = False
     show_password = False
     sounds = 'on'
-    
     send_data=False
     screen = data['screen']
     path = data['path']
@@ -1346,15 +1345,15 @@ def recoveryscreen(data,number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
     color_two = color_inactive
     active = False
     active_2 = False 
-    play_button=data['start1']
     rand_unten=data['rand_unten']
     rand_oben=data['rand_oben']
     rand_links=data['rand_links']
     rand_rechts=data['rand_rechts']
     corners=data['corners']
-    logo = data['logo']
     screenmode=data['screenmode']
     done = False
+    play_button = base_font.render('>Start',True,(255,255,255))
+
     #Datenbank öffnen
     verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
@@ -1450,7 +1449,7 @@ def recoveryscreen(data,number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
         pygame.draw.rect(screen, color, input_box, 2)
         pygame.draw.rect(screen, color, input_box_2,2)
         blit_list=[text_surface,passwort_surface,play_button,rand_links,rand_rechts,rand_unten,rand_oben,corners,corners,corners,corners,banner_surface]
-        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(580,700),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(135,150)]
+        list2=[(input_box.x-350, input_box.y+5),(input_box_2.x-320,input_box_2.y+5),(650,700),(0,0),(1613,0),(0,985),(0,0),(1602,0),(0,0),(0,970),(1602,970),(135,150)]
         c=0
 
         for img in blit_list:
