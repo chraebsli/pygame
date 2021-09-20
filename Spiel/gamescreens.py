@@ -1,13 +1,13 @@
 import datetime
 import json
 import random
+import sys
 
 import collision_detct
 import gamefunctions
 import pygame
 from pygame import mixer
 from pygame.locals import *
-import sys
 
 felder = []
 counter_felder = 0
