@@ -282,16 +282,16 @@ running = True
 backgroundindex = 0
 gamefunctions.end_timer(t1, " to load game")
 
-while running == True:
+while running is True:
     if sound == "on":
-        if play_music == True:
+        if play_music is True:
             mixer.music.unload()
             mixer.music.load(bachgroundmusic[backgroundindex])
             mixer.music.play(-1)
             play_music = False
 
     # for new games
-    if newgame == True:
+    if newgame is True:
         screen.fill(0)
         pygame.display.flip()
         player_xy.clear()
@@ -322,7 +322,7 @@ while running == True:
     if screenmode == "titlescreen" or sm == "titlescreen":
         screenmode, sm = "titlescreen", "titlescreen"
         if sound == "on":
-            if switch_music == True:
+            if switch_music is True:
                 backgroundindex = 0
                 switch_music = False
                 play_music = True
@@ -343,7 +343,7 @@ while running == True:
     # gamescreen
     if screenmode == "gamescreen" or sm == "gamescreen":
         screenmode, sm = "gamescreen", "gamescreen"
-        if switch_music == False:
+        if switch_music is False:
             backgroundindex = 1
             switch_music = True
             play_music = True
