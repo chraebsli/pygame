@@ -366,7 +366,7 @@ while running == True:
     if screenmode == "quitscreen" or sm == "quitscreen":
         print("Quit...")
         pygame.quit()
-        exit(0)
+        sys.exit(0)
 
     # timer seq
     if screenmode == "timer" or sm == "timer":

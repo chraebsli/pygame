@@ -7,6 +7,7 @@ import gamefunctions
 import pygame
 from pygame import mixer
 from pygame.locals import *
+import sys
 
 felder = []
 counter_felder = 0
@@ -78,7 +79,7 @@ def titlescreen(data, data_1):
         if event.type == pygame.QUIT:
             print("Quit game ...")
             pygame.quit()
-            exit(0)
+            sys.exit(0)
 
         # detect mousepos on categories
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -142,7 +143,7 @@ def skinscreen(data, data_3, data_2):
         if event.type == pygame.QUIT:  # stoppt Script
             print("Quit game ...")
             pygame.quit()
-            exit(0)
+            sys.exit(0)
 
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
@@ -264,7 +265,7 @@ def gamescreen(data, data_2, remo_list, random_number):
         if event.type == pygame.QUIT:
             print("Quit game ...")
             pygame.quit()
-            exit(0)
+            sys.exit(0)
 
         # detect for keyboard inputs
         elif event.type == pygame.KEYDOWN:
@@ -418,7 +419,7 @@ def loginscreen(data, number):
             if event.type == pygame.QUIT:
                 print("Quit game ...")
                 pygame.quit()
-                exit(0)
+                sys.exit(0)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
@@ -527,7 +528,7 @@ def highscorescreen(data):
         if event.type == pygame.QUIT:
             print("Quit game ...")
             pygame.quit()
-            exit(0)
+            sys.exit(0)
         if event.type == pygame.KEYDOWN:
             screenmode = "titlescreen"
             send_data = True
@@ -577,7 +578,7 @@ def howto(data, img, return_manuels, settings_manuels):
         if event.type == pygame.QUIT:
             print("Quit game ...")
             pygame.quit()
-            exit(0)
+            sys.exit(0)
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
@@ -612,7 +613,7 @@ def game_over(data):
         if event.type == pygame.QUIT:  # stoppt Script
             print("Quit game ...")
             pygame.quit()
-            exit(0)
+            sys.exit(0)
         if event.type == pygame.KEYDOWN:
             screenmode = "titlescreen"
             return screenmode
@@ -641,7 +642,7 @@ def win(data):
         if event.type == pygame.QUIT:
             print("Quit game ...")
             pygame.quit()
-            exit(0)
+            sys.exit(0)
         if event.type == pygame.KEYDOWN:
             screenmode = "titlescreen"
             return screenmode
@@ -724,7 +725,7 @@ def settings(data, return_manuels, random_number):
         if event.type == pygame.QUIT:
             print("Quit game ...")
             pygame.quit()
-            exit(0)
+            sys.exit(0)
 
         if event.type == pygame.KEYDOWN and done == False:
             screenmode = "titlescreen"
