@@ -301,7 +301,6 @@ def gamescreen(data,  data_2, remo_list, random_number):
                 keys[5] = False
 
             elif event.key ==  K_ESCAPE:
-                screenmode == 'titlescreen'
                 send_data = True
 
     if keys[0] or keys[1] or keys[2] or keys[3]:
