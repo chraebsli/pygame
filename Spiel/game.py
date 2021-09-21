@@ -1,5 +1,10 @@
 # import modules
-import os,  pygame,  random,  time,  gamescreens, gamefunctions
+import os
+import pygame
+import random
+import time
+import gamescreens
+import gamefunctions
 from pygame.locals import *
 from pygame import mixer
 import sys
