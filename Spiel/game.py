@@ -198,7 +198,6 @@ while running is True:
         data_2.update({'player_xy':player_xy}) 
         remo_list.clear()
     if screenmode ==  'loginscreen' or sm == 'loginscreen':
-        screenmode, sm ==  'loginscreen',  'loginscreen'
         sm = gamescreens.loginscreen(data, random_number)
 
     # game over screen
@@ -259,12 +258,10 @@ while running is True:
 
     #reloginscreen
     if screenmode ==  'reloginscreen' or sm == 'reloginscreen':
-        screenmode, sm ==  'reloginscreen',  'reloginscreen'
         sm = gamescreens.reloginscreen(data, random_number)
     
     #recoveryscreen
     if screenmode ==  'recoveryscreen' or sm == 'recoveryscreen':
-        screenmode, sm ==  'recoveryscreen',  'recoveryscreen'
         sm = gamescreens.recoveryscreen(data, random_number)
 
     # quit
