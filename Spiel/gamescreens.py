@@ -48,7 +48,7 @@ def titlescreen(data,  data_1):
     screen.blit(leaderboard_button,  (buttons_titlescreen_xy[0], buttons_titlescreen_xy[1]))
     screen.blit(text_surface, (50, 20))
     
-    if field_blit ==  True:
+    if field_blit is True:
         if sounds ==  'on':
             sounds = 'off'
         elif sounds ==  'off':
@@ -103,7 +103,7 @@ def titlescreen(data,  data_1):
                 send_data = True
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #Screenwechsel
-    if send_data == True:
+    if send_data is True:
         return screenmode
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -144,13 +144,13 @@ def skinscreen(data,  data_3, data_2, return_banner):
         l = [112, 485, 870, 1230]
         screen.blit(skins_skinscreen[c],  (l[c], 375))
         c+= 1
-    if lock_skin1 ==  True:
+    if lock_skin1 is True:
         screen.blit(locks[0], (98, 320))
-    if lock_skin2 ==  True:
+    if lock_skin2 is True:
         screen.blit(locks[1], (483, 320))
-    if lock_skin3 ==  True:
+    if lock_skin3 is True:
         screen.blit(locks[2], (858, 320))
-    if lock_skin4 ==  True:
+    if lock_skin4 is True:
         screen.blit(locks[3], (1225, 320))
     #---------------------------------------------------------------------------------------------------------------------------------------------------
     #Controlls
@@ -169,25 +169,25 @@ def skinscreen(data,  data_3, data_2, return_banner):
         # load skins
         elif event.type ==  pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
-            if x > 112 and y > 375 and x < 392 and y < 655 and lock_skin1 ==  False:
+            if x > 112 and y > 375 and x < 392 and y < 655 and lock_skin1 is False:
                 click.play()
                 print('Skin 1 picked')
                 player = skins[0]
                 screenmode = 'titlescreen'
                 send_data = True
-            if x > 485 and y > 375 and x < 765 and y < 655 and lock_skin2 ==  False:
+            if x > 485 and y > 375 and x < 765 and y < 655 and lock_skin2 is False:
                 click.play()
                 print('Skin 2 picked')
                 player = skins[1]
                 screenmode = 'titlescreen'
                 send_data = True           
-            if x > 870 and y > 375 and x < 1150 and y < 655 and lock_skin3 ==  False:
+            if x > 870 and y > 375 and x < 1150 and y < 655 and lock_skin3 is False:
                 click.play()
                 print('Skin 3 picked')
                 player = skins[2]
                 screenmode = 'titlescreen'
                 send_data = True
-            if x > 1230 and y > 375 and x < 1510 and y < 655 and lock_skin4 ==  False:
+            if x > 1230 and y > 375 and x < 1510 and y < 655 and lock_skin4 is False:
                 click.play()
                 print('Skin 4 picked')
                 player = skins[3]
@@ -199,7 +199,7 @@ def skinscreen(data,  data_3, data_2, return_banner):
                     send_data = True
     #-----------------------------------------------------------------------------------------------------------------------------------------------------
     #Screenwechsel
-    if send_data == True:
+    if send_data is True:
         return screenmode
     #------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -365,9 +365,9 @@ def gamescreen(data,  data_2, remo_list, random_number):
             gamefunctions.scores(points, playername, played_time, path)
         send_data = True
     
-    if screenmode == 'titlescreen' or newgame == True or screenmode ==  'game_over.True':
+    if screenmode == 'titlescreen' or newgame is True or screenmode ==  'game_over.True':
         send_data = True
-    if send_data == True:
+    if send_data is True:
         if player_xy ==  end_xy:
             screenmode = 'win.True'
             if sounds ==  'on':
@@ -487,7 +487,7 @@ def loginscreen(data, number):
                         if active_2:
                             passwort = passwort[:-1]
                     elif event.key ==  pygame.K_ESCAPE:
-                        if show_password ==  False:
+                        if show_password is False:
                             show_password = True
                         else:
                             show_password = False
@@ -505,7 +505,7 @@ def loginscreen(data, number):
         cover_password = ''
         for x in range(len(passwort)):
             cover_password +=  '#'
-        if show_password ==  False:
+        if show_password is False:
             passwort_surface = base_font.render(f'Pass: {cover_password}', True, (255, 255, 255))
         else:
             passwort_surface = base_font.render(f'Pass: {passwort}', True, (255, 255, 255))
@@ -523,7 +523,7 @@ def loginscreen(data, number):
         for img in blit_list:
             screen.blit(img, list2[c])
             c+= 1
-        if field_blit ==  True:
+        if field_blit is True:
             if sounds ==  'on':
                 sounds = 'off'
             elif sounds ==  'off':
@@ -544,7 +544,7 @@ def loginscreen(data, number):
 
         pygame.display.flip()
         clock.tick(30)
-        if send_data == True:
+        if send_data is True:
             return screenmode
 
 
@@ -794,21 +794,21 @@ def settings(data, return_manuels, random_number):
                     pygame.quit() 
                     exit(0) 
 
-                if event.type ==  pygame.KEYDOWN and done ==  False:
+                if event.type ==  pygame.KEYDOWN and done is False:
                         screenmode = 'titlescreen'
                         global final_index_p
                         final_index_p = index_path
                         global final_index_w
                         final_index_w = index_wall
                         if event.key ==  pygame.K_RETURN:
-                            if changing_wall ==  True and active_wall ==  True:
+                            if changing_wall is True and active_wall is True:
                                 try:
                                     if pygame.Color(custom_color) ==  pygame.Color(custom_color):
                                         done = True
                                 except ValueError:
                                     invalid = True
                                     custom_color = ''
-                            if changing_path ==  True and active_path ==  True:
+                            if changing_path is True and active_path is True:
                                 try:
                                     if pygame.Color(custom_color_path) ==  pygame.Color(custom_color_path):
                                         done_two = True
@@ -816,15 +816,15 @@ def settings(data, return_manuels, random_number):
                                     invalid = True
                                     custom_color_path = ''
                         elif event.key ==  pygame.K_BACKSPACE:
-                                if changing_wall ==  True and active_wall ==  True:
+                                if changing_wall is True and active_wall is True:
                                     custom_color = custom_color[:-1]
-                                if changing_path ==  True and active_path ==  True:
+                                if changing_path is True and active_path is True:
                                     custom_color_path = custom_color_path[:-1]
                         else:
-                            if changing_wall ==  True and active_wall ==  True:
+                            if changing_wall is True and active_wall is True:
                                 if len(custom_color) < 30:
                                     custom_color = custom_color + event.unicode
-                            if changing_path ==  True and active_path ==  True:
+                            if changing_path is True and active_path is True:
                                 if len(custom_color_path) < 30:
                                     custom_color_path = custom_color_path + event.unicode
             
@@ -849,12 +849,12 @@ def settings(data, return_manuels, random_number):
                         screenmode = 'howto'
                         return screenmode
                     if switch_wall.collidepoint(event.pos):
-                        if active_wall ==  False:
+                        if active_wall is False:
                             active_wall = True
                         else:
                             active_wall = False
                     if switch_path.collidepoint(event.pos):
-                        if active_path ==  False:
+                        if active_path is False:
                             active_path = True
                         else:
                             active_path = False
@@ -898,7 +898,7 @@ def settings(data, return_manuels, random_number):
         wall_changing = True
     if settings_change_wall[index_wall] ==  'CUSTOM':
         appear_wall_box = True
-        if done ==  True:
+        if done is True:
             color = pygame.Color(custom_color)
     #Wählt Farbe vom Spielerpfad aus
     global color_one
@@ -923,7 +923,7 @@ def settings(data, return_manuels, random_number):
         wall_changing = True
     if settings_change_wall[index_path] ==  'CUSTOM':
         appear_path_box = True
-        if done_two ==  True:
+        if done_two is True:
             color_one = pygame.Color(custom_color_path)   
 
     second_font = font[2]
@@ -981,17 +981,17 @@ def settings(data, return_manuels, random_number):
     pygame.draw.rect(screen, (0, 0, 0), (925, 900, 325, 50))
     
     #Path: Ein Switch,  mit welchen man das Schreiben in der Input Box ein oder ausschalten kann
-    if active_path ==  False and appear_path_box ==  False or active_path ==  True and appear_path_box ==  False:
+    if active_path is False and appear_path_box is False or active_path is True and appear_path_box is False:
         pygame.draw.rect(screen, (0, 0, 0), switch_path)
-    elif active_path ==  False and appear_path_box ==  True:
+    elif active_path is False and appear_path_box is True:
         pygame.draw.rect(screen, red, switch_path)
     else:
         pygame.draw.rect(screen, green, switch_path)
 
     #Path: Ein Switch,  mit welchen man das Schreiben in der Input Box ein oder ausschalten kann
-    if active_wall ==  False and appear_wall_box ==  False or active_wall ==  True and appear_wall_box ==  False:
+    if active_wall is False and appear_wall_box is False or active_wall is True and appear_wall_box is False:
         pygame.draw.rect(screen, (0, 0, 0), switch_wall)
-    elif active_wall ==  False and appear_wall_box ==  True:
+    elif active_wall is False and appear_wall_box is True:
         pygame.draw.rect(screen, red, switch_wall)
     else:
         pygame.draw.rect(screen, green, switch_wall)
@@ -1127,7 +1127,7 @@ def registration(data, number):
         screen.blit(return_surface, (100, 900))
         pygame.display.flip()
         clock.tick(30)
-        if send_data == True:
+        if send_data is True:
             return screenmode
 
     
@@ -1242,7 +1242,7 @@ def reloginscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
                         if active_2:
                             new_passwort = new_passwort[:-1]
                     elif event.key ==  pygame.K_ESCAPE:
-                        if show_password ==  False:
+                        if show_password is False:
                             show_password = True
                         else:
                             show_password = False
@@ -1260,7 +1260,7 @@ def reloginscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
         cover_password = ''
         for x in range(len(new_passwort)):
             cover_password +=  '#'
-        if show_password ==  False:
+        if show_password is False:
             passwort_surface = base_font.render(f'Pass: {cover_password}', True, (255, 255, 255))
         else:
             passwort_surface = base_font.render(f'Pass: {new_passwort}', True, (255, 255, 255))
@@ -1289,7 +1289,7 @@ def reloginscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
 
         pygame.display.flip()
         clock.tick(30)
-        if send_data == True:
+        if send_data is True:
             return screenmode
 
 
@@ -1398,7 +1398,7 @@ def recoveryscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersc
                         if active_2:
                             new_passwort = new_passwort[:-1]
                     elif event.key ==  pygame.K_ESCAPE:
-                        if show_password ==  False:
+                        if show_password is False:
                             show_password = True
                         else:
                             show_password = False
@@ -1416,7 +1416,7 @@ def recoveryscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersc
         cover_password = ''
         for x in range(len(new_passwort)):
             cover_password +=  '#'
-        if show_password ==  False:
+        if show_password is False:
             passwort_surface = base_font.render(f'New: {cover_password}', True, (255, 255, 255))
         else:
             passwort_surface = base_font.render(f'New: {new_passwort}', True, (255, 255, 255))
@@ -1445,5 +1445,5 @@ def recoveryscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersc
 
         pygame.display.flip()
         clock.tick(30)
-        if send_data == True:
+        if send_data is True:
             return screenmode

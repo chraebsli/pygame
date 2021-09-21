@@ -45,7 +45,7 @@ def move(screen, player_coords, statement):
     pygame.Rect(player_coords[0], player_coords[1], 44, 44)
     x = 0
     y = 0
-    if statement ==  False: #Dieser Block erstellt eine Liste mit den Koordinaten von jedem Block
+    if statement is False: #Dieser Block erstellt eine Liste mit den Koordinaten von jedem Block
         list_coords = []
         while x !=  34 and y !=  21:
             buttons = pygame.Rect(0+((50-1)*x+7), 0+((50-1)*y+7), 44, 44)
@@ -56,7 +56,7 @@ def move(screen, player_coords, statement):
                 y+= 1
                 x = 0
         return list_coords
-    if statement ==  True:   #Dieser Block zeichnet die Felder
+    if statement is True:   #Dieser Block zeichnet die Felder
         while x !=  34 and y !=  21:
             buttons = pygame.Rect(0+((50-1)*x+7), 0+((50-1)*y+7), 44, 44)
             places = pygame.draw.rect(screen, black, buttons)
@@ -70,7 +70,7 @@ def move(screen, player_coords, statement):
 def collideplayer(player, list_coords, remo_list, statement):
     player_rect = pygame.Rect(player[0], player[1], 44, 44)
     pygame.Rect(player[0], player[1], 44, 44)
-    if statement ==  True: # Dieser Block schaut ob der Spieler das Feld schon besucht hat
+    if statement is True: # Dieser Block schaut ob der Spieler das Feld schon besucht hat
         for blocks in list_coords:
             if player_rect.colliderect(blocks):
                 x = blocks
@@ -79,7 +79,7 @@ def collideplayer(player, list_coords, remo_list, statement):
                 print('lost')
                 remo_list = str(remo_list)+'.True'
         return remo_list
-    elif statement ==  False: # Dieser Block fügt die Koordinaten vom Spieler in die Remove Liste
+    elif statement is False: # Dieser Block fügt die Koordinaten vom Spieler in die Remove Liste
         for blocks in list_coords:
             if player_rect.colliderect(blocks):
                 x = blocks
@@ -108,7 +108,7 @@ def drawing(screen, walls,  index_wall, color, exception):
     x = random.randint(0, 2)
     colors = [red, blue, green]
     settings_change_wall = ['RAINBOW', 'RANDOM', 'RED', 'BLUE', 'GREEN', 'CUSTOM']
-    if settings_change_wall[index_wall] ==  'RAINBOW' or exception ==  True:
+    if settings_change_wall[index_wall] ==  'RAINBOW' or exception is True:
         real_color_wall = colors[x]
     #Wechsel zwischen Farben
     settings_change_wall = ['RAINBOW', 'RANDOM', 'RED', 'BLUE', 'GREEN', 'CUSTOM']
@@ -129,7 +129,7 @@ def playerpath(remo_list, screen, player, color_one, index_path, exceeption):
     x = random.randint(0, 2)
     colors = [red, blue, green]
     settings_change_path = ['RAINBOW', 'RANDOM', 'RED', 'BLUE', 'GREEN', 'CUSTOM']
-    if settings_change_path[index_path] ==  'RAINBOW' or exceeption ==  True:
+    if settings_change_path[index_path] ==  'RAINBOW' or exceeption is True:
         real_color_path = colors[x]
         
     pygame.Rect(player[0], player[1], 44, 44)
