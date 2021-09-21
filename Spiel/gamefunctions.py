@@ -1,4 +1,7 @@
-import pygame, datetime, collision_detct, sqlite3
+import pygame
+import datetime
+import collision_detct
+import sqlite3
 
 randskin = 1
 randcoin = 1

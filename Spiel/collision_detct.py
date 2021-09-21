@@ -1,4 +1,5 @@
-import pygame, random
+import pygame
+import random
 
 #Erkennt ob man eine Wand mit dem Spieler berührt
 def wall_collision(walls, player):

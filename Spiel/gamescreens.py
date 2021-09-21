@@ -1,4 +1,9 @@
-import pygame, collision_detct, gamefunctions, datetime, random, sqlite3
+import pygame
+import collision_detct
+import gamefunctions
+import datetime
+import random
+import sqlite3
 from pygame.locals import *
 from pygame import mixer
 import sys
