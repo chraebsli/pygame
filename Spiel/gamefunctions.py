@@ -151,7 +151,7 @@ def check_account_exsistance(playername, password, path):
 def register_account(playername, password, path, statement):
     verbindung = sqlite3.connect(path + '/.coinchaser')
     zeiger = verbindung.cursor()
-    if statement ==  True: # Dieser Block überprüft,  ob es den Benutzernamen schon gibt.
+    if statement is True: # Dieser Block überprüft,  ob es den Benutzernamen schon gibt.
         zeiger.execute("SELECT benutzername FROM daten")
         inhalt = zeiger.fetchall()
         change_format = (playername, )
@@ -159,7 +159,7 @@ def register_account(playername, password, path, statement):
             return 'benutzername vergeben' 
         else:
              return 'ok'
-    if statement ==  False: #Dieser Block schreibt die Daten in die Datenbank
+    if statement is False: #Dieser Block schreibt die Daten in die Datenbank
         combine = (playername, password, 0)
         zeiger.execute("INSERT INTO daten VALUES (?, ?, ?)", combine)
         verbindung.commit()
