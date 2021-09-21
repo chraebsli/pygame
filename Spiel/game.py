@@ -2,6 +2,7 @@
 import os,  pygame,  random,  time,  gamescreens, gamefunctions
 from pygame.locals import *
 from pygame import mixer
+import sys
 
 t1 = gamefunctions.start_timer()
 remo_list = []
@@ -270,7 +271,7 @@ while running is True:
     if screenmode == 'quitscreen'or sm == 'quitscreen':
         print('Quit...')
         pygame.quit() 
-        exit(0) 
+        sys.exit(0) 
     
     # timer seq
     if screenmode ==  'timer' or sm ==  'timer':
