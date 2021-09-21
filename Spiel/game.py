@@ -178,12 +178,11 @@ backgroundindex = 0
 gamefunctions.end_timer(t1, ' to load game')
 
 while running is True:
-    if sound ==  'on':
-        if play_music is True:
-            mixer.music.unload()
-            mixer.music.load(bachgroundmusic[backgroundindex])
-            mixer.music.play(-1)
-            play_music = False
+    if sound ==  'on' and play_music is True:
+        mixer.music.unload()
+        mixer.music.load(bachgroundmusic[backgroundindex])
+        mixer.music.play(-1)
+        play_music = False
 
     # for new games
     if newgame is True:

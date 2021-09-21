@@ -74,10 +74,9 @@ def collideplayer(player, list_coords, remo_list, statement):
         for blocks in list_coords:
             if player_rect.colliderect(blocks):
                 x = blocks
-        if x in list_coords:
-            if x in remo_list:
-                print('lost')
-                remo_list = str(remo_list)+'.True'
+        if x in list_coords and x in remo_list:
+            print('lost')
+            remo_list = str(remo_list)+'.True'
         return remo_list
     if statement is False: # Dieser Block fügt die Koordinaten vom Spieler in die Remove Liste
         for blocks in list_coords:
@@ -91,10 +90,9 @@ def collideplayer(player, list_coords, remo_list, statement):
         for blocks in list_coords:
             if player_rect.colliderect(blocks):
                 x = blocks
-        if x in list_coords:
-            if x in remo_list:
-                print('lost')
-                s = 'game_over.True'#remo_list = str(remo_list)+'.True'
+        if x in list_coords and x in remo_list:
+            print('lost')
+            s = 'game_over.True'#remo_list = str(remo_list)+'.True'
         return s
 
 # zeichnet wände
