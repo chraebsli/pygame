@@ -25,16 +25,16 @@ coin_coords_x, coin_coords_y, coin_coords_xy = [], [], []
 for x in range(12): 
     x = random.randrange(1, 34)*49+6
     wall_coords_x.append(x)
-for y in range(12):
+for y in range(12): 
     y = random.randrange(2, 15)*49+6
     wall_coords_y.append(y)
 wall_coords_xy = [list(k) for k in zip(wall_coords_x,  wall_coords_y)]
 
 # generate random coords for coins
-for x1 in range(10):
+for x1 in range(10): 
     x1 = random.randrange(1, 34)*49+7
     coin_coords_x.append(x1)
-for y1 in range(10):
+for y1 in range(10): 
     y1 = random.randrange(1, 21)*49+7
     coin_coords_y.append(y1)
 coin_coords_xy = [list(w) for w in zip(coin_coords_x,  coin_coords_y)]
@@ -76,16 +76,16 @@ block_coords = []
 c1 = [48, 48, 48, 193, 241, 291, 48, 48, 48, 193, 241, 291]
 c2 = [192, 242, 291, 48, 48, 48, 192, 242, 291, 48, 48, 48]
 c, walls_rect = 0, []
-for j, k in zip(c1, c2):
+for j, k in zip(c1, c2): 
     e = [wall_coords_x[c],  wall_coords_y[c],  j,  k]
     walls_rect.append(e)
-    c +=  1
+    c += 1
 
 c, coins_rect = 0, []
-for i in range(10):
+for i in range(10): 
     e = pygame.Rect(coin_coords_x[c],  coin_coords_y[c],  44,  44)
     coins_rect.append(e)
-    c +=  1
+    c += 1
 
 
 # images
@@ -95,10 +95,10 @@ background_skinscreen = pygame.image.load(path+"images/skinsscreen/background.pn
 start = pygame.image.load(path+"images/gamescreen/start.png")
 player = pygame.image.load(path+"images/gamescreen/player.png")
 play_button = pygame.image.load(path+"images/titlescreen/button_play.png")
-skin_button =  pygame.image.load(path+"images/titlescreen/button_skins.png")
-quit_button =  pygame.image.load(path+"images/titlescreen/button_quit.png")
-leaderboard_button =  pygame.image.load(path+"images/titlescreen/button_leaderboard.png")
-howto_button =  pygame.image.load(path+"images/titlescreen/button_howto.png")
+skin_button = pygame.image.load(path+"images/titlescreen/button_skins.png")
+quit_button = pygame.image.load(path+"images/titlescreen/button_quit.png")
+leaderboard_button = pygame.image.load(path+"images/titlescreen/button_leaderboard.png")
+howto_button = pygame.image.load(path+"images/titlescreen/button_howto.png")
 block = pygame.image.load(path + "images/gamescreen/block.png")
 skin1_skinscreen = pygame.image.load(path + "images/skinsscreen/skin1.png")
 skin2_skinscreen = pygame.image.load(path + "images/skinsscreen/skin2.png")
@@ -150,8 +150,8 @@ o230 = pygame.font.Font(path + 'fonts/orbitron.ttf', 130)
 fonts = [o65, o80, o90, o110, o150, o160, o180, o230]
 
 # audio
-normal_background = path+"audio/background/music.mp3" #AdhesiveWombat - Night Shade
-game_background = path+"audio/background/new_music.mp3" #Eric Skiff - Unclocked
+normal_background = path+"audio/background/music.mp3" # AdhesiveWombat - Night Shade
+game_background = path+"audio/background/new_music.mp3" # Eric Skiff - Unclocked
 bachgroundmusic = [normal_background, game_background]
 
 screen = pygame.display.set_mode((display_xy))
@@ -159,22 +159,22 @@ print('please select the game window,  the game started')
 
 # datapacks for parameter
 # data: universell,  data_1: titlescreen,  data_2: gamescreen, data_3: skinscreen
-data = {'path':path, 'display_xy':display_xy, 'background_xy':background_xy, 'keys':keys, 'main_path':main_path, 'newgame':newgame, 
-'screen':screen,  'gamescreens':gamescreens, 'screenmode':screenmode,  'skins':skins, 'start1':start1, 'rand_unten':rand_unten, 
-'rand_oben':rand_oben, 'rand_links':rand_links, 'rand_rechts':rand_rechts, 'corners':corners, 'logo':logo, 'playername':playername, 
-'game_over':game_over, 'win':win, 'settings_background':settings_background, 'settings_demo':settings_demo, 
-'settings_demo_vertical':settings_demo_vertical, 'settings_demo_horizontal':settings_demo_horizontal, 'sign_up':sign_up_banner, 'fonts':fonts}
-data_1 = {'background_titlescreen':background_titlescreen, 
-'play_button':play_button, 'buttons_titlescreen_xy':buttons_titlescreen_xy, 'leaderboard_button':leaderboard_button, 
-'play_button_rect':play_button_rect, 'quit_button':quit_button, 'skin_button':skin_button, 
-'skin_button_rect':skin_button_rect, 'quit_button_rect':quit_button_rect, 'button_highscore':button_highscore, 
-'leaderboard_button_rect':leaderboard_button_rect, 'howto_button_rect':howto_button_rect, 'howto_button':howto_button}
-data_2 = {'background_game':background_game, 'start':start, 
-'player': player, 'start_xy':start_xy, 'end_xy': end_xy, 'player_xy': player_xy, 
-'display_xy':display_xy, 'end2': 0, 'walls':walls, 'block_xy': block_xy, 'block':block, 'coin2':0, 
-'block_coords':block_coords, 'wall_coords_xy':wall_coords_xy, 'walls_rect':walls_rect, 'coin_coords':coin_coords_xy, 'coins_rect':coins_rect}
-data_3 = {'background_skinscreen':background_skinscreen, 'skins_skinscreen':skins_skinscreen, 'locks':locks, 
-'message_skin_one':message_skin_one}
+data = {'path': path, 'display_xy': display_xy, 'background_xy': background_xy, 'keys': keys, 'main_path': main_path, 'newgame': newgame, 
+'screen': screen,  'gamescreens': gamescreens, 'screenmode': screenmode,  'skins': skins, 'start1': start1, 'rand_unten': rand_unten, 
+'rand_oben': rand_oben, 'rand_links': rand_links, 'rand_rechts': rand_rechts, 'corners': corners, 'logo': logo, 'playername': playername, 
+'game_over': game_over, 'win': win, 'settings_background': settings_background, 'settings_demo': settings_demo, 
+'settings_demo_vertical': settings_demo_vertical, 'settings_demo_horizontal': settings_demo_horizontal, 'sign_up': sign_up_banner, 'fonts': fonts}
+data_1 = {'background_titlescreen': background_titlescreen, 
+'play_button': play_button, 'buttons_titlescreen_xy': buttons_titlescreen_xy, 'leaderboard_button': leaderboard_button, 
+'play_button_rect': play_button_rect, 'quit_button': quit_button, 'skin_button': skin_button, 
+'skin_button_rect': skin_button_rect, 'quit_button_rect': quit_button_rect, 'button_highscore': button_highscore, 
+'leaderboard_button_rect': leaderboard_button_rect, 'howto_button_rect': howto_button_rect, 'howto_button': howto_button}
+data_2 = {'background_game': background_game, 'start': start, 
+'player': player, 'start_xy': start_xy, 'end_xy': end_xy, 'player_xy': player_xy, 
+'display_xy': display_xy, 'end2': 0, 'walls': walls, 'block_xy': block_xy, 'block': block, 'coin2': 0, 
+'block_coords': block_coords, 'wall_coords_xy': wall_coords_xy, 'walls_rect': walls_rect, 'coin_coords': coin_coords_xy, 'coins_rect': coins_rect}
+data_3 = {'background_skinscreen': background_skinscreen, 'skins_skinscreen': skins_skinscreen, 'locks': locks, 
+'message_skin_one': message_skin_one}
 
 screen.fill(0) 
 # game
@@ -182,45 +182,45 @@ running = True
 backgroundindex = 0
 gamefunctions.end_timer(t1, ' to load game')
 
-while running is True:
-    if sound ==  'on' and play_music is True:
+while running is True: 
+    if sound == 'on' and play_music is True: 
         mixer.music.unload()
         mixer.music.load(bachgroundmusic[backgroundindex])
         mixer.music.play(-1)
         play_music = False
 
     # for new games
-    if newgame is True:
+    if newgame is True: 
         screen.fill(0) 
         pygame.display.flip()
         player_xy.clear()
         player_xy = start_xy.copy()
         keys = [False,  False,  False,  False, True, False]
         newgame = False
-        data.update({'newgame':newgame})
-        data.update({'keys':keys})
-        data_2.update({'player_xy':player_xy}) 
+        data.update({'newgame': newgame})
+        data.update({'keys': keys})
+        data_2.update({'player_xy': player_xy}) 
         remo_list.clear()
-    if screenmode ==  'loginscreen' or sm == 'loginscreen':
+    if screenmode == 'loginscreen' or sm == 'loginscreen': 
         sm = gamescreens.loginscreen(data, random_number)
 
     # game over screen
-    if screenmode == 'game_over'or sm == 'game_over':
+    if screenmode == 'game_over'or sm == 'game_over': 
         mixer.music.unload()
         screenmode, sm = 'game_over', 'game_over'
         sm = gamescreens.game_over(data = data)
 
     # win
-    if screenmode == 'win'or sm == 'win':
+    if screenmode == 'win'or sm == 'win': 
         mixer.music.unload()
         screenmode, sm = 'win', 'win'
         sm  = gamescreens.win(data)    
 
     # titlescreen
-    if screenmode == 'titlescreen'or sm == 'titlescreen':
+    if screenmode == 'titlescreen'or sm == 'titlescreen': 
         screenmode, sm = 'titlescreen', 'titlescreen'
-        if sound ==  'on':
-            if switch_music is True:
+        if sound == 'on': 
+            if switch_music is True: 
                 backgroundindex = 0
                 switch_music = False
                 play_music = True
@@ -228,58 +228,58 @@ while running is True:
         sm = gamescreens.titlescreen(data, data_1)
 
     # highscores
-    if screenmode ==  'highscore' or sm ==  'highscore':
+    if screenmode == 'highscore' or sm == 'highscore': 
         screenmode, sm = 'highscore', 'highscore'
         sm = gamescreens.highscorescreen(data)
 
     # howto
-    if screenmode == 'howto' or sm ==  'howto':
+    if screenmode == 'howto' or sm == 'howto': 
         screenmode, sm = 'howto', 'howto'
         sm = gamescreens.howto(data, return_manuels, settings_manuels)
     
     # gamescreen   
-    if screenmode == 'gamescreen' or sm == 'gamescreen':
+    if screenmode == 'gamescreen' or sm == 'gamescreen': 
         screenmode, sm = 'gamescreen', 'gamescreen'
-        if switch_music is False:
+        if switch_music is False: 
             backgroundindex = 1
             switch_music = True
             play_music = True
         sm = gamescreens.gamescreen(data = data, data_2 = data_2, remo_list = remo_list, random_number = random_number)
-        try:
+        try: 
             sm = str(sm).split('.')
             newgame, sm = bool(sm[1]), sm[0]
-        except IndexError:
+        except IndexError: 
             pass
 
     # skinscreen
-    if screenmode == 'skinscreen'or sm == 'skinscreen':
+    if screenmode == 'skinscreen'or sm == 'skinscreen': 
         screenmode, sm = 'skinscreen', 'skinscreen'
         sm = gamescreens.skinscreen(data = data, data_3 = data_3, data_2 = data_2, return_banner = return_manuels)
 
-    if screenmode ==  'registration' or sm == 'registration':
+    if screenmode == 'registration' or sm == 'registration': 
         screenmode, sm = 'registration', 'registration'
         sm = gamescreens.registration(data, random_number)
 
-    #reloginscreen
-    if screenmode ==  'reloginscreen' or sm == 'reloginscreen':
+    # reloginscreen
+    if screenmode == 'reloginscreen' or sm == 'reloginscreen': 
         sm = gamescreens.reloginscreen(data, random_number)
     
-    #recoveryscreen
-    if screenmode ==  'recoveryscreen' or sm == 'recoveryscreen':
+    # recoveryscreen
+    if screenmode == 'recoveryscreen' or sm == 'recoveryscreen': 
         sm = gamescreens.recoveryscreen(data, random_number)
 
     # quit
-    if screenmode == 'quitscreen'or sm == 'quitscreen':
+    if screenmode == 'quitscreen'or sm == 'quitscreen': 
         print('Quit...')
         pygame.quit() 
         sys.exit(0) 
     
     # timer seq
-    if screenmode ==  'timer' or sm ==  'timer':
+    if screenmode == 'timer' or sm == 'timer': 
         sm  = gamescreens.timer(data, timer, random_number)
         screenmode, sm = 'gamescreen', 'gamescreen'
     
-    if screenmode ==  'settings' or sm ==  'settings':
+    if screenmode == 'settings' or sm == 'settings': 
         screenmode, sm = 'settings', 'settings'
         sm = gamescreens.settings(data, return_manuels, random_number)
     
