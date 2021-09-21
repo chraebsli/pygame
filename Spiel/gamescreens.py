@@ -487,10 +487,7 @@ def loginscreen(data, number):
                         if active_2:
                             passwort = passwort[:-1]
                     elif event.key ==  pygame.K_ESCAPE:
-                        if show_password ==  False:
-                            show_password = True
-                        else:
-                            show_password = False
+                        show_password = show_password ==  False
                     else:
                         if active:
                             if len(playername) < 12:
@@ -771,14 +768,8 @@ def settings(data, return_manuels, random_number):
     #Wechsel zwischen Farben
     settings_change_wall = ['RAINBOW', 'RANDOM', 'RED', 'BLUE', 'GREEN', 'CUSTOM']
     settings_change_path = ['RAINBOW', 'RANDOM', 'RED', 'BLUE', 'GREEN', 'CUSTOM']
-    if settings_change_wall[index_wall] ==  'CUSTOM':
-        changing_wall = True
-    else:
-        changing_wall = False
-    if settings_change_path[index_path] ==  'CUSTOM':
-        changing_path = True
-    else:
-        changing_path = False
+    changing_wall = settings_change_wall[index_wall] ==  'CUSTOM'
+    changing_path = settings_change_path[index_path] ==  'CUSTOM'
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     input_box = pygame.Rect(890,  780, 350,  90)
@@ -849,15 +840,9 @@ def settings(data, return_manuels, random_number):
                         screenmode = 'howto'
                         return screenmode
                     if switch_wall.collidepoint(event.pos):
-                        if active_wall ==  False:
-                            active_wall = True
-                        else:
-                            active_wall = False
+                        active_wall = active_wall ==  False
                     if switch_path.collidepoint(event.pos):
-                        if active_path ==  False:
-                            active_path = True
-                        else:
-                            active_path = False
+                        active_path = active_path ==  False
     
     screen = data['screen']
     screen.blit(background, (0, 0))
@@ -1242,10 +1227,7 @@ def reloginscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
                         if active_2:
                             new_passwort = new_passwort[:-1]
                     elif event.key ==  pygame.K_ESCAPE:
-                        if show_password ==  False:
-                            show_password = True
-                        else:
-                            show_password = False
+                        show_password = show_password ==  False
                     else:
                         if active:
                             if len(new_playername) < 12:
@@ -1398,10 +1380,7 @@ def recoveryscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersc
                         if active_2:
                             new_passwort = new_passwort[:-1]
                     elif event.key ==  pygame.K_ESCAPE:
-                        if show_password ==  False:
-                            show_password = True
-                        else:
-                            show_password = False
+                        show_password = show_password ==  False
                     else:
                         if active:
                             if len(new_playername) < 12:
