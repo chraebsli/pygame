@@ -489,12 +489,10 @@ def loginscreen(data, number):
                     elif event.key ==  pygame.K_ESCAPE:
                         show_password = show_password is False
                     else:
-                        if active:
-                            if len(playername) < 12:
-                                playername = playername + event.unicode
-                        if active_2:
-                            if len(passwort) < 12:
-                                passwort = passwort + event.unicode
+                        if active and len(playername) < 12:
+                            playername = playername + event.unicode
+                        if active_2 and len(passwort) < 12:
+                            passwort = passwort + event.unicode
                     
 
         screen.fill(colors[number])
@@ -812,12 +810,18 @@ def settings(data, return_manuels, random_number):
                                 if changing_path is True and active_path is True:
                                     custom_color_path = custom_color_path[:-1]
                         else:
-                            if changing_wall is True and active_wall is True:
-                                if len(custom_color) < 30:
-                                    custom_color = custom_color + event.unicode
-                            if changing_path is True and active_path is True:
-                                if len(custom_color_path) < 30:
-                                    custom_color_path = custom_color_path + event.unicode
+                            if (
+                    changing_wall is True
+                    and active_wall is True
+                    and len(custom_color) < 30
+                ):
+                                custom_color = custom_color + event.unicode
+                            if (
+                    changing_path is True
+                    and active_path is True
+                    and len(custom_color_path) < 30
+                ):
+                                custom_color_path = custom_color_path + event.unicode
             
                 if event.type ==  pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
@@ -1082,12 +1086,10 @@ def registration(data, number):
                         screenmode = 'loginscreen'
                         return screenmode
                     else:
-                        if active:
-                            if len(playername) < 12:
-                                playername = playername + event.unicode
-                        if active_2:
-                            if len(passwort) < 12:
-                                passwort = passwort + event.unicode
+                        if active and len(playername) < 12:
+                            playername = playername + event.unicode
+                        if active_2 and len(passwort) < 12:
+                            passwort = passwort + event.unicode
 
         screen.fill(colors[number])
         text_surface = base_font.render(f'Name: {playername}', True, (255, 255, 255))
@@ -1229,12 +1231,10 @@ def reloginscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersch
                     elif event.key ==  pygame.K_ESCAPE:
                         show_password = show_password is False
                     else:
-                        if active:
-                            if len(new_playername) < 12:
-                                new_playername = new_playername + event.unicode
-                        if active_2:
-                            if len(new_passwort) < 12:
-                                new_passwort = new_passwort + event.unicode
+                        if active and len(new_playername) < 12:
+                            new_playername = new_playername + event.unicode
+                        if active_2 and len(new_passwort) < 12:
+                            new_passwort = new_passwort + event.unicode
                     
 
         screen.fill(colors[number])
@@ -1382,12 +1382,10 @@ def recoveryscreen(data, number): #fast eine 1:1 Kopie vom Loginscreen / Untersc
                     elif event.key ==  pygame.K_ESCAPE:
                         show_password = show_password is False
                     else:
-                        if active:
-                            if len(new_playername) < 12:
-                                new_playername = new_playername + event.unicode
-                        if active_2:
-                            if len(new_passwort) < 12:
-                                new_passwort = new_passwort + event.unicode
+                        if active and len(new_playername) < 12:
+                            new_playername = new_playername + event.unicode
+                        if active_2 and len(new_passwort) < 12:
+                            new_passwort = new_passwort + event.unicode
                     
 
         screen.fill(colors[number])
