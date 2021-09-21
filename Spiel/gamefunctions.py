@@ -157,8 +157,7 @@ def register_account(playername, password, path, statement):
         change_format = (playername, )
         if change_format in inhalt:
             return 'benutzername vergeben' 
-        else:
-             return 'ok'
+        return 'ok'
     if statement is False: #Dieser Block schreibt die Daten in die Datenbank
         combine = (playername, password, 0)
         zeiger.execute("INSERT INTO daten VALUES (?, ?, ?)", combine)
