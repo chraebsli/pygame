@@ -130,7 +130,7 @@ def playerpath(remo_list, screen, player, color_one, index_path, exceeption):
     x = random.randint(0, 2)
     colors = [red, blue, green]
     settings_change_path = ['RAINBOW', 'RANDOM', 'RED', 'BLUE', 'GREEN', 'CUSTOM']
-    if settings_change_path[index_path] == 'RAINBOW' or exceeption == True:
+    if settings_change_path[index_path] == 'RAINBOW' or exceeption is True:
         x = random.randint(0,2)
     colors = [red,blue,green]
     settings_change_path = ['RAINBOW','RANDOM','RED','BLUE','GREEN','CUSTOM']
