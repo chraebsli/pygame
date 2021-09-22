@@ -679,9 +679,9 @@ def settings(data, return_manuels, random_number):
                                     invalid = True
                                     custom_color_path = ''
                         elif event.key == pygame.K_BACKSPACE:
-                                if changing_wall == True and active_wall == True:
+                                if changing_wall is True and active_wall is True:
                                     custom_color = custom_color[:-1]
-                                if changing_path == True and active_path == True:
+                                if changing_path is True and active_path is True:
                                     custom_color_path = custom_color_path[:  - 1]
                                 if changing_wall is True and active_wall is True:
                                     custom_color = custom_color[:-1]
