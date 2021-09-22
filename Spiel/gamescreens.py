@@ -45,7 +45,7 @@ def titlescreen(data, data_1):
     screen.blit(text_surface,(50,20))
     grey = pygame.Color('black')
 
-    if field_blit == True:
+    if field_blit is True:
         if sounds == 'on':
             sounds = 'off'
         elif sounds == 'off':
@@ -96,7 +96,7 @@ def titlescreen(data, data_1):
                     print('clicked')
                     field_blit = True 
 
-    if send_data==True:
+    if send_data is True:
         return screenmode
 
 
@@ -160,7 +160,7 @@ def skinscreen(data, data_3,data_2):
                 screenmode='titlescreen'
                 send_data=True 
 
-    if send_data==True:
+    if send_data is True:
         return screenmode
 
 
@@ -330,9 +330,9 @@ def gamescreen(data, data_2,remo_list,random_number):
             gamefunctions.push_repo(remote,prepo,playername)
         send_data=True
     
-    if screenmode=='titlescreen' or newgame==True or screenmode == 'game_over.True':
+    if screenmode=='titlescreen' or newgame is True or screenmode == 'game_over.True':
         send_data=True
-    if send_data==True:
+    if send_data is True:
         if player_xy == end_xy:
             screenmode='win.True'
             if sounds == 'on':
@@ -431,7 +431,7 @@ def loginscreen(data,number):
         for img in blit_list:
             screen.blit(img,list2[c])
             c+=1
-        if field_blit == True:
+        if field_blit is True:
             if sounds == 'on':
                 sounds = 'off'
             elif sounds == 'off':
@@ -449,7 +449,7 @@ def loginscreen(data,number):
 
         pygame.display.flip()
         clock.tick(30)
-        if send_data==True:
+        if send_data is True:
             return screenmode
 
 
@@ -657,21 +657,21 @@ def settings(data,return_manuels,random_number):
                     pygame.quit() 
                     exit(0) 
 
-                if event.type == pygame.KEYDOWN and done == False:
+                if event.type == pygame.KEYDOWN and done is False:
                         screenmode = 'titlescreen'
                         global final_index_p
                         final_index_p = index_path
                         global final_index_w
                         final_index_w = index_wall
                         if event.key == pygame.K_RETURN:
-                            if changing_wall == True and active_wall == True:
+                            if changing_wall is True and active_wall is True:
                                 try:
                                     if pygame.Color(custom_color) == pygame.Color(custom_color):
                                         done = True
                                 except ValueError:
                                     invalid = True
                                     custom_color = ''
-                            if changing_path == True and active_path == True:
+                            if changing_path is True and active_path is True:
                                 try:
                                     if pygame.Color(custom_color_path) == pygame.Color(custom_color_path):
                                         done_two = True
@@ -679,15 +679,15 @@ def settings(data,return_manuels,random_number):
                                     invalid = True
                                     custom_color_path = ''
                         elif event.key == pygame.K_BACKSPACE:
-                                if changing_wall == True and active_wall == True:
+                                if changing_wall is True and active_wall is True:
                                     custom_color = custom_color[:-1]
-                                if changing_path == True and active_path == True:
+                                if changing_path is True and active_path is True:
                                     custom_color_path = custom_color_path[:-1]
                         else:
-                            if changing_wall == True and active_wall == True:
+                            if changing_wall is True and active_wall is True:
                                 if len(custom_color) < 30:
                                     custom_color = custom_color + event.unicode
-                            if changing_path == True and active_path == True:
+                            if changing_path is True and active_path is True:
                                 if len(custom_color_path) < 30:
                                     custom_color_path = custom_color_path + event.unicode
             
@@ -712,12 +712,12 @@ def settings(data,return_manuels,random_number):
                         screenmode = 'howto'
                         return screenmode
                     if switch_wall.collidepoint(event.pos):
-                        if active_wall == False:
+                        if active_wall is False:
                             active_wall = True
                         else:
                             active_wall = False
                     if switch_path.collidepoint(event.pos):
-                        if active_path == False:
+                        if active_path is False:
                             active_path = True
                         else:
                             active_path = False
@@ -767,7 +767,7 @@ def settings(data,return_manuels,random_number):
     if settings_change_wall[index_wall] == 'CUSTOM':
         wall_changing = True
     if settings_change_wall[index_wall] == 'CUSTOM':
-        if done == True:
+        if done is True:
             color = pygame.Color(custom_color)
     #Wählt Farbe vom Spielerpfad aus
     global color_one
@@ -792,7 +792,7 @@ def settings(data,return_manuels,random_number):
     if settings_change_path[index_path] == 'CUSTOM':
         wall_changing = True
     if settings_change_wall[index_path] == 'CUSTOM':
-        if done_two == True:
+        if done_two is True:
             color_one = pygame.Color(custom_color_path)   
    
         
@@ -852,11 +852,11 @@ def settings(data,return_manuels,random_number):
     
     input_box = pygame.Rect(890, 780,350, 90)
     pygame.draw.rect(screen,(0,0,0),(925,900,325,50))
-    if active_path == False:
+    if active_path is False:
         pygame.draw.rect(screen,red,switch_path)
     else:
         pygame.draw.rect(screen,green,switch_path)
-    if active_wall == False:
+    if active_wall is False:
         pygame.draw.rect(screen,red,switch_wall)
     else:
         pygame.draw.rect(screen,green,switch_wall)
