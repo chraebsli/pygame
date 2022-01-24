@@ -8,10 +8,8 @@ randcoin = 1
 
 # display walls
 def wall_blit(screen, walls, wall_coords_xy):
-    c = 1
-    for wall in walls:
+    for c, wall in enumerate(walls, start=1):
         screen.blit(wall, wall_coords_xy[c])
-        c += 1
 
 
 # display background
@@ -23,7 +21,7 @@ def background(screen, path):
     for s in range(1, 36):
         screen.blit(senkrechte, (x, 1))
         x += 49
-    for h in range(1, 23):
+    for _ in range(1, 23):
         screen.blit(gerade, (1, y))
         y += 49
 
@@ -118,17 +116,15 @@ def calculate_points(points, remo_list, coins_rect):
 
 
 def return_endtime(t3): #gibt, falls der Spieler das Spiel beendet, seine Spielzeit zurück
-        global str_time
-        time = datetime.datetime.now()  -  t3
-        str_time = str(time)
-        str_time_min = str_time[3: 9]
-        return str_time_min
+    global str_time
+    time = datetime.datetime.now()  -  t3
+    str_time = str(time)
+    return str_time[3: 9]
 
 
 # starts a timer
 def start_timer():
-    t1 = datetime.datetime.now()
-    return t1
+    return datetime.datetime.now()
 
 
 # ends a timer

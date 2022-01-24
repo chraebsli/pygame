@@ -2,11 +2,9 @@ import pygame, random
 
 #Erkennt ob man eine Wand mit dem Spieler berührt
 def wall_collision(walls, player):
-    c = 0
     player_rect = pygame.Rect(player[0], player[1], 44, 44) #Spieler
-    for wall in range(11):
+    for c, wall in enumerate(range(11)):
         wall = pygame.Rect(walls[c])
-        c += 1
         if wall.colliderect(player_rect):
             return 'game_over.True' #titlescreen.True
 
@@ -74,10 +72,9 @@ def collideplayer(player, list_coords, remo_list, statement):
         for blocks in list_coords:
             if player_rect.colliderect(blocks):
                 x = blocks
-        if x in list_coords:
-            if x in remo_list:
-                print('lost')
-                remo_list = str(remo_list) + '.True'
+        if x in list_coords and x in remo_list:
+            print('lost')
+            remo_list = str(remo_list) + '.True'
         return remo_list
     elif statement is False: # Dieser Block fügt die Koordinaten vom Spieler in die Remove Liste
         for blocks in list_coords:
@@ -91,17 +88,15 @@ def collideplayer(player, list_coords, remo_list, statement):
         for blocks in list_coords:
             if player_rect.colliderect(blocks):
                 x = blocks
-        if x in list_coords:
-            if x in remo_list:
-                print('lost')
-                s = 'game_over.True'#remo_list = str(remo_list) + '.True'
+        if x in list_coords and x in remo_list:
+            print('lost')
+            s = 'game_over.True'#remo_list = str(remo_list) + '.True'
         return s
 
 # zeichnet wände
 def drawing(screen, walls, index_wall, random_number, color, exception):
     real_color_wall = color
-    print(color)
-        #random color
+    print(real_color_wall)
     red = pygame.Color('red')
     blue = pygame.Color('blue')
     green = pygame.Color('green')
@@ -114,11 +109,9 @@ def drawing(screen, walls, index_wall, random_number, color, exception):
     #Wechsel zwischen Farben
     settings_change_wall = ['RAINBOW', 'RANDOM', 'RED', 'BLUE', 'GREEN', 'CUSTOM']
 
-  
-    c = 0
-    for e in range(11):
+
+    for c, _ in enumerate(range(11)):
         pygame.draw.rect(screen, real_color_wall, walls[c])
-        c += 1
 
 
 # playerpath: zeigt alle begangen Felder an
