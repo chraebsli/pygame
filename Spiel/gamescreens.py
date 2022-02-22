@@ -36,7 +36,7 @@ def titlescreen(data, data_1):
     upperplayername = playername.upper()
     base_font = pygame.font.SysFont(None, 110)
     text_surface = base_font.render(upperplayername, False, (255, 255, 255))
-    screen.blit(background_titlescreen, (background_xy[0], background_xy[1])) 
+    screen.blit(background_titlescreen, (background_xy[0], background_xy[1]))
     screen.blit(play_button, (buttons_titlescreen_xy[0], buttons_titlescreen_xy[1]))
     screen.blit(skin_button, (buttons_titlescreen_xy[0], buttons_titlescreen_xy[1]))
     screen.blit(quit_button, (buttons_titlescreen_xy[0], buttons_titlescreen_xy[1]))
@@ -96,7 +96,7 @@ def titlescreen(data, data_1):
                     print('clicked')
                     field_blit = True 
 
-    if send_data is True:
+    if send_data:
         return screenmode
 
 
@@ -112,13 +112,9 @@ def skinscreen(data, data_3, data_2):
     path = data['path']
     click = pygame.mixer.Sound(path + "audio/Sounds/click.wav")
     screen.blit(background_skinscreen, (background_xy[0], background_xy[1]))
-    c = 0
-    
-    for skin in skins_skinscreen:
+    for c, skin in enumerate(skins_skinscreen):
         l = [112, 485, 870, 1230]
         screen.blit(skins_skinscreen[c], (l[c], 375))
-        c += 1
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT: # stoppt Script
             print('Quit game ...')
@@ -160,7 +156,7 @@ def skinscreen(data, data_3, data_2):
                 screenmode = 'titlescreen'
                 send_data = True 
 
-    if send_data is True:
+    if send_data:
         return screenmode
 
 
